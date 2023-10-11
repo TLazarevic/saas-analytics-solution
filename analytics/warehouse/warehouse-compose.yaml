@@ -12,3 +12,5 @@ services:
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: ${CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT}
     ports:
       - "8123:8123"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
