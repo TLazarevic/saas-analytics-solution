@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+
+  metabase:
+    build: .
+    image: metabase_for_mac_m1
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./plugins/ch.jar:/app/plugins/clickhouse.jar
+      - ./metabase.db.mv.db:/metabase.db
+

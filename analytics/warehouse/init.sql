@@ -1,3 +1,4 @@
+-- airflow
 CREATE USER OR REPLACE analytics;
 
 GRANT CREATE DATABASE ON analytics.* TO analytics;
@@ -6,3 +7,7 @@ GRANT DROP TABLE ON analytics.* TO analytics;
 GRANT SELECT ON analytics.* TO analytics;
 GRANT INSERT ON analytics.* TO analytics;
 GRANT TRUNCATE ON analytics.* TO analytics;
+
+-- metabase
+CREATE USER OR REPLACE metabase;
+GRANT SELECT ON analytics.* TO metabase;
