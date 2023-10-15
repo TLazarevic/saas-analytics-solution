@@ -4,10 +4,10 @@ services:
 
   metabase:
     build: .
-    image: metabase_for_mac_m1
+    image: metabase-with-clickhouse_m1_compatible
     ports:
       - "3000:3000"
     volumes:
       - ./plugins/ch.jar:/app/plugins/clickhouse.jar
-      - ./metabase.db.mv.db:/metabase.db
+      - ./metabase.db:/metabase.db
 
