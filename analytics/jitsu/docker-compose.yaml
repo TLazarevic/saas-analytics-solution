@@ -29,8 +29,8 @@ services:
       retries: 10
     ports:
       - "${PG_PORT:-5437}:5432"
-  #    volumes:
-  #      - ./data/postgres:/var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   zookeeper:
     tty: true
     image: wurstmeister/zookeeper:latest
@@ -157,3 +157,5 @@ services:
         condition: service_healthy
     ports:
       - "${JITSU_PORT:-3216}:3000"
+volumes:
+  pgdata:

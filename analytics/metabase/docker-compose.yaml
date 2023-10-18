@@ -9,5 +9,4 @@ services:
       - "3001:3000"
     volumes:
       - ./plugins/ch.jar:/app/plugins/clickhouse.jar
-      - ./metabase.db:/metabase.db
-
+      - ./metabase.db:/app/metabase.db
