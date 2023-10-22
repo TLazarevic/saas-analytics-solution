@@ -13,6 +13,7 @@ Architecture:
 - Warehouse: Clickhouse
 - EL (of ETL): Airbyte
 - Event tracking: Jitsu
+- Visualisation: Metabase
 - ...
 
 ![diagram](diagrams/Architecture_diagram.jpg)
