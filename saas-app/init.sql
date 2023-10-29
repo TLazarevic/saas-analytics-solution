@@ -13,7 +13,7 @@ CREATE TABLE
 CREATE TABLE
     "user" (
         "id" uuid,
-        "email" varchar(255),
+        "email" varchar(255) UNIQUE ,
         "name" varchar(255),
         "last_name" varchar(255),
         "created_at" timestamp,
