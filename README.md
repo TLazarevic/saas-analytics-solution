@@ -1,21 +1,26 @@
 # saas-analytics-solution
 
-## Analytics solution for a demo Kanban board SaaS app.
+### Analytics solution for a demo Kanban board SaaS app.
 
 It consists of open source tools orchestrated together to form a solution for tracking usage analytics for product improvement
 and a typical set of KPIs for tracking success and growth of SaaS companies.
 
-## Data sources
+### Data sources
 - production database data of a demo application
 - events emitted from client and server of a demo application
 
-## Architecture
+### Architecture:
+
 - Warehouse: Clickhouse
 - EL (of ETL): Airbyte
 - Event tracking: Jitsu
 - Visualization: Metabase
 - ...
 
-![diagram](diagrams/Architecture_diagram.jpg)
+![architecture diagram](diagrams/Architecture_diagram.jpg)
+
+#### Production database schema
+
+![database schema](diagrams/Database schema.png)
 
 TBD
