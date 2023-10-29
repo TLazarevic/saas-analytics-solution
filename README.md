@@ -9,7 +9,7 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 - production database data of a demo application
 - events emitted from client and server of a demo application
 
-### Architecture:
+### Architecture
 
 - Warehouse: Clickhouse
 - EL (of ETL): Airbyte
@@ -19,7 +19,7 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 
 ![architecture diagram](diagrams/Architecture_diagram.jpg)
 
-#### Production database schema
+### Production database schema
 
 ![database schema](diagrams/Database schema.png)
 
