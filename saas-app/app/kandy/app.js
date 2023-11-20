@@ -1,3 +1,4 @@
+const { PrismaClient } = require('@prisma/client');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,9 +8,33 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const prisma = new PrismaClient()
 var app = express();
 
 var favicon = require('serve-favicon');
+
+// endpoints
+app.get('/boards/:id', async (req, res) => {
+  const boardId = req.params.id;
+
+  try {
+    const board = await prisma.boards.findUnique({
+      where: { id: boardId },
+      include: {
+        columns: {
+          include: {
+            cards: true,
+          },
+        },
+      },
+    });
+
+    res.json(board);
+  } catch (error) {
+    console.error('Error retrieving board:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,12 +51,12 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

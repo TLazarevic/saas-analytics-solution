@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model boards {
+  id             String           @id @db.Uuid
+  workspace_id   String           @db.Uuid
+  name           String           @db.VarChar(255)
+  description    String?          @db.VarChar(255)
+  is_public      Boolean
+  created_at     DateTime         @db.Timestamp(6)
+  updated_at     DateTime         @db.Timestamp(6)
+  deleted_at     DateTime?        @db.Timestamp(6)
+  workspaces     workspaces       @relation(fields: [workspace_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_boards.workspace_id")
+  columns        columns[]
+  labels         labels[]
+  starred_boards starred_boards[]
+}
+
+model card_actions {
+  id                                           String    @id @db.Uuid
+  card_id                                      String    @db.Uuid
+  user_id                                      String    @db.Uuid
+  column_id                                    String?   @db.Uuid
+  from_column_id                               String?   @db.Uuid
+  to_column_id                                 String?   @db.Uuid
+  timestamp                                    DateTime  @db.Timestamp(6)
+  activity                                     activity
+  due_date                                     DateTime? @db.Timestamp(6)
+  cards                                        cards     @relation(fields: [card_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_card_actions.card_id")
+  columns_card_actions_column_idTocolumns      columns?  @relation("card_actions_column_idTocolumns", fields: [column_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_card_actions.column_id")
+  columns_card_actions_from_column_idTocolumns columns?  @relation("card_actions_from_column_idTocolumns", fields: [from_column_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_card_actions.from_column_id")
+  columns_card_actions_to_column_idTocolumns   columns?  @relation("card_actions_to_column_idTocolumns", fields: [to_column_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_card_actions.to_column_id")
+  users                                        users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_card_actions.user_id")
+}
+
+model card_members {
+  user_id String @db.Uuid
+  card_id String @db.Uuid
+  cards   cards  @relation(fields: [card_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_card_member.card_id")
+  users   users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_card_member.user_id")
+
+  @@id([card_id, user_id])
+}
+
+model cards {
+  id            String          @id @db.Uuid
+  column_id     String          @db.Uuid
+  name          String          @db.VarChar(255)
+  description   String?         @db.VarChar(255)
+  position      Int
+  due_date      DateTime?       @db.Timestamp(6)
+  created_at    DateTime        @db.Timestamp(6)
+  updated_at    DateTime        @db.Timestamp(6)
+  archived_at   DateTime?       @db.Timestamp(6)
+  card_actions  card_actions[]
+  card_members  card_members[]
+  columns       columns         @relation(fields: [column_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_cards.column_id")
+  labeled_cards labeled_cards[]
+}
+
+model columns {
+  id                                                String         @id @db.Uuid
+  board_id                                          String         @db.Uuid
+  name                                              String         @db.VarChar(255)
+  created_at                                        DateTime       @db.Timestamp(6)
+  updated_at                                        DateTime       @db.Timestamp(6)
+  archived_at                                       DateTime?      @db.Timestamp(6)
+  card_actions_card_actions_column_idTocolumns      card_actions[] @relation("card_actions_column_idTocolumns")
+  card_actions_card_actions_from_column_idTocolumns card_actions[] @relation("card_actions_from_column_idTocolumns")
+  card_actions_card_actions_to_column_idTocolumns   card_actions[] @relation("card_actions_to_column_idTocolumns")
+  cards                                             cards[]
+  boards                                            boards         @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_columns.board_id")
+}
+
+model labeled_cards {
+  card_id  String @db.Uuid
+  label_id String @db.Uuid
+  cards    cards  @relation(fields: [card_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_labeled_cards.card_id")
+  labels   labels @relation(fields: [label_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_labeled_cards.label_id")
+
+  @@id([card_id, label_id])
+}
+
+model labels {
+  id            String          @id @db.Uuid
+  board_id      String          @db.Uuid
+  name          String?         @db.VarChar(255)
+  color         color
+  created_at    DateTime        @db.Timestamp(6)
+  updated_at    DateTime        @db.Timestamp(6)
+  deleted_at    DateTime?       @db.Timestamp(6)
+  labeled_cards labeled_cards[]
+  boards        boards          @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_labels.board_id")
+}
+
+model preset_labels {
+  id         String    @id @db.Uuid
+  name       String?   @db.VarChar(255)
+  color      color
+  created_at DateTime  @db.Timestamp(6)
+  updated_at DateTime  @db.Timestamp(6)
+  deleted_at DateTime? @db.Timestamp(6)
+}
+
+model starred_boards {
+  user_id  String @db.Uuid
+  board_id String @db.Uuid
+  boards   boards @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_starred_boards.board_id")
+  users    users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_starred_boards.user_id")
+
+  @@id([user_id, board_id])
+}
+
+model users {
+  id                String              @id @db.Uuid
+  email             String              @unique @db.VarChar(255)
+  username          String              @unique @db.VarChar(255)
+  name              String?             @db.VarChar(255)
+  last_name         String?             @db.VarChar(255)
+  bio               String?             @db.VarChar(255)
+  created_at        DateTime            @db.Timestamp(6)
+  updated_at        DateTime            @db.Timestamp(6)
+  deleted_at        DateTime?           @db.Timestamp(6)
+  card_actions      card_actions[]
+  card_members      card_members[]
+  starred_boards    starred_boards[]
+  workspace_members workspace_members[]
+}
+
+model workspace_members {
+  user_id      String     @db.Uuid
+  workspace_id String     @db.Uuid
+  users        users      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_workspace_members.user_id")
+  workspaces   workspaces @relation(fields: [workspace_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_workspace_members.workspace_id")
+
+  @@id([user_id, workspace_id])
+}
+
+model workspaces {
+  id                String              @id @db.Uuid
+  name              String              @db.VarChar(255)
+  description       String?             @db.VarChar(255)
+  is_private        Boolean
+  created_at        DateTime            @db.Timestamp(6)
+  updated_at        DateTime            @db.Timestamp(6)
+  deleted_at        DateTime?           @db.Timestamp(6)
+  boards            boards[]
+  workspace_members workspace_members[]
+}
+
+enum activity {
+  archive
+  back_to_board
+  due_date_add
+  due_date_remove
+  add_to_column
+  move
+}
+
+enum color {
+  red
+  green
+  blue
+  yellow
+  purple
+  orange
+}
