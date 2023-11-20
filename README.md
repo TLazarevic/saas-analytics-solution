@@ -21,6 +21,6 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 
 ### Production database schema
 
-![database schema](diagrams/Database schema.png)
+![database schema](diagrams/Database%20schema.png)
 
 TBD
