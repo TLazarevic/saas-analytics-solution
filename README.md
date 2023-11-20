@@ -17,9 +17,13 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 - Visualization: Metabase
 - ...
 
-![architecture diagram](diagrams/Architecture_diagram.jpg)
+![architecture diagram](saas-app/app/kandy/public/favicon.ico)
 
-### Production database schema
+### Saas App
+
+![logo](diagrams/Database%20schema.png)
+
+#### Production database schema
 
 ![database schema](diagrams/Database%20schema.png)
 
