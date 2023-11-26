@@ -55,8 +55,8 @@ model cards {
   description   String?         @db.VarChar(255)
   position      Int
   due_date      DateTime?       @db.Timestamp(6)
-  created_at    DateTime        @db.Timestamp(6)
-  updated_at    DateTime        @db.Timestamp(6)
+  created_at    DateTime        @default(now()) @db.Timestamp(6)
+  updated_at    DateTime        @default(now()) @db.Timestamp(6)
   archived_at   DateTime?       @db.Timestamp(6)
   card_actions  card_actions[]
   card_members  card_members[]
@@ -68,8 +68,8 @@ model columns {
   id                                                String         @id @db.Uuid
   board_id                                          String         @db.Uuid
   name                                              String         @db.VarChar(255)
-  created_at                                        DateTime       @db.Timestamp(6)
-  updated_at                                        DateTime       @db.Timestamp(6)
+  created_at                                        DateTime       @default(now()) @db.Timestamp(6)
+  updated_at                                        DateTime       @default(now()) @db.Timestamp(6)
   archived_at                                       DateTime?      @db.Timestamp(6)
   card_actions_card_actions_column_idTocolumns      card_actions[] @relation("card_actions_column_idTocolumns")
   card_actions_card_actions_from_column_idTocolumns card_actions[] @relation("card_actions_from_column_idTocolumns")

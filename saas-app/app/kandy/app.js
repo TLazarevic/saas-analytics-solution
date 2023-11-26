@@ -7,34 +7,51 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var boardsRouter = require('./routes/boards');
 
 const prisma = new PrismaClient()
 var app = express();
+app.use(express.json());
+app.use('/public', express.static('public'));
 
 var favicon = require('serve-favicon');
 
 // endpoints
-app.get('/boards/:id', async (req, res) => {
-  const boardId = req.params.id;
+app.get('/users/:userId/workspaces', async (req, res) => {
+  const userId = req.params.userId;
 
   try {
-    const board = await prisma.boards.findUnique({
-      where: { id: boardId },
-      include: {
-        columns: {
-          include: {
-            cards: true,
-          },
-        },
-      },
-    });
+    const workspaces = await prisma.workspaces.findMany({
+      where: {
+        deleted_at: null, workspace_members: { some: { user_id: userId } }
+      }, include: {
+        boards: true
+      }
+    })
 
-    res.json(board);
+    res.json(workspaces);
   } catch (error) {
-    console.error('Error retrieving board:', error);
+    console.error('Error retrieving workspaces:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
+
+app.put('/users/:userId/workspaces/:workspaceId', async (req, res) => {
+  const userId = req.params.userId;
+  const workspaceID = req.params.workspaceId;
+
+  try {
+    const workspaces = await prisma.workspaces.create({
+      data: req.body
+    })
+
+    res.json(workspaces);
+  } catch (error) {
+    console.error('Error retrieving workspaces:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -49,6 +66,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/boards', boardsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

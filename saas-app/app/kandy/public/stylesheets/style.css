@@ -6,3 +6,27 @@ body {
 a {
   color: #00B7FF;
 }
+
+body {
+  background-color: #fce4ec;
+}
+
+.table {
+  background-color: #ffb6c1;
+  border-radius: 10px;
+}
+
+th {
+  background-color: #ff69b4;
+  color: white;
+}
+
+#cards {
+  background-color: #c71585;
+}
+
+.item {
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}

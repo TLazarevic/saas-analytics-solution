@@ -1,0 +1,22 @@
+doctype html
+
+html(lang='en')
+  head
+    link(rel='stylesheet', href='/public/stylesheets/style.css')
+  body
+    h1 #{name}
+    table.table.table-striped
+      thead
+        tr
+          each column in columns
+            th=column.name
+      tbody
+        each column in columns
+          each card in column.cards
+            tr
+              td(id="cards") 
+                .item
+                  | #{card.name}
+  
+    script(src = "/public/javascripts/boards.js", type = "module")
+     
