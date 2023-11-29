@@ -16,33 +16,27 @@ document.addEventListener('DOMContentLoaded', function () {
     //     draggable: '.item',
     //     dropzone: 'tbody',
     // });
-    const sortable = new Sortable(document.querySelectorAll('tbody'), {
-        draggable: '.item',
+    const sortable = new Sortable(
+        document.querySelectorAll('.column'), {
+            draggable: '.sortItem',
+            delay: 0,
+        }
+    )
+
+   sortable.on('sortable:start', () => {
+        console.log('sortable:start');
     });
 
-    var events = [
-        'onChoose',
-        'onStart',
-        'onEnd',
-        'onAdd',
-        'onUpdate',
-        'onSort',
-        'onRemove',
-        'onChange',
-        'onUnchoose'
-    ];
+    sortable.on('sortable:sort', () => {
+        console.log('sortable:sort');
+    });
 
-    events.forEach(function (name) {
-        options[name] = function (evt) {
-            console.log({
-                'event': name,
-                'this': this,
-                'item': evt.item,
-                'from': evt.from,
-                'to': evt.to,
-                'oldIndex': evt.oldIndex,
-                'newIndex': evt.newIndex
-            });
-        };
+    sortable.on('sortable:sorted', () => {
+        console.log('sortable:sorted');
+    });
+
+    sortable.on('sortable:stop', () => {
+        setTimeout(updateListItems, 10);
+        console.log('sortable:stop');
     });
 });

@@ -5,18 +5,15 @@ html(lang='en')
     link(rel='stylesheet', href='/public/stylesheets/style.css')
   body
     h1 #{name}
-    table.table.table-striped
-      thead
-        tr
-          each column in columns
-            th=column.name
-      tbody
-        each column in columns
-          each card in column.cards
-            tr
-              td(id="cards") 
-                .item
-                  | #{card.name}
+    div
+        div.grid.flex-start-content.board
+            div.grid.flex-start-content.sortable
+              each column in columns
+                div.column
+                  p.column_header #{column.name}
+                    each card in column.cards
+                      div.sortItem.cards
+                        p #{card.name}
   
     script(src = "/public/javascripts/boards.js", type = "module")
      
