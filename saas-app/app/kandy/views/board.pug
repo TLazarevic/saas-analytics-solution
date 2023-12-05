@@ -10,10 +10,15 @@ html(lang='en')
             div.grid.flex-start-content.sortable
               each column in columns
                 div.column
-                  p.column_header #{column.name}
-                    each card in column.cards
-                      div.sortItem.cards
-                        p #{card.name}
+                  div.sortable_column
+                    p.column_header #{column.name}
+                      each card in column.cards
+                        div.sortItem.cards
+                          p #{card.name}
+                  div.cards.new_card
+                      p add a card
+              div.column.new_column
+                p.column_header.new_header add a column
   
     script(src = "/public/javascripts/boards.js", type = "module")
      

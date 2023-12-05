@@ -24,11 +24,29 @@ body {
   background-color: #ffb6c1;
 }
 
+.new_column {
+  flex: 0 0 300px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f8d4da;
+}
+
 .column_header {
   font-weight: bold;
   margin: 0;
   padding: 8px;
   background-color: #ff69b4;
+  color:white;
+  text-align: center;
+}
+
+.new_header {
+  font-weight: bold;
+  margin: 0;
+  padding: 8px;
+  background-color: #f387b8;
   color:white;
   text-align: center;
 }
@@ -40,6 +58,14 @@ body {
 
 .cards {
   background-color: #c71585;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  color:white;
+}
+
+.new_card {
+  background-color: #bd6b9e;
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
