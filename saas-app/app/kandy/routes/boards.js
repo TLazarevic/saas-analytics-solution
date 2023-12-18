@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
             },
         });
 
-        res.render('board', { name: board.name, columns: board.columns });
+        res.render('board', { board:board });
     } catch (error) {
         console.error('Error retrieving board:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -40,7 +40,23 @@ router.post('/:id/column', async (req, res) => {
             }
         });
 
-        res.json(column)
+        try {
+            const board = await prisma.boards.findUnique({
+                where: { id: boardId },
+                include: {
+                    columns: {
+                        include: {
+                            cards: true,
+                        },
+                    },
+                },
+            });
+    
+            res.render('board', { board:board });
+        } catch (error) {
+            console.error('Error retrieving board:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
     } catch (error) {
         console.error('Error creating column:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -48,8 +64,10 @@ router.post('/:id/column', async (req, res) => {
 })
 
 router.post('/:id/column/:columnId/card', async (req, res) => {
+    const boardId = req.params.id;
     const columnId = req.params.columnId;
     const name = req.body.name;
+    const description = req.body.description;
 
     try {
         const maxPosition = await prisma.cards.aggregate({
@@ -65,12 +83,29 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
             data: {
                 id: uuidv4(),
                 name: name,
+                description: description,
                 column_id: columnId,
                 position: maxPosition._max.position + 1
             }
         });
 
-        res.json(card)
+        try {
+            const board = await prisma.boards.findUnique({
+                where: { id: boardId },
+                include: {
+                    columns: {
+                        include: {
+                            cards: true,
+                        },
+                    },
+                },
+            });
+    
+            res.render('board', { board:board });
+        } catch (error) {
+            console.error('Error retrieving board:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
     } catch (error) {
         console.error('Error creating card:', error);
         res.status(500).json({ error: 'Internal Server Error' });
