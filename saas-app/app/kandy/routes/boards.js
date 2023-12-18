@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
             },
         });
 
-        res.render('board', { board:board });
+        res.render('board', { board: board });
     } catch (error) {
         console.error('Error retrieving board:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -51,8 +51,8 @@ router.post('/:id/column', async (req, res) => {
                     },
                 },
             });
-    
-            res.render('board', { board:board });
+
+            res.render('board', { board: board });
         } catch (error) {
             console.error('Error retrieving board:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -100,8 +100,8 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
                     },
                 },
             });
-    
-            res.render('board', { board:board });
+
+            res.render('board', { board: board });
         } catch (error) {
             console.error('Error retrieving board:', error);
             res.status(500).json({ error: 'Internal Server Error' });

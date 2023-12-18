@@ -4,15 +4,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const sortable = new Sortable(
         document.querySelectorAll('.sortable_column'), {
-            draggable: '.sortItem',
-            delay: 0,
-            mirror: {
-              constrainDimensions: true,
-            },
-        }
+        draggable: '.sortItem',
+        delay: 0,
+        mirror: {
+            constrainDimensions: true,
+        },
+    }
     )
 
-   sortable.on('sortable:start', () => {
+    sortable.on('sortable:start', () => {
         console.log('sortable:start');
     });
 

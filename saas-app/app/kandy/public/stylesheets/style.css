@@ -38,7 +38,7 @@ body {
   margin: 0;
   padding: 8px;
   background-color: #ff69b4;
-  color:white;
+  color: white;
   text-align: center;
 }
 
@@ -47,7 +47,7 @@ body {
   margin: 0;
   padding: 8px;
   background-color: #f387b8;
-  color:white;
+  color: white;
   text-align: center;
 }
 
@@ -61,7 +61,7 @@ body {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  color:white;
+  color: white;
 }
 
 .new_card {
@@ -69,7 +69,7 @@ body {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  color:white;
+  color: white;
 }
 
 .cards:hover {

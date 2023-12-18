@@ -2,69 +2,69 @@ doctype html
 
 html(lang='en')
   head
-    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/public/stylesheets/style.css')
+    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')
+    link(rel='stylesheet' href='/public/stylesheets/style.css')
   body
     h1 #{board.name}
     div
-        div.grid.flex-start-content.board
-            div.grid.flex-start-content.sortable
-              each column in board.columns
-                div.column
-                  div.sortable_column
-                    p.column_header #{column.name}
-                      each card in column.cards
-                        div.sortItem.cards
-                          p #{card.name}
-                  div
-                      div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
-                      .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
-                        .modal-dialog.modal-md
-                          .modal-content
-                            .modal-header
-                              h4.modal-title Add a card to #{column.name}
-                              button.btn-close(type='button', data-bs-dismiss='modal') &times;
-                            .modal-body
-                              form.form-horizontal(name='card-form' method='POST', action='/boards/' + board.id + '/column/'+column.id+'/card')
-                                .form-group
-                                  .row
-                                    label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
-                                    .col-sm-9
-                                      input#inputName.normal-font-weight(type='text', name='name', required, autocomplete='name')
-                                  .row
-                                    label.col-sm-3.text-sm-end.col-form-label(for='inputDescription') Description
-                                    .col-sm-9
-                                      input#inputDescription.normal-font-weight(type='text', name='description', autocomplete='description')
-                                  .row
-                                    .col-sm-9.offset-sm-3.text-sm-end
-                                      input.btn.btn-primary(type='submit' value='Submit')
-                                      button.btn.btn-default(data-bs-dismiss='modal') Cancel
-            
-              div.column.new_column
-                p.column_header.new_header(data-bs-toggle='modal' role="button" data-bs-target='#newColumnModal') Add a column
+      div.grid.flex-start-content.board
+        div.grid.flex-start-content.sortable
+          each column in board.columns
+            div.column
+              div.sortable_column
+                p.column_header #{column.name}
+                  each card in column.cards
+                    div.sortItem.cards
+                      p #{card.name}
+              div
+                div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
+                .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
+                  .modal-dialog.modal-md
+                    .modal-content
+                      .modal-header
+                        h4.modal-title Add a card to #{column.name}
+                        button.btn-close(type='button' data-bs-dismiss='modal') &times;
+                      .modal-body
+                        form.form-horizontal(name='card-form' method='POST' action='/boards/' + board.id + '/column/'+column.id+'/card')
+                          .form-group
+                            .row
+                              label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
+                              .col-sm-9
+                                input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
+                            .row
+                              label.col-sm-3.text-sm-end.col-form-label(for='inputDescription') Description
+                              .col-sm-9
+                                input#inputDescription.normal-font-weight(type='text' name='description' autocomplete='description')
+                            .row
+                              .col-sm-9.offset-sm-3.text-sm-end
+                                input.btn.btn-primary(type='submit' value='Submit')
+                                button.btn.btn-default(data-bs-dismiss='modal') Cancel
+
+          div.column.new_column
+            p.column_header.new_header(data-bs-toggle='modal' role="button" data-bs-target='#newColumnModal') Add a column
 
     #newColumnModal.modal.hide.fade(tabindex='-1' aria-labelledby='newColumnModalLabel' aria-hidden='true')
       .modal-dialog.modal-md
         .modal-content
           .modal-header
             h4.modal-title Add a column
-            button.btn-close(type='button', data-bs-dismiss='modal') &times;
+            button.btn-close(type='button' data-bs-dismiss='modal') &times;
           .modal-body
-            form.form-horizontal(name='column-form' method='POST', action='/boards/' + board.id + '/column/')
+            form.form-horizontal(name='column-form' method='POST' action='/boards/' + board.id + '/column/')
               .form-group
                 .row
                   label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
                   .col-sm-9
-                    input#inputDescription.normal-font-weight(type='text', name='name', required, autocomplete='name')
+                    input#inputDescription.normal-font-weight(type='text' name='name', required, autocomplete='name')
                 .row
                   label.col-sm-3.text-sm-end.col-form-label(for='inputDescription') Description
                   .col-sm-9
-                    input#inputDescription.normal-font-weight(type='text', name='description', autocomplete='description')
+                    input#inputDescription.normal-font-weight(type='text' name='description' autocomplete='description')
                 .row
                   .col-sm-9.offset-sm-3.text-sm-end
                     input.btn.btn-primary(type='submit' value='Submit')
                     button.btn.btn-default(data-bs-dismiss='modal') Cancel
-    
+
     script(src = "/public/javascripts/boards.js", type = "module")
     script(src='https://code.jquery.com/jquery-3.7.1.min.js')
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js')
