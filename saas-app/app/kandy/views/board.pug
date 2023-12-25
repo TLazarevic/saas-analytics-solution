@@ -11,7 +11,7 @@ html(lang='en')
         div.grid.flex-start-content.sortable
           each column in board.columns
             div.column
-              div.sortable_column
+              div.sortable_column(id=`${column.id}`)
                 p.column_header #{column.name}
                   each card in column.cards
                     div.sortItem.cards

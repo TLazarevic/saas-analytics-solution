@@ -14,7 +14,11 @@ router.get('/:id', async (req, res) => {
             include: {
                 columns: {
                     include: {
-                        cards: true,
+                        cards: {
+                            orderBy: {
+                                position: 'asc'
+                            }
+                        }
                     },
                 },
             },
