@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({'newColumnId': newColumnId, 'position': newPosition}),
+                    body: JSON.stringify({ 'newColumnId': newColumnId, 'position': newPosition }),
                 });
 
                 console.log(response)
