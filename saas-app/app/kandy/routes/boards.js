@@ -126,7 +126,8 @@ router.patch('/:id/column/:columnId/card/:cardId/move', async (req, res) => {
     const columnId = req.params.columnId;
     const cardId = req.params.cardId;
 
-    const newColumnId = req.body.newColumnId;
+    const prevPosition = req.body.previousPosition;
+    const newColumnId = req.body.columnId;
     const newPosition = req.body.position;
 
     console.log("Moving card", cardId)
@@ -153,6 +154,18 @@ router.patch('/:id/column/:columnId/card/:cardId/move', async (req, res) => {
                 },
                 data: {
                     position: { increment: 1 }
+                }
+            }),
+
+            prisma.cards.updateMany({
+                where: {
+                    column_id: columnId,
+                    position: {
+                        gt: prevPosition
+                    }
+                },
+                data: {
+                    position: { decrement: 1 }
                 }
             }),
 

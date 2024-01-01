@@ -28,24 +28,25 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(event);
         //setTimeout(updateListItems, 10);
         let cardId = event.data.dragEvent.data.source.id
-        let oldColumnId = event.oldContainer.id
+        let prevColumnId = event.oldContainer.id
         let newColumnId = event.newContainer.id
         let newPosition = event.newIndex
+        let prevPosition = event.oldIndex
         let boardId = window.location.href.split('/')[4];
 
-        console.log(oldColumnId)
+        console.log(prevColumnId)
         console.log(newColumnId)
         console.log(newPosition)
         console.log(boardId)
-        console.log(`${boardId}/column/${oldColumnId}/card/${cardId}/move`)
-        if (oldColumnId !== newColumnId) {
+        console.log(`${boardId}/column/${prevColumnId}/card/${cardId}/move`)
+        if (prevColumnId !== newColumnId) {
             try {
-                const response = await fetch(`${boardId}/column/${oldColumnId}/card/${cardId}/move`, {
+                const response = await fetch(`${boardId}/column/${prevColumnId}/card/${cardId}/move`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ 'newColumnId': newColumnId, 'position': newPosition }),
+                    body: JSON.stringify({ 'columnId': newColumnId, 'position': newPosition, 'previousPosition': prevPosition }),
                 });
 
                 console.log(response)
