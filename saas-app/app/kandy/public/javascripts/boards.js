@@ -24,27 +24,36 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('sortable:sorted');
     });
 
-    sortable.on('sortable:stop', (event) => {
-        //setTimeout(updateListItems, 10);
+    sortable.on('sortable:stop', async (event) => {
         console.log(event);
-        console.log(event.originalSource.parentNode.id); // return current col id
+        //setTimeout(updateListItems, 10);
+        let cardId = event.data.dragEvent.data.source.id
         let oldColumnId = event.oldContainer.id
         let newColumnId = event.newContainer.id
+        let newPosition = event.newIndex
+        let boardId = window.location.href.split('/')[4];
+
+        console.log(oldColumnId)
+        console.log(newColumnId)
+        console.log(newPosition)
+        console.log(boardId)
+        console.log(`${boardId}/column/${oldColumnId}/card/${cardId}/move`)
         if (oldColumnId !== newColumnId) {
             try {
-                const response = fetch(`/${boardId}/column/${oldColumnId}/card/${cardId}`, {
+                const response = await fetch(`${boardId}/column/${oldColumnId}/card/${cardId}/move`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ columnId: newColumnId }),
+                    body: JSON.stringify({'newColumnId': newColumnId, 'position': newPosition}),
                 });
-                const result = response.json();
 
-                if (result.success) {
+                console.log(response)
+
+                if (response.ok) {
                     console.log('Row updated successfully');
                 } else {
-                    console.error('Failed to update row:', result.message);
+                    console.error('Failed to update row:', response.message);
                     // TODO Update UI
                 }
             } catch (error) {

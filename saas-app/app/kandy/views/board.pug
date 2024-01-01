@@ -14,7 +14,7 @@ html(lang='en')
               div.sortable_column(id=`${column.id}`)
                 p.column_header #{column.name}
                   each card in column.cards
-                    div.sortItem.cards
+                    div.sortItem.cards(id=`${card.id}`)
                       p #{card.name}
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card

@@ -83,13 +83,15 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
             }
         })
 
+        console.log(maxPosition)
+
         const card = await prisma.cards.create({
             data: {
                 id: uuidv4(),
                 name: name,
                 description: description,
                 column_id: columnId,
-                position: maxPosition._max.position + 1
+                position: maxPosition._max.position !== null ? maxPosition._max.position + 1 : 0
             }
         });
 
@@ -115,5 +117,72 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+
+router.patch('/:id/column/:columnId/card/:cardId/move', async (req, res) => {
+
+    // TODO: RESET POSITIONS IN OLD COLUMN 
+
+    const boardId = req.params.id;
+    const columnId = req.params.columnId;
+    const cardId = req.params.cardId;
+
+    const newColumnId = req.body.newColumnId;
+    const newPosition = req.body.position;
+
+    console.log("Moving card", cardId)
+    console.log(newColumnId)
+    console.log(newPosition)
+
+    try {
+        const result = await prisma.$transaction([
+            prisma.cards.update({
+                where: {
+                    id: cardId
+                },
+                data: {
+                    column_id: newColumnId
+                }
+            }),
+
+            prisma.cards.updateMany({
+                where: {
+                    column_id: newColumnId,
+                    position: {
+                        gte: newPosition
+                    }
+                },
+                data: {
+                    position: { increment: 1 }
+                }
+            }),
+
+            prisma.cards.update({
+                where: {
+                    id: cardId
+                },
+                data: {
+                    position: newPosition
+                }
+            }),
+
+            prisma.boards.findUnique({
+                where: { id: boardId },
+                include: {
+                    columns: {
+                        include: {
+                            cards: true,
+                        },
+                    },
+                },
+            })
+
+        ]);
+
+        res.json({ success: true, result });
+    } catch (error) {
+        console.error('Error updating card or retrieving board:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
 
 module.exports = router;

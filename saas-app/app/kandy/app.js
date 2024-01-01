@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var boardsRouter = require('./routes/boards');
 
+
 const prisma = new PrismaClient()
 var app = express();
 app.use(express.json());
