@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let prevColumnId = event.oldContainer.id
         let newColumnId = event.newContainer.id
         let newPosition = event.newIndex
-        let prevPosition = event.oldIndex
         let boardId = window.location.href.split('/')[4];
 
         console.log(prevColumnId)
@@ -39,29 +38,38 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(newPosition)
         console.log(boardId)
         console.log(`${boardId}/column/${prevColumnId}/card/${cardId}/move`)
-        if (prevColumnId !== newColumnId) {
-            try {
-                const response = await fetch(`${boardId}/column/${prevColumnId}/card/${cardId}/move`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 'columnId': newColumnId, 'position': newPosition, 'previousPosition': prevPosition }),
-                });
 
-                console.log(response)
 
-                if (response.ok) {
-                    console.log('Row updated successfully');
-                } else {
-                    console.error('Failed to update row:', response.message);
-                    // TODO Update UI
-                }
-            } catch (error) {
-                console.error('Error during update:', error);
+        try {
+            let response = null
+            let body = null
+
+            if (prevColumnId !== newColumnId) {
+                body = JSON.stringify({ 'columnId': newColumnId, 'position': newPosition })
+            }
+            else {
+                body = JSON.stringify({ 'position': newPosition })
+            }
+
+            response = await fetch(`${boardId}/column/${prevColumnId}/card/${cardId}/move`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: body
+            });
+
+            if (response.ok) {
+                console.log('Row updated successfully');
+            } else {
+                console.error('Failed to update row:', response.message);
                 // TODO Update UI
             }
+        } catch (error) {
+            console.error('Error during update:', error);
+            // TODO Update UI
         }
+
 
         console.log('sortable:stop');
     });
