@@ -13,32 +13,20 @@ document.addEventListener('DOMContentLoaded', function () {
     )
 
     sortable.on('sortable:start', () => {
-        console.log('sortable:start');
     });
 
     sortable.on('sortable:sort', () => {
-        console.log('sortable:sort');
     });
 
     sortable.on('sortable:sorted', () => {
-        console.log('sortable:sorted');
     });
 
     sortable.on('sortable:stop', async (event) => {
-        console.log(event);
-        //setTimeout(updateListItems, 10);
         let cardId = event.data.dragEvent.data.source.id
         let prevColumnId = event.oldContainer.id
         let newColumnId = event.newContainer.id
         let newPosition = event.newIndex
         let boardId = window.location.href.split('/')[4];
-
-        console.log(prevColumnId)
-        console.log(newColumnId)
-        console.log(newPosition)
-        console.log(boardId)
-        console.log(`${boardId}/column/${prevColumnId}/card/${cardId}/move`)
-
 
         try {
             let response = null
