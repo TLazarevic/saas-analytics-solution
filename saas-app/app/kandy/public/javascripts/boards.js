@@ -26,10 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     )
 
-    sortableColumn.on('drag:start', () => {
-        console.log('Column Drag started');
-    });
-
     sortableColumn.on('sortable:stop', async (event) => {
 
         let columnId = event.data.dragEvent.data.source.id
@@ -61,10 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // TODO Update UI
         }
 
-    });
-
-    sortable.on('drag:start', () => {
-        console.log('Card Drag started');
     });
 
     sortable.on('sortable:stop', async (event) => {
