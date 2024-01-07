@@ -13,6 +13,9 @@ router.get('/:id', async (req, res) => {
             where: { id: boardId },
             include: {
                 columns: {
+                    orderBy: {
+                        position: 'asc'
+                    },
                     include: {
                         cards: {
                             orderBy: {
@@ -253,6 +256,109 @@ router.patch('/:id/column/:columnId/card/:cardId/move', async (req, res) => {
                 prisma.cards.update({
                     where: {
                         id: cardId
+                    },
+                    data: {
+                        position: newPosition
+                    }
+                }),
+
+                prisma.boards.findUnique({
+                    where: { id: boardId },
+                    include: {
+                        columns: {
+                            include: {
+                                cards: true,
+                            },
+                        },
+                    },
+                })
+
+            ]);
+        }
+
+        res.json({ success: true, result });
+    } catch (error) {
+        console.error('Error updating card or retrieving board:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
+router.patch('/:id/column/:columnId/move', async (req, res) => {
+
+    const boardId = req.params.id;
+    const columnId = req.params.columnId;
+
+    const newPosition = req.body.position;
+
+    console.log("Moving column", columnId)
+
+    const column = await prisma.columns.findUnique({
+        where: { id: columnId }
+    })
+    const prevPosition = column.position;
+
+    let result = null
+
+    try {
+
+        if (newPosition > prevPosition) {
+
+            result = await prisma.$transaction([
+
+                prisma.columns.updateMany({
+                    where: {
+                        board_id: boardId,
+                        position: {
+                            gt: prevPosition,
+                            lte: newPosition
+                        }
+                    },
+                    data: {
+                        position: { decrement: 1 }
+                    }
+                }),
+
+                prisma.columns.update({
+                    where: {
+                        id: columnId
+                    },
+                    data: {
+                        position: newPosition
+                    }
+                }),
+
+                prisma.boards.findUnique({
+                    where: { id: boardId },
+                    include: {
+                        columns: {
+                            include: {
+                                cards: true,
+                            },
+                        },
+                    },
+                })
+
+            ]);
+        }
+        else {
+            result = await prisma.$transaction([
+
+                prisma.columns.updateMany({
+                    where: {
+                        board_id: boardId,
+                        position: {
+                            gte: newPosition,
+                            lt: prevPosition
+                        }
+                    },
+                    data: {
+                        position: { increment: 1 }
+                    }
+                }),
+
+                prisma.columns.update({
+                    where: {
+                        id: columnId
                     },
                     data: {
                         position: newPosition

@@ -71,6 +71,7 @@ model columns {
   created_at                                        DateTime       @default(now()) @db.Timestamp(6)
   updated_at                                        DateTime       @default(now()) @db.Timestamp(6)
   archived_at                                       DateTime?      @db.Timestamp(6)
+  position                                          Int?            
   card_actions_card_actions_column_idTocolumns      card_actions[] @relation("card_actions_column_idTocolumns")
   card_actions_card_actions_from_column_idTocolumns card_actions[] @relation("card_actions_from_column_idTocolumns")
   card_actions_card_actions_to_column_idTocolumns   card_actions[] @relation("card_actions_to_column_idTocolumns")

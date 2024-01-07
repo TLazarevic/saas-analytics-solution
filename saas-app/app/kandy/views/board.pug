@@ -8,13 +8,13 @@ html(lang='en')
     h1 #{board.name}
     div
       div.grid.flex-start-content.board
-        div.grid.flex-start-content.sortable
+        div.grid.flex-start-content.flex-div.sortable_column
           each column in board.columns
-            div.column
-              div.sortable_column(id=`${column.id}`)
+            div.column.sortColumn(id=`${column.id}`)
+              div.sortable_card(id=`${column.id}`)
                 p.column_header #{column.name}
                   each card in column.cards
-                    div.sortItem.cards(id=`${card.id}`)
+                    div.sortCard.cards(id=`${card.id}`)
                       p #{card.name}
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
@@ -55,7 +55,7 @@ html(lang='en')
                 .row
                   label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
                   .col-sm-9
-                    input#inputDescription.normal-font-weight(type='text' name='name', required, autocomplete='name')
+                    input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
                 .row
                   label.col-sm-3.text-sm-end.col-form-label(for='inputDescription') Description
                   .col-sm-9
