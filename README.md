@@ -26,7 +26,7 @@ Kanban board demo app
 
 ![demo](diagrams/Demo.gif)
 
-#### Production database schema
+#### Relational database schema
 
 ![database schema](diagrams/Database%20schema.png)
 
