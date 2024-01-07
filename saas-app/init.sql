@@ -52,6 +52,7 @@ CREATE TABLE
         id uuid,
         board_id uuid NOT NULL,
         name varchar(255) NOT NULL,
+        position integer NOT NULL,
         created_at timestamp NOT NULL,
         updated_at timestamp NOT NULL,
         archived_at timestamp,
