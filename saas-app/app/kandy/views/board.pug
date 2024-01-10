@@ -13,9 +13,9 @@ html(lang='en')
             div.column.sortColumn(id=`${column.id}`)
               div.sortable_card(id=`${column.id}`)
                 p.column_header #{column.name}
-                  each card in column.cards
-                    div.sortCard.cards(id=`${card.id}`)
-                      p #{card.name}
+                each card in column.cards
+                  div.sortCard.cards(id=`${card.id}`)
+                    p #{card.name}
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
                 .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)

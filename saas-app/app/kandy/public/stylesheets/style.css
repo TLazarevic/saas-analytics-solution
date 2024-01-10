@@ -64,7 +64,6 @@ body {
 .new_card {
   background-color: #bd6b9e;
   border-radius: 4px;
-  padding: 10px;
   cursor: pointer;
   color: white;
 }
