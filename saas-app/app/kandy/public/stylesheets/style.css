@@ -3,7 +3,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   font-family: Arial, sans-serif;
   margin: 0;
-  background-color: #fce4ec;
+  background-color: #f5e1f4;
 }
 
 .board {
@@ -18,10 +18,10 @@ body {
 .column {
   flex: 0 0 300px;
   margin-right: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #e8c1d2;
   border-radius: 8px;
   padding: 10px;
-  background-color: #ffb6c1;
+  background-color: #f1c3db;
   margin-top: 5px;
   margin-bottom: 5px;
 }
@@ -29,17 +29,17 @@ body {
 .new_column {
   flex: 0 0 300px;
   margin-right: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #e8c1d2;
   border-radius: 8px;
   padding: 10px;
-  background-color: #f8d4da;
+  background-color: #ecc7d1;
 }
 
 .column_header {
   font-weight: bold;
   margin: 0;
   padding: 8px;
-  background-color: #ff69b4;
+  background-color: #fb9fc1;
   color: white;
   text-align: center;
 }
@@ -48,13 +48,13 @@ body {
   font-weight: bold;
   margin: 0;
   padding: 8px;
-  background-color: #f387b8;
+  background-color: #f88fa9;
   color: white;
   text-align: center;
 }
 
 .cards {
-  background-color: #c71585;
+  background-color: #b3788f;
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
@@ -62,7 +62,7 @@ body {
 }
 
 .new_card {
-  background-color: #bd6b9e;
+  background-color: #6fadc7;
   border-radius: 4px;
   cursor: pointer;
   color: white;
