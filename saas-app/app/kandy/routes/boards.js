@@ -27,7 +27,14 @@ router.get('/:id', async (req, res) => {
             },
         });
 
-        res.render('board', { board: board });
+        if (board) {
+            res.render('board', { board: board });
+        }
+        else {
+            console.error('Board not found.', boardId);
+            res.status(404).render('404');
+        }
+
     } catch (error) {
         console.error('Error retrieving board:', error);
         res.status(500).json({ error: 'Internal Server Error' });

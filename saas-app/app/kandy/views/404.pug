@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title 404 Not Found
+        style.
+            body {
+                font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-color: #f5e1f4;
+            }
+
+            .error-container {
+                text-align: center;
+                margin-top: 100px;
+            }
+
+            .error-code {
+                font-size: 72px;
+                font-weight: bold;
+                color: #f88fa9;
+            }
+
+            .error-message {
+                font-size: 24px;
+                color: #6c567b;
+                margin-top: 10px;
+            }
+
+            .back-to-home {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #b3788f;
+                border-radius: 4px;
+                color: white;
+                text-decoration: none;
+            }
+
+            .back-to-home:hover {
+                background-color: #996699;
+            }
+    body
+        .error-container
+            .error-code 404
+            .error-message Oops! Page not found.
+            a.back-to-home(href="/workspaces") Back to Home
