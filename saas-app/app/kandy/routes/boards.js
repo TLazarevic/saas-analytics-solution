@@ -37,7 +37,7 @@ router.get('/:id', async (req, res) => {
 
     } catch (error) {
         console.error('Error retrieving board:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).render('error', { error: 'Internal Server Error' });
     }
 })
 

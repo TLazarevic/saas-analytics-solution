@@ -1,0 +1,37 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5e1f4;
+}
+
+.error-container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.error-code {
+    font-size: 72px;
+    font-weight: bold;
+    color: #f88fa9;
+}
+
+.error-message {
+    font-size: 24px;
+    color: #6c567b;
+    margin-top: 10px;
+}
+
+.back-to-home {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #b3788f;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+}
+
+.back-to-home:hover {
+    background-color: #996699;
+}
