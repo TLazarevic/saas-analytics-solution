@@ -71,7 +71,7 @@ app.use('/boards', boardsRouter);
 
 app.use(function (req, res, next) {
   res.status(404).render('404');
-})
+});
 
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;
