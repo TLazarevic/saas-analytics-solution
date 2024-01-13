@@ -38,11 +38,21 @@ router.post('/:id/column', async (req, res) => {
     const boardId = req.params.id;
     const name = req.body.name;
 
+    const maxPosition = await prisma.columns.aggregate({
+        where: {
+            board_id: boardId,
+        },
+        _max: {
+            position: true,
+        }
+    })
+
     try {
-        const column = await prisma.columns.create({
+        await prisma.columns.create({
             data: {
                 id: uuidv4(),
                 name: name,
+                position: maxPosition._max.position !== null ? maxPosition._max.position + 1 : 0,
                 board_id: boardId
             }
         });
@@ -86,7 +96,7 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
             }
         })
 
-        const card = await prisma.cards.create({
+        await prisma.cards.create({
             data: {
                 id: uuidv4(),
                 name: name,
