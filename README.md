@@ -21,7 +21,6 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 
 ### Saas App
 
-<img src="./saas-app/app/kandy/public/favicon.ico" alt="logo" width="70" height="70">
 Kanban board demo app
 
 ![demo](diagrams/Demo.gif)
@@ -30,4 +29,4 @@ Kanban board demo app
 
 ![database schema](diagrams/Database%20schema.png)
 
-TBD
++ more to come
