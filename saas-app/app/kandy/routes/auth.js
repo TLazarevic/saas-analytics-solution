@@ -1,6 +1,7 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 const { PrismaClient } = require('@prisma/client');
+const { v4: uuidv4 } = require('uuid');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
@@ -42,8 +43,9 @@ router.post(
 
             const salt = await bcrypt.genSalt(10);
             password = await bcrypt.hash(password, salt);
-            user = prisma.users.create({
+            newUser = await prisma.users.create({
                 data: {
+                    id: uuidv4(),
                     username: username,
                     email: email,
                     password: password
@@ -51,7 +53,7 @@ router.post(
             });
             const payload = {
                 user: {
-                    id: user.id
+                    id: newUser.id
                 }
             };
             jwt.sign(
