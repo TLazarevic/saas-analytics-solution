@@ -1,18 +1,14 @@
 doctype html
 html(lang="en")
     head
-        title 404 Not Found
+        title Login
         link(rel="stylesheet" href="/stylesheets/login.css")
     body
         h1 Login
-        | !{message}
-        | Try accessing 
-        a(href="/restricted") /restricted
-        | , then authenticate with "tj" and "foobar".
-        form(method="post" action="/login")
+        form(method="post" action="/auth/login")
             p
-                label(for="username") Username:
-                input(type="text" name="username" id="username")
+                label(for="email") Email:
+                input(type="text" name="email" id="email")
             p
                 label(for="password") Password:
                 input(type="text" name="password" id="password")

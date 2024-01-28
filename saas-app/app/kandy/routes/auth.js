@@ -5,17 +5,34 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
+const auth = require('../middleware/auth');
 
 const prisma = new PrismaClient()
+
+const JWT_SECRET = process.env.JWT_SECRET
+
+router.get("/me", auth, async (req, res) => {
+    try {
+        const user = await prisma.users.findUnique({ where: { id: req.user.id } });
+        res.json(user);
+    } catch (e) {
+        console.log(e)
+        res.send({ message: "Error fetching user." });
+    }
+});
+
+router.get('/login', async (req, res) => {
+    res.render('login');
+})
 
 router.post(
     "/signup",
     [
-        check("username", "Please Enter a Valid Username")
+        check("username", "Please enter a valid username.")
             .not()
             .isEmpty(),
-        check("email", "Please enter a valid email").isEmail(),
-        check("password", "Please enter a valid password").isLength({
+        check("email", "Please enter a valid email.").isEmail(),
+        check("password", "Please enter a valid password.").isLength({
             min: 6
         })
     ],
@@ -58,7 +75,7 @@ router.post(
             };
             jwt.sign(
                 payload,
-                "randomString", {
+                JWT_SECRET, {
                 expiresIn: 10000
             },
                 (err, token) => {
@@ -78,8 +95,8 @@ router.post(
 router.post(
     "/login",
     [
-        check("email", "Please enter a valid email").isEmail(),
-        check("password", "Please enter a valid password").isLength({
+        check("email", "Please enter a valid email.").isEmail(),
+        check("password", "Please enter a valid password.").isLength({
             min: 6
         })
     ],
@@ -97,12 +114,12 @@ router.post(
             });
             if (!user)
                 return res.status(400).json({
-                    message: "The email is not tied to any accounts"
+                    message: "This email is not tied to any accounts."
                 });
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch)
                 return res.status(400).json({
-                    message: "Incorrect password"
+                    message: "The password is incorrect."
                 });
             const payload = {
                 user: {

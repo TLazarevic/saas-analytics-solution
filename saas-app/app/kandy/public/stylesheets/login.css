@@ -1,12 +1,95 @@
 body {
+    font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: #f5e1f4;
     padding: 50px;
-    font: 13px Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+.form-container {
+    text-align: left;
+    display: inline-block;
+}
+
+.error-container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.error-code {
+    font-size: 72px;
+    font-weight: bold;
+    color: #f88fa9;
+}
+
+.error-message {
+    font-size: 24px;
+    color: #6c567b;
+    margin-top: 10px;
+}
+
+.back-to-home {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #b3788f;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.back-to-home:hover {
+    background-color: #996699;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
 .error {
-    color: red
+    color: red;
 }
 
 .success {
     color: green;
+}
+
+.form-group {
+    margin: 8px 0;
+}
+
+label {
+    display: inline-block;
+    width: 20%;
+    padding-right: 10px;
+    text-align: right;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 40%;
+    /* Reduced width from 60% to 40% */
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
 }
