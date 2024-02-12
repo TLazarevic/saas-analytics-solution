@@ -1,9 +1,10 @@
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const JWT_SECRET = process.env.JWT_SECRET
 
 const auth = function (req, res, next) {
-    const token = req.header("token");
+    const token = req.cookies["secureCookie"];
     if (!token) return res.status(401).json({ message: "Authentication error." });
     try {
         const decoded = jwt.verify(token, JWT_SECRET);

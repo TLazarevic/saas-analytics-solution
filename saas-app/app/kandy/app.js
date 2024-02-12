@@ -11,6 +11,8 @@ var usersRouter = require('./routes/users');
 var boardsRouter = require('./routes/boards');
 var authRouter = require('./routes/auth');
 
+const auth = require('./middleware/auth');
+
 const prisma = new PrismaClient()
 var app = express();
 var favicon = require('serve-favicon');
@@ -30,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/boards', boardsRouter);
+app.use('/boards', auth, boardsRouter);
 app.use('/auth', authRouter);
 
 app.use(function (req, res, next) {
