@@ -26,7 +26,6 @@ router.get('/login', async (req, res) => {
     res.render('login');
 })
 
-
 router.post(
     "/login",
     [
@@ -69,11 +68,11 @@ router.post(
                 },
                 (err, token) => {
                     if (err) throw err;
-                    res.cookie("secureCookie", token, {
+                    res.cookie("kandyCookie", token, {
                         secure: process.env.NODE_ENV !== "development",
                         httpOnly: true,
                         expires: dayjs().add(30, "days").toDate(),
-                    }).render('index');
+                    }).render('workspaces');
                 }
             );
 
@@ -85,6 +84,17 @@ router.post(
         }
     }
 );
+
+router.get('/logout', async (req, res) => {
+    res.clearCookie('kandyCookie', {
+        path: '/'
+    });
+    res.redirect('/');
+})
+
+router.get('/signup', async (req, res) => {
+    res.render('signup');
+})
 
 router.post(
     "/signup",
@@ -145,9 +155,11 @@ router.post(
             },
                 (err, token) => {
                     if (err) throw err;
-                    res.status(200).json({
-                        token
-                    });
+                    res.cookie("kandyCookie", token, {
+                        secure: process.env.NODE_ENV !== "development",
+                        httpOnly: true,
+                        expires: dayjs().add(30, "days").toDate(),
+                    }).render('workspaces');
                 }
             );
         } catch (err) {

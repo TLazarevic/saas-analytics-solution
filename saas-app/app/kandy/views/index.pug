@@ -1,6 +1,12 @@
 extends layout
 
 block content
-  include navbar.pug
+  .navigation-bar
+    #navigation-container
+      img(src="/public/favicon.ico" alt="Logo" width="80" height="80")
+      span.app-name Kandy
+      ul
+        li: a(href="/auth/signup") Signup
+        li: a(href="/auth/login") Login
   h1= title
   p Welcome to #{title}
