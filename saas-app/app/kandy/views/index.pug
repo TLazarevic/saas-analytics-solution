@@ -1,12 +1,29 @@
 extends layout
 
+block append css
+  link(rel="stylesheet" type="text/css" href="/stylesheets/index.css")
+
 block content
-  .navigation-bar
-    #navigation-container
-      img(src="/public/favicon.ico" alt="Logo" width="80" height="80")
-      span.app-name Kandy
-      ul
-        li: a(href="/auth/signup") Signup
-        li: a(href="/auth/login") Login
-  h1= title
-  p Welcome to #{title}
+  include navbar.pug
+
+  .content
+    section.hero
+      h1= title
+      p Welcome to #{title} - Streamline your team's workflow with our cutting-edge planning tools.
+
+    section.points
+      .point
+        h2 Seamless Collaboration
+        p Simplify communication and boost team synergy with real-time updates and shared workspaces.
+      .point
+        h2 Effortless Planning
+        p Plan projects, assign tasks, and track progress with intuitive drag-and-drop interfaces.
+      .point
+        h2 Data-Driven Insights
+        p Make informed decisions with comprehensive analytics and customizable reports on team performance.
+      .point
+        h2 Scalable Solutions
+        p From small teams to large enterprises, our platform scales to meet your growing needs without missing a beat.
+
+  footer
+    p © #{new Date().getFullYear()} #{title}. All rights reserved.

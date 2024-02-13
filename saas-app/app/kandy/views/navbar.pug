@@ -1,8 +1,17 @@
+head
+    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap")
+    link(rel='stylesheet' href='/public/stylesheets/style.css')
 body
     .navigation-bar
         #navigation-container
             img(src="/public/favicon.ico" alt="Logo" width="80" height="80")
             span.app-name Kandy
-            ul
-                li: a(href="/workspaces") Home
-                li: a(href="/auth/logout") Logout
+            if (user) 
+                ul
+                    li: a(href="/workspaces") Home
+                    li: a(href="/auth/logout") Logout
+            else 
+                ul
+                    li: a(href="/auth/login") Login
+                    li: a(href="/auth/signup") Signup
