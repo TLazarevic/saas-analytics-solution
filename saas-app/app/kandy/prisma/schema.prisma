@@ -170,7 +170,7 @@ model subscriptions {
   user_id           String             @db.Uuid
   created_at        DateTime           @db.Timestamp(6)
   updated_at        DateTime           @db.Timestamp(6)
-  cancelled_at      DateTime           @db.Timestamp(6)
+  cancelled_at      DateTime?          @db.Timestamp(6)
   user              users              @relation(fields: [user_id], references: [id])
   subscription_plan subscription_plans @relation(fields: [plan_id], references: [id])
 }

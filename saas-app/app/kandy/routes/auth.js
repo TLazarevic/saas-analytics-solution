@@ -96,6 +96,7 @@ router.get('/signup', async (req, res) => {
     res.render('signup');
 })
 
+// TODO: CREATE A SUBSCRIPTION
 router.post(
     "/signup",
     [

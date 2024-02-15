@@ -10,21 +10,30 @@ block content
             img.card-img-top
             div.card-body
                 h5.card-title Free
-                p.card-text Free Forever.
+                p.card-text Free. Forever.
                 p.card-text $0/mo
-                a.btn.btn-primary Select
+                if subsciptionPlanId == 'c037947d-22a7-422c-8147-c131d9a66c62'
+                    a.btn.btn-secondary.disabled Your plan
+                else 
+                    a.btn.btn-primary Select
         div.card.mx-auto
             img.card-img-top
             div.card-body
                 h5.card-title Silver
                 p.card-text Additional features and less limitations.
                 p.card-text $5/mo
-                a.btn.btn-primary Select
+                if subsciptionPlanId == 'fdf76213-cbd8-4a3b-b48a-21d2406cbb9f'
+                    a.btn.btn-secondary.disabled Your plan
+                else 
+                    a.btn.btn-primary Select
         div.card.mx-auto
             img.card-img-top
             div.card-body
                 h5.card-title Gold
                 p.card-text Unlock all features and premium support.
                 p.card-text $50/mo
-                a.btn.btn-primary Select
+                if subsciptionPlanId == '21330b9a-260e-4222-8737-8e0a2dcfe03e'
+                    a.btn.btn-secondary.disabled Your plan
+                else 
+                    a.btn.btn-primary Select
 
