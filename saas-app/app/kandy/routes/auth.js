@@ -159,7 +159,7 @@ router.post(
                         secure: process.env.NODE_ENV !== "development",
                         httpOnly: true,
                         expires: dayjs().add(30, "days").toDate(),
-                    }).render('workspaces');
+                    }).redirect('/workspaces');
                 }
             );
         } catch (err) {
