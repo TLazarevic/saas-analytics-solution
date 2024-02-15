@@ -1,8 +1,15 @@
-doctype html
+extends layout
 
-html(lang='en')
-    body
-        include navbar.pug
+block css
+    link(rel="stylesheet" href="/stylesheets/workspaces.css")
+block content
+    include navbar.pug
+    div.content
         h1 Workspaces
         each workspace in workspaces
-            p #{workspace.name}
+            div.card
+                img.card-img-top
+                div.card-body
+                    h5.card-title #{workspace.name}
+                    p.card-text #{workspace.description}
+                    a.btn.btn-primary Go somewhere

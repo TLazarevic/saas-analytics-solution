@@ -1,0 +1,30 @@
+extends layout
+
+block css
+    link(rel="stylesheet" href="/stylesheets/subscriptions.css")
+block content
+    include navbar.pug
+    h1 Upgrade your plan
+    div.content.d-flex.flex-row
+        div.card.mx-auto.h-200
+            img.card-img-top
+            div.card-body
+                h5.card-title Free
+                p.card-text Free Forever.
+                p.card-text $0/mo
+                a.btn.btn-primary Select
+        div.card.mx-auto
+            img.card-img-top
+            div.card-body
+                h5.card-title Silver
+                p.card-text Additional features and less limitations.
+                p.card-text $5/mo
+                a.btn.btn-primary Select
+        div.card.mx-auto
+            img.card-img-top
+            div.card-body
+                h5.card-title Gold
+                p.card-text Unlock all features and premium support.
+                p.card-text $50/mo
+                a.btn.btn-primary Select
+

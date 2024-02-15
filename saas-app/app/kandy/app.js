@@ -7,9 +7,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
 var workspaceRouter = require('./routes/workspaces');
 var boardsRouter = require('./routes/boards');
-var authRouter = require('./routes/auth');
+var subscriptionRouter = require('./routes/subscriptions');
 
 const auth = require('./middleware/auth');
 
@@ -31,9 +32,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 app.use('/workspaces', auth, workspaceRouter);
 app.use('/boards', auth, boardsRouter);
-app.use('/auth', authRouter);
+app.use('/subscriptions', auth, subscriptionRouter);
 
 app.use(function (req, res, next) {
   res.status(404).render('404');

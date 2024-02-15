@@ -71,7 +71,7 @@ model columns {
   created_at                                        DateTime       @default(now()) @db.Timestamp(6)
   updated_at                                        DateTime       @default(now()) @db.Timestamp(6)
   archived_at                                       DateTime?      @db.Timestamp(6)
-  position                                          Int?            
+  position                                          Int?
   card_actions_card_actions_column_idTocolumns      card_actions[] @relation("card_actions_column_idTocolumns")
   card_actions_card_actions_from_column_idTocolumns card_actions[] @relation("card_actions_from_column_idTocolumns")
   card_actions_card_actions_to_column_idTocolumns   card_actions[] @relation("card_actions_to_column_idTocolumns")
@@ -133,6 +133,7 @@ model users {
   card_members      card_members[]
   starred_boards    starred_boards[]
   workspace_members workspace_members[]
+  subscriptions     subscriptions[]
 }
 
 model workspace_members {
@@ -154,6 +155,24 @@ model workspaces {
   deleted_at        DateTime?           @db.Timestamp(6)
   boards            boards[]
   workspace_members workspace_members[]
+}
+
+model subscription_plans {
+  id            String          @id @db.Uuid
+  name          String          @db.VarChar(255)
+  price         Float           @db.DoublePrecision
+  subscriptions subscriptions[]
+}
+
+model subscriptions {
+  id                String             @id @db.Uuid
+  plan_id           String             @db.Uuid
+  user_id           String             @db.Uuid
+  created_at        DateTime           @db.Timestamp(6)
+  updated_at        DateTime           @db.Timestamp(6)
+  cancelled_at      DateTime           @db.Timestamp(6)
+  user              users              @relation(fields: [user_id], references: [id])
+  subscription_plan subscription_plans @relation(fields: [plan_id], references: [id])
 }
 
 enum activity {
