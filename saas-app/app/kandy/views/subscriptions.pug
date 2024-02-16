@@ -5,6 +5,9 @@ block css
 block content
     include navbar.pug
     h1 Upgrade your plan
+    if (errors)
+        for err in errors
+            div #{err}
     div.content.d-flex.flex-row
         div.card.mx-auto.h-200
             img.card-img-top
@@ -15,7 +18,7 @@ block content
                 if subsciptionPlanId == 'c037947d-22a7-422c-8147-c131d9a66c62'
                     a.btn.btn-secondary.disabled Your plan
                 else 
-                    a.btn.btn-primary Select
+                    a(href="/subscriptions/update/c037947d-22a7-422c-8147-c131d9a66c62").btn.btn-primary Select
         div.card.mx-auto
             img.card-img-top
             div.card-body
@@ -25,7 +28,7 @@ block content
                 if subsciptionPlanId == 'fdf76213-cbd8-4a3b-b48a-21d2406cbb9f'
                     a.btn.btn-secondary.disabled Your plan
                 else 
-                    a.btn.btn-primary Select
+                    a(href="/subscriptions/update/fdf76213-cbd8-4a3b-b48a-21d2406cbb9f").btn.btn-primary Select
         div.card.mx-auto
             img.card-img-top
             div.card-body
@@ -35,5 +38,5 @@ block content
                 if subsciptionPlanId == '21330b9a-260e-4222-8737-8e0a2dcfe03e'
                     a.btn.btn-secondary.disabled Your plan
                 else 
-                    a.btn.btn-primary Select
+                    a(href="/subscriptions/update/21330b9a-260e-4222-8737-8e0a2dcfe03e").btn.btn-primary Select
 
