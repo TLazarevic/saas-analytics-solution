@@ -5,6 +5,9 @@ html(lang="en")
         link(rel="stylesheet" href="/stylesheets/auth.css")
     body
         h1 Signup
+        if (errors)
+            each error in errors
+                p #{error}
         form(method="post" action="/auth/signup")
             p
                 label(for="first_name") First Name:

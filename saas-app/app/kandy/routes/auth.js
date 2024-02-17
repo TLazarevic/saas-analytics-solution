@@ -37,24 +37,24 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
-                error: errors.array()
-            }).render('login');
+            res.locals.errors = errors.errors.map(error => error.msg);
+            return res.status(400).render('login');
         }
         const { email, password } = req.body;
         try {
             let user = await prisma.users.findUnique({
                 where: { email: email }
             });
-            if (!user)
-                return res.status(400).json({
-                    message: "This email is not tied to an account."
-                });
+            if (!user) {
+                res.locals.errors = ["This email is not tied to an account."]
+                return res.status(400).render('login')
+            }
+
             const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch)
-                return res.status(400).json({
-                    message: "The password is incorrect."
-                });
+            if (!isMatch) {
+                res.locals.errors = ["The password is incorrect."]
+                return res.status(400).render('login')
+            }
             const payload = {
                 user: {
                     id: user.id
@@ -110,9 +110,8 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
-                errors: errors.array()
-            });
+            res.locals.errors = errors.errors.map(error => error.msg);
+            return res.status(400).render('signup')
         }
         var {
             name,
@@ -126,9 +125,8 @@ router.post(
                 where: { email: email }
             });
             if (user) {
-                return res.status(400).json({
-                    msg: "Email already taken."
-                });
+                res.locals.errors = ["Email already taken."]
+                return res.status(400).render('signup')
             }
 
             const salt = await bcrypt.genSalt(10);
