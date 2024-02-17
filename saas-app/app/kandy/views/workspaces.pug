@@ -6,6 +6,12 @@ block content
     include navbar.pug
     div.content
         h1 Workspaces
+        div.card
+            img.card-img-top
+            div.card-body
+                h5.card-title New Workspace
+                p.card-text
+                a.btn.btn-primary Create a workspace
         each workspace in workspaces
             div.card
                 img.card-img-top

@@ -36,7 +36,6 @@ router.get('/update/:selected_plan', async function (req, res, next) {
 
         else {
 
-
             await prisma.$transaction([
                 prisma.subscriptions.update({
                     where: { id: currentSubscription.id },
