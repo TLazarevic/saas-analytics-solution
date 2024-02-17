@@ -1,3 +1,24 @@
+extends layout
+
+block css
+    link(rel="stylesheet" href="/stylesheets/workspaces.css")
+block content
+    include navbar.pug
+    div.content
+        h1 Workspaces
+        div.card
+            img.card-img-top
+            div.card-body
+                h5.card-title New Workspace
+                p.card-text
+                a.btn.btn-primary Create a workspace
+        each workspace in workspaces
+            div.card
+                img.card-img-top
+                div.card-body
+                    h5.card-title #{workspace.name}
+                    p.card-text #{workspace.description}
+                    a.btn.btn-primary Go somewhere
 doctype html
 
 html(lang='en')

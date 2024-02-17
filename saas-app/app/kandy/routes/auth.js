@@ -141,6 +141,15 @@ router.post(
                     password: password
                 }
             });
+
+            await prisma.subscriptions.create({
+                data: {
+                    id: uuidv4(),
+                    plan_id: 'c037947d-22a7-422c-8147-c131d9a66c62',
+                    user_id: newUser.id,
+                }
+            })
+
             const payload = {
                 user: {
                     id: newUser.id

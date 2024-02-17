@@ -1,0 +1,42 @@
+extends layout
+
+block css
+    link(rel="stylesheet" href="/stylesheets/subscriptions.css")
+block content
+    include navbar.pug
+    h1.title Upgrade your plan
+    if (errors)
+        each err in errors
+            .error #{err}
+    .content-wrapper
+        card.card--subscription.mx-auto.h-200
+            .card__body
+                h5.card__title Free
+                p.card__text Free. Forever.
+                .mt-auto
+                    p.price $0/mo
+                    if subsciptionPlanId == 'c037947d-22a7-422c-8147-c131d9a66c62'
+                        a.btn.btn--disabled.disabled Your plan
+                    else 
+                        a(href="/subscriptions/update/c037947d-22a7-422c-8147-c131d9a66c62").btn.btn--subscription Select
+        card.card--subscription.mx-auto
+            .card__body
+                h5.card__title Silver
+                p.card__text Additional features and less limitations.
+                .mt-auto
+                    p.price $5/mo
+                    if subsciptionPlanId == 'fdf76213-cbd8-4a3b-b48a-21d2406cbb9f'
+                        a.btn.btn--disabled.disabled Your plan
+                    else 
+                        a(href="/subscriptions/update/fdf76213-cbd8-4a3b-b48a-21d2406cbb9f").btn.btn--subscription Select
+        card.card--subscription.mx-auto.h-200
+            .card__body
+                h5.card__title Gold
+                p.card__text Unlock all features and premium support.
+                .mt-auto
+                    p.price $50/mo
+                    if subsciptionPlanId == '21330b9a-260e-4222-8737-8e0a2dcfe03e'
+                        a.btn.btn--disabled.disabled Your plan
+                    else 
+                        a(href="/subscriptions/update/21330b9a-260e-4222-8737-8e0a2dcfe03e").btn.btn--subscription Select
+

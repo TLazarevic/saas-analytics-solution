@@ -5,6 +5,10 @@ body {
   background-color: #f5e1f4;
 }
 
+.content {
+  margin: 20px;
+}
+
 .board-name {
   font-family: Arial, sans-serif;
   font-size: 24px;
