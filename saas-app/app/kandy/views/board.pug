@@ -1,10 +1,6 @@
-doctype html
+extends layout
 
-html(lang='en')
-  head
-    link(rel='stylesheet' href='/public/stylesheets/style.css')
-    link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap")
-
+block content
   body
     include navbar.pug
     h1.board-name #{board.name}
