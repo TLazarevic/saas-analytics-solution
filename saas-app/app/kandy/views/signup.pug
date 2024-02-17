@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+    head
+        title Signup
+        link(rel="stylesheet" href="/stylesheets/auth.css")
+    body
+        h1 Signup
+        if (errors)
+            each error in errors
+                p #{error}
+        form(method="post" action="/auth/signup")
+            p
+                label(for="first_name") First Name:
+                input(type="text" name="name" id="first_name")
+            p
+                label(for="last_name") Last Name:
+                input(type="text" name="last_name" id="last_name")
+            p
+                label(for="username") Username:
+                input(type="text" name="username" id="username")
+            p
+                label(for="email") Email:
+                input(type="text" name="email" id="email")
+            p
+                label(for="password") Password:
+                input(type="password" name="password" id="password")
+            p
+                input(type="submit" value="Signup")

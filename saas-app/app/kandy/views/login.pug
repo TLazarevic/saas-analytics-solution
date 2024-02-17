@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        title Login
+        link(rel="stylesheet" href="/stylesheets/auth.css")
+    body
+        h1 Login
+        if (errors)
+            each error in errors
+                p #{error}
+        form(method="post" action="/auth/login")
+            p
+                label(for="email") Email:
+                input(type="text" name="email" id="email")
+            p
+                label(for="password") Password:
+                input(type="password" name="password" id="password")
+            p
+                input(type="submit" value="Login")

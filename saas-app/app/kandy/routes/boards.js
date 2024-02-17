@@ -6,39 +6,55 @@ var router = express.Router();
 const prisma = new PrismaClient()
 
 router.get('/:id', async (req, res) => {
+    const userId = req.user.id
     const boardId = req.params.id;
 
-    try {
-        const board = await prisma.boards.findUnique({
-            where: { id: boardId },
-            include: {
-                columns: {
-                    orderBy: {
-                        position: 'asc'
-                    },
-                    include: {
-                        cards: {
-                            orderBy: {
-                                position: 'asc'
+    const workspaceId = await prisma.boards.findUnique({
+        where: { id: boardId },
+        select: { workspace_id: true }
+    });
+
+    const isMember = await prisma.workspace_members.findFirst({
+        where: {
+            workspace_id: workspaceId.workspace_id,
+            user_id: userId,
+        },
+        select: { user_id: true }
+    });
+
+    if (isMember) {
+        try {
+            const board = await prisma.boards.findUnique({
+                where: { id: boardId },
+                include: {
+                    columns: {
+                        orderBy: {
+                            position: 'asc'
+                        },
+                        include: {
+                            cards: {
+                                orderBy: {
+                                    position: 'asc'
+                                }
                             }
-                        }
+                        },
                     },
                 },
-            },
-        });
+            });
 
-        if (board) {
-            res.render('board', { board: board });
-        }
-        else {
-            console.error('Board not found.', boardId);
-            res.status(404).render('404');
-        }
+            if (board) {
+                res.render('board', { board: board });
+            }
+            else {
+                console.error('Board not found.', boardId);
+                res.status(404).render('404');
+            }
 
-    } catch (error) {
-        console.error('Error retrieving board:', error);
-        res.status(500).render('error', { error: 'Internal Server Error' });
-    }
+        } catch (error) {
+            console.error('Error retrieving board:', error);
+            res.status(500).render('error', { error: 'Internal Server Error' });
+        }
+    } else res.render('404')
 })
 
 router.post('/:id/column', async (req, res) => {

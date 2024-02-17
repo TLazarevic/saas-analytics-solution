@@ -1,0 +1,8 @@
+doctype html
+
+html(lang='en')
+    body
+        include navbar.pug
+        h1 Workspaces
+        each workspace in workspaces
+            p #{workspace.name}
