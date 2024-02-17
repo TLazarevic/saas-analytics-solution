@@ -24,6 +24,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+
 router.put('/', async (req, res) => {
   const userId = req.user.id;
 

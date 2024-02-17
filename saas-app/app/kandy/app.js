@@ -37,6 +37,7 @@ app.use('/workspaces', auth, workspaceRouter);
 app.use('/boards', auth, boardsRouter);
 app.use('/subscriptions', auth, subscriptionRouter);
 
+
 app.use(function (req, res, next) {
   res.status(404).render('404');
 });

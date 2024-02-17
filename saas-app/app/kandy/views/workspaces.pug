@@ -19,3 +19,11 @@ block content
                     h5.card-title #{workspace.name}
                     p.card-text #{workspace.description}
                     a.btn.btn-primary Go somewhere
+doctype html
+
+html(lang='en')
+    body
+        include navbar.pug
+        h1 Workspaces
+        each workspace in workspaces
+            p #{workspace.name}
