@@ -3,23 +3,69 @@
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     width: 15rem;
     height: 10rem;
     margin: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-text {
+    flex-grow: 1;
+}
+
 .new-workspace-card {
     background-color: #def5ff;
 }
 
-.btn-submit {
-    position: absolute;
-    bottom: 0.5rem;
-    right: 2.5rem;
-    left: 2.5rem;
-    display: flex;
+.button-container {
+    flex-grow: 0;
+}
+
+.btn-submit,
+.btn-delete {
     text-align: center;
+    width: 45%;
+}
+
+.btn-submit,
+.btn-create {
+    border-color: #6fadc7;
+    color: #6fadc7;
+    background-color: white;
+}
+
+.btn-delete {
+    float: right;
+    border-color: #dc3545;
+    color: #dc3545;
+    background-color: white;
+}
+
+.btn-submit {
+    float: left;
+}
+
+.btn-create {
+    float: center;
+}
+
+.btn-create:hover,
+.btn-submit:hover {
+    float: center;
     background-color: #6fadc7;
     border-color: #6fadc7;
+    color: white
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
 }

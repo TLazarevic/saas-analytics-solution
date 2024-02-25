@@ -3,6 +3,8 @@ extends layout
 block head
     link(rel="stylesheet" href="/stylesheets/workspaces.css")
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js")
+    script(src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous")
+    script(src="/javascripts/workspaces.js")
 block content
     include navbar.pug
     div.content
@@ -11,16 +13,33 @@ block content
             div.card.new-workspace-card
                 img.card-img-top
                 div.card-body
-                    h5.card-title New Workspace
+                    h5.card-title Create a Workspace
                     p.card-text
-                    a.btn.btn-primary.btn-submit(data-bs-toggle='modal' role="button" data-bs-target='#newWorkspaceModal') New workspace
+                    a.btn.btn-primary.btn-create(data-bs-toggle='modal' role="button" data-bs-target='#newWorkspaceModal') Create
             each workspace in workspaces
                 div.card
                     img.card-img-top
                     div.card-body
                         h5.card-title #{workspace.name}
                         p.card-text #{workspace.description}
-                        a.btn.btn-primary.btn-submit(href=`workspaces/${workspace.id}`) Go to Workspace
+                        .button-container
+                            a.btn.btn-primary.btn-submit(href=`workspaces/${workspace.id}`) Go to
+                            a.btn.btn-danger.btn-delete(data-bs-toggle='modal' role="button" data-bs-target=`#delete-workspace-modal-${workspace.id}`) Delete
+
+                    .modal.hide.fade(id=`delete-workspace-modal-${workspace.id}` tabindex='-1' aria-labelledby=`delete-workspace-modal-${workspace.id}` aria-hidden='true')
+                        .modal-dialog.modal-md
+                            .modal-content
+                                .modal-header
+                                    h4.modal-title Confirm Delete
+                                    button.btn-close(type='button' data-bs-dismiss='modal') &times;
+                                .modal-body
+                                    form.form-horizontal.workspace-delete-form(id=`${workspace.id}` name='workspace-delete-form')
+                                        .form-group
+                                            .row 
+                                                label Are you sure you want to delete Workspace #{workspace.name} ?
+                                                .col-sm-9.offset-sm-3.text-sm-end
+                                                    input.btn.btn-primary(type='submit' value='Submit')
+                                                    button.btn.btn-default(data-bs-dismiss='modal') Cancel
 
         #newWorkspaceModal.modal.hide.fade(tabindex='-1' aria-labelledby=`new-workspace-modal-label` aria-hidden='true')
             .modal-dialog.modal-md
@@ -40,7 +59,7 @@ block content
                                     .col-sm-9
                                         input#inputDescription.normal-font-weight(type='text' name='description' autocomplete='description')
                                 .row
-                                    label.col-sm-3.text-sm-end.col-form-label(for='inputPrivacy') Privacy
+                                    label.col-sm-3.text-sm-end.col-form-label(for='inputPrivacy') Make private
                                     .col-sm-9
                                         input#inputPrivacy.normal-font-weight(type='checkbox' name='privacy' autocomplete='privacy')
                                 .row

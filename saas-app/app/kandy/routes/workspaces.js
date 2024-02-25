@@ -43,6 +43,25 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+router.delete('/:id', async (req, res, next) => {
+  var userId = req.user.id;
+  var workspaceId = req.params.id
+
+  try {
+    await prisma.workspaces.update({
+      where: {
+        id: workspaceId, workspace_members: { some: { user_id: userId } }
+      }, data: {
+        deleted_at: new Date()
+      }
+    })
+    res.status(200)
+  } catch (error) {
+    console.log('Error deleting workspace:', error)
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 router.post('/', async (req, res) => {
   const userId = req.user.id;
