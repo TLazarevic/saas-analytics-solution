@@ -24,6 +24,25 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  var userId = req.user.id;
+  var workspaceId = req.params.id
+
+  try {
+    var workspace = await prisma.workspaces.findUnique({
+      where: {
+        id: workspaceId, deleted_at: null, workspace_members: { some: { user_id: userId } }
+      }, include: {
+        boards: true
+      }
+    })
+    res.render('workspace', { workspace: workspace });
+  } catch (error) {
+    console.log('Error retrieving workspaces:', error)
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 router.post('/', async (req, res) => {
   const userId = req.user.id;

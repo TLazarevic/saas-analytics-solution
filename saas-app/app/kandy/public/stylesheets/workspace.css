@@ -1,4 +1,4 @@
-.workspace-container {
+.board-container {
     display: flex;
 }
 
@@ -9,7 +9,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.new-workspace-card {
+.new-board-card {
     background-color: #def5ff;
 }
 
