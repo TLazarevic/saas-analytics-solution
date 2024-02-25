@@ -1,7 +1,8 @@
 extends layout
 
-block css
+block head
     link(rel="stylesheet" href="/stylesheets/workspaces.css")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js")
 block content
     include navbar.pug
     div.content
@@ -11,7 +12,7 @@ block content
             div.card-body
                 h5.card-title New Workspace
                 p.card-text
-                a.btn.btn-primary Create a workspace
+                a.btn.btn-primary(data-bs-toggle='modal' role="button" data-bs-target='#newWorkspaceModal') Create a workspace
         each workspace in workspaces
             div.card
                 img.card-img-top
@@ -19,3 +20,29 @@ block content
                     h5.card-title #{workspace.name}
                     p.card-text #{workspace.description}
                     a.btn.btn-primary Go somewhere
+
+        #newWorkspaceModal.modal.modal.hide.fade(tabindex='-1' aria-labelledby=`new-workspace-modal-label` aria-hidden='true')
+            .modal-dialog.modal-md
+                .modal-content
+                    .modal-header
+                        h4.modal-title Create a Workspace
+                        button.btn-close(type='button' data-bs-dismiss='modal') &times;
+                    .modal-body
+                        form.form-horizontal(name='workspace-form' method='post' action='/workspaces/')
+                            .form-group
+                                .row
+                                    label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
+                                    .col-sm-9
+                                        input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
+                                .row
+                                    label.col-sm-3.text-sm-end.col-form-label(for='inputDescription') Description
+                                    .col-sm-9
+                                        input#inputDescription.normal-font-weight(type='text' name='description' autocomplete='description')
+                                .row
+                                    label.col-sm-3.text-sm-end.col-form-label(for='inputPrivacy') Privacy
+                                    .col-sm-9
+                                        input#inputPrivacy.normal-font-weight(type='checkbox' name='privacy' autocomplete='privacy')
+                                .row
+                                    .col-sm-9.offset-sm-3.text-sm-end
+                                        input.btn.btn-primary(type='submit' value='Submit')
+                                        button.btn.btn-default(data-bs-dismiss='modal') Cancel

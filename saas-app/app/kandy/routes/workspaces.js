@@ -25,19 +25,35 @@ router.get('/', async (req, res, next) => {
 });
 
 
-router.put('/', async (req, res) => {
+router.post('/', async (req, res) => {
   const userId = req.user.id;
 
-  data = req.body
-  data["id"] = uuidv4()
-  data['user_id'] = userId
+  var name = req.body["name"]
+  var decription = req.body["description"]
+  var privacy = req.body["privacy"] ? true : false
+  var id = uuidv4()
 
   try {
     await prisma.workspaces.create({
-      data: data
-    })
+      data: {
+        id: id,
+        name: name,
+        description: decription,
+        is_private: privacy,
+        workspace_members: {
+          create: {
+            users: {
+              connect: {
+                id: userId
+              }
+            }
+          }
+        }
 
+      }
+    })
     res.redirect('/workspaces');
+
   } catch (error) {
     console.error('Error creating the workspace:', error);
     res.status(500).json({ error: 'Internal Server Error' });
