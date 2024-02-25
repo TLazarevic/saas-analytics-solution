@@ -12,7 +12,7 @@ const auth = function (req, res, next) {
         next();
     } catch (e) {
         console.error(e);
-        res.status(403).send({ message: "Invalid token." });
+        res.status(404).redirect('auth/login');
     }
 };
 

@@ -2,24 +2,6 @@
     display: flex;
 }
 
-.card {
-    width: 15rem;
-    height: 10rem;
-    margin: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 .new-board-card {
     background-color: #def5ff;
-}
-
-.btn-submit {
-    position: absolute;
-    bottom: 0.5rem;
-    right: 2.5rem;
-    left: 2.5rem;
-    display: flex;
-    text-align: center;
-    background-color: #6fadc7;
-    border-color: #6fadc7;
 }

@@ -20,7 +20,10 @@ block content
                 div.card
                     img.card-img-top
                     div.card-body
-                        h5.card-title #{workspace.name}
+                        .title-container
+                            h5.card-title #{workspace.name}
+                            if (workspace.is_private)
+                                p.visibility Private
                         p.card-text #{workspace.description}
                         .button-container
                             a.btn.btn-primary.btn-submit(href=`workspaces/${workspace.id}`) Go to
@@ -38,7 +41,7 @@ block content
                                             .row 
                                                 label Are you sure you want to delete Workspace #{workspace.name} ?
                                                 .col-sm-9.offset-sm-3.text-sm-end
-                                                    input.btn.btn-primary(type='submit' value='Submit')
+                                                    input.btn.btn-primary(type='submit' value='Submit' data-bs-dismiss='modal')
                                                     button.btn.btn-default(data-bs-dismiss='modal') Cancel
 
         #newWorkspaceModal.modal.hide.fade(tabindex='-1' aria-labelledby=`new-workspace-modal-label` aria-hidden='true')

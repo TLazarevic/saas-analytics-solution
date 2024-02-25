@@ -48,14 +48,14 @@ router.delete('/:id', async (req, res, next) => {
   var workspaceId = req.params.id
 
   try {
-    await prisma.workspaces.update({
+    var workspace = await prisma.workspaces.update({
       where: {
         id: workspaceId, workspace_members: { some: { user_id: userId } }
       }, data: {
         deleted_at: new Date()
       }
     })
-    res.status(200)
+    res.status(200).send('Workspace deleted successfully');
   } catch (error) {
     console.log('Error deleting workspace:', error)
     res.status(500).json({ error: 'Internal Server Error' });

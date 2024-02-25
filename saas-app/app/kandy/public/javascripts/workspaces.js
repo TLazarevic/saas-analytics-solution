@@ -9,8 +9,10 @@ $(document).ready(function () {
         $.ajax({
             url: `/workspaces/${workspaceId}`,
             type: 'DELETE',
-        }).then(function (data) {
-            window.location.reload()
+            success: function () {
+                console.log("Deleting successful.")
+                window.location = self.location;
+            }
         })
     })
 });

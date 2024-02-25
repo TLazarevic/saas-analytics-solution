@@ -1,6 +1,7 @@
 extends layout
 
 block head
+    link(rel="stylesheet" href="/stylesheets/workspaces.css")
     link(rel="stylesheet" href="/stylesheets/workspace.css")
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js")
 block content
@@ -11,16 +12,18 @@ block content
             div.card.new-board-card
                 img.card-img-top
                 div.card-body
-                    h5.card-title New Board
+                    h5.card-title Create a Board
                     p.card-text
-                    a.btn.btn-primary.btn-submit(data-bs-toggle='modal' role="button" data-bs-target='#newBoardModal') New board
+                    a.btn.btn-primary.btn-submit(data-bs-toggle='modal' role="button" data-bs-target='#newBoardModal') Create
             each board in workspace.boards
                 div.card
                     img.card-img-top
                     div.card-body
                         h5.card-title #{board.name}
                         p.card-text #{board.description}
-                        a.btn.btn-primary.btn-submit(href=`/boards/${board.id}/`) Go to Board
+                        .button-container
+                            a.btn.btn-primary.btn-submit(href=`/boards/${board.id}/`) Go to
+                            a.btn.btn-danger.btn-delete(data-bs-toggle='modal' role="button" data-bs-target=`#delete-board-modal-${workspace.id}`) Delete
 
         #newBoardModal.modal.hide.fade(tabindex='-1' aria-labelledby=`new-board-modal-label` aria-hidden='true')
             .modal-dialog.modal-md
