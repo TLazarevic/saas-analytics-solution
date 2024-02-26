@@ -33,7 +33,9 @@ router.get('/:id', async (req, res, next) => {
       where: {
         id: workspaceId, deleted_at: null, workspace_members: { some: { user_id: userId } }
       }, include: {
-        boards: true
+        boards: {
+          where: { deleted_at: null }
+        }
       }
     })
     res.render('workspace', { workspace: workspace });

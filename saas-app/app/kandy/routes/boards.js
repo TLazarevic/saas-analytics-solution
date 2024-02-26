@@ -57,6 +57,70 @@ router.get('/:id', async (req, res) => {
     } else res.render('404')
 })
 
+router.post('/:workspaceId', async (req, res) => {
+    const userId = req.user.id;
+
+    var name = req.body["name"]
+    var decription = req.body["description"]
+    var privacy = req.body["privacy"] ? true : false
+    var workspace_id = req.params["workspaceId"]
+    var id = uuidv4()
+
+    try {
+        await prisma.boards.create({
+            data: {
+                id: id,
+                name: name,
+                description: decription,
+                is_public: !privacy,
+                workspace_id: workspace_id
+            }
+        })
+        res.redirect('/workspaces/' + workspace_id)
+    } catch (error) {
+        console.error('Error creating the workspace:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+router.delete('/:id', async (req, res, next) => {
+    var userId = req.user.id;
+    var boardId = req.params.id
+
+    workspace = await prisma.workspaces.findFirst({
+        where: {
+            boards: { some: { id: boardId } }
+        },
+        include: {
+            workspace_members: true
+        }
+    });
+
+    console.log(workspace)
+    console.log(userId)
+
+    const isMember = workspace.workspace_members.some(member => member.user_id === userId);
+
+    if (isMember) {
+        try {
+            var board = await prisma.boards.update({
+                where: {
+                    id: boardId
+                }, data: {
+                    deleted_at: new Date()
+                }
+            })
+            res.status(200).send('Workspace deleted successfully');
+        } catch (error) {
+            console.log('Error deleting workspace:', error)
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    else {
+        res.status(403).json({ error: 'User is not authorized to delete this board' });
+    }
+});
+
 router.post('/:id/column', async (req, res) => {
     const boardId = req.params.id;
     const name = req.body.name;
