@@ -75,10 +75,10 @@
 }
 
 .visibility {
-    margin-left: 7rem;
-    float: right;
+    position: absolute;
+    right: 1rem;
     font-style: italic;
     font-size: 10px;
-    width: 70px;
+    width: 40px;
     color: #6fadc7;
 }

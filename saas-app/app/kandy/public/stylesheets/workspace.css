@@ -5,3 +5,12 @@
 .new-board-card {
     background-color: #def5ff;
 }
+
+.modal-content {
+    background-color: white;
+    opacity: 1 !important;
+}
+
+.modal-backdrop.show {
+    opacity: 0.5 !important;
+}

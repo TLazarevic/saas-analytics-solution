@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    var selectedIdsToInvite = new Set([]);
+
     $('.board-delete-form').submit(function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -15,4 +18,77 @@ $(document).ready(function () {
             }
         })
     })
+
+    $('#searchBar').on('input', function () {
+        var searchQuery = $(this).val().toLowerCase();
+
+        $('#recommendationsList .list-group-item').each(function () {
+            var itemId = this.id;
+            if (!selectedIdsToInvite.has(itemId)) {
+                $(this).hide();
+            }
+        });
+
+        if (searchQuery.length >= 2) {
+            fetch("/users/search/" + searchQuery, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => data["users"].forEach(function (filteredMember) {
+                    $('#recommendationsList .list-group-item').each(function () {
+                        var itemId = this.id;
+                        if (!selectedIdsToInvite.has(itemId)) {
+                            $(this).remove();
+                        }
+                    });
+
+                    if (!selectedIdsToInvite.has(filteredMember.id.toString())) {
+                        $('#recommendationsList').append(`<li id=${filteredMember.id} class="list-group-item">${filteredMember.name} ${filteredMember.last_name}</li>`);
+                    }
+                }));
+        }
+    });
+
+    $('#addMembersModal').on('hidden.bs.modal', function () {
+        $('#searchBar').val('');
+        $('#recommendationsList').empty();
+    });
+
+    $(document).on('click', '.list-group-item', function () {
+        console.log((this).id);
+        $(this).css('background-color', '#6fadc7');
+        $(this).css('class', 'selected');
+        selectedIdsToInvite.add(this.id);
+    });
+
+    $('#addMembersModal').on('hidden.bs.modal', function () {
+        $('#searchBar').val('');
+        $('#recommendationsList').empty();
+        selectedIdsToInvite.clear();
+    });
+
+    $('#inviteMembers').on('click', function () {
+        var workspaceId = $('#addMembersModal').data('workspace-id');
+
+        data = JSON.stringify({ 'users': [...selectedIdsToInvite] });
+
+        // todo: prevent selecting existing members
+
+        $.ajax({
+            url: `/workspaces/${workspaceId}/members`,
+            type: 'PUT',
+            data: data,
+            contentType: 'application/json',
+            success: function () {
+                console.log("Adding members successful.")
+                window.location = self.location;
+            }
+        })
+    })
+
 });
+
+

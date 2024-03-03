@@ -35,6 +35,9 @@ router.get('/:id', async (req, res, next) => {
       }, include: {
         boards: {
           where: { deleted_at: null }
+        },
+        workspace_members: {
+          include: true
         }
       }
     })
@@ -98,6 +101,32 @@ router.post('/', async (req, res) => {
     console.error('Error creating the workspace:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-})
+});
+
+router.put('/:id/members', async (req, res, next) => {
+
+  var userId = req.user.id;
+  var workspaceId = req.params.id
+  var members = req.body.users
+
+  console.log(members)
+
+  // todo: check if user is WS member (can update)
+  // todo: forbidden for private wspaces
+
+  try {
+    await prisma.workspace_members.createMany({
+      data: members.map(userId => ({
+        user_id: userId,
+        workspace_id: workspaceId,
+      })),
+      skipDuplicates: true,
+    });
+    res.status(200).send('Workspace deleted successfully');
+  } catch (error) {
+    console.log('Error deleting workspace:', error)
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 module.exports = router;

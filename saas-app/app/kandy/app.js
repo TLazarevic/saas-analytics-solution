@@ -11,6 +11,7 @@ var authRouter = require('./routes/auth');
 var workspaceRouter = require('./routes/workspaces');
 var boardsRouter = require('./routes/boards');
 var subscriptionRouter = require('./routes/subscriptions');
+var userRouter = require('./routes/users');
 
 const auth = require('./middleware/auth');
 
@@ -36,7 +37,7 @@ app.use('/auth', authRouter);
 app.use('/workspaces', auth, workspaceRouter);
 app.use('/boards', auth, boardsRouter);
 app.use('/subscriptions', auth, subscriptionRouter);
-
+app.use('/users', auth, userRouter);
 
 app.use(function (req, res, next) {
   res.status(404).render('404');
