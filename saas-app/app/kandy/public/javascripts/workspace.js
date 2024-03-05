@@ -58,10 +58,15 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.list-group-item', function () {
-        console.log((this).id);
-        $(this).css('background-color', '#6fadc7');
-        $(this).css('class', 'selected');
-        selectedIdsToInvite.add(this.id);
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            $(this).css('background-color', '');
+            selectedIdsToInvite.delete(this.id);
+        } else {
+            $(this).addClass('selected');
+            $(this).css('background-color', '#6fadc7');
+            selectedIdsToInvite.add(this.id);
+        }
     });
 
     $('#addMembersModal').on('hidden.bs.modal', function () {
