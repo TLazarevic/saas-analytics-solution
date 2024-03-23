@@ -13,8 +13,8 @@ model boards {
   name           String           @db.VarChar(255)
   description    String?          @db.VarChar(255)
   is_public      Boolean
-  created_at     DateTime         @db.Timestamp(6)
-  updated_at     DateTime         @db.Timestamp(6)
+  created_at     DateTime         @default(now()) @db.Timestamp(6)
+  updated_at     DateTime         @default(now()) @db.Timestamp(6)
   deleted_at     DateTime?        @db.Timestamp(6)
   workspaces     workspaces       @relation(fields: [workspace_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_boards.workspace_id")
   columns        columns[]

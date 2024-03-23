@@ -1,0 +1,28 @@
+.board-container {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.new-board-card {
+    background-color: #def5ff;
+    margin-left: 40px;
+}
+
+.modal-content {
+    background-color: white;
+    opacity: 1 !important;
+}
+
+.modal-backdrop.show {
+    opacity: 0.5 !important;
+}
+
+.members {
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-left: 40px;
+}
+
+.add-members {
+    margin-left: 2px;
+}

@@ -1,0 +1,73 @@
+.board-name {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    color: #333333;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.board {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+
+.column {
+    flex: 0 0 300px;
+    margin-right: 10px;
+    border: 1px solid #e8c1d2;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f1c3db;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.new_column {
+    flex: 0 0 300px;
+    margin-right: 10px;
+    border: 1px solid #e8c1d2;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #ecc7d1;
+}
+
+.column_header {
+    font-weight: bold;
+    margin: 0;
+    padding: 8px;
+    background-color: #fb9fc1;
+    color: white;
+    text-align: center;
+}
+
+.new_header {
+    font-weight: bold;
+    margin: 0;
+    padding: 8px;
+    background-color: #f88fa9;
+    color: white;
+    text-align: center;
+}
+
+.cards {
+    background-color: #b3788f;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.new_card {
+    background-color: #6fadc7;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+
+.cards:hover {
+    background-color: #f0f0f0;
+}
