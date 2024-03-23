@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortable = new Sortable(
         cards, {
         draggable: '.sortCard',
-        delay: 0,
+        delay: 200,
         mirror: {
             constrainDimensions: true
         },
@@ -67,8 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let newPosition = event.newIndex
         let boardId = window.boardId
 
-        console.log(boardId)
-
         try {
             let response = null
             let body = null
@@ -98,5 +96,15 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error during update:', error);
             // TODO Update UI
         }
+    });
+
+    document.querySelectorAll('.cards').forEach(trigger => {
+        console.log('aaa')
+        trigger.addEventListener('click', function () {
+            console.log('bbb')
+            var targetId = this.getAttribute('data-bs-target');
+            var modal = new bootstrap.Modal(document.querySelector(targetId));
+            modal.show();
+        });
     });
 });

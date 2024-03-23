@@ -20,16 +20,15 @@ block content
               div.sortable_card(id=`${column.id}`)
                 p.column_header #{column.name}
                 each card in column.cards
-                  div.sortCard.cards(id=`${card.id}`)
-                    p(data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal-${card.id}`) #{card.name}
-                      .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal-${card.id}`)
-                        .modal-dialog.modal-md
-                          .modal-content
-                            .modal-header
-                              h4.modal-title #{card.name}
-                              button.btn-close(type='button' data-bs-dismiss='modal')
-                            .modal-body
-                              #{card.description}
+                  div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal-${card.id}`)
+                    p #{card.name}
+                  .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal-${card.id}`)
+                    .modal-dialog.modal-md
+                      .modal-content
+                        .modal-header
+                          h4.modal-title #{card.name}
+                          button.btn-close(type='button' data-bs-dismiss='modal')
+                        .modal-body #{card.description}
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
                 .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)

@@ -96,9 +96,6 @@ router.delete('/:id', async (req, res, next) => {
         }
     });
 
-    console.log(workspace)
-    console.log(userId)
-
     const isMember = workspace.workspace_members.some(member => member.user_id === userId);
 
     if (isMember) {
