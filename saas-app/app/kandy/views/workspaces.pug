@@ -34,7 +34,7 @@ block content
                             .modal-content
                                 .modal-header
                                     h4.modal-title Confirm Delete
-                                    button.btn-close(type='button' data-bs-dismiss='modal') &times;
+                                    button.btn-close(type='button' data-bs-dismiss='modal')
                                 .modal-body
                                     form.form-horizontal.workspace-delete-form(id=`${workspace.id}` name='workspace-delete-form')
                                         .form-group
@@ -42,14 +42,14 @@ block content
                                                 label Are you sure you want to delete Workspace #{workspace.name} ?
                                                 .col-sm-9.offset-sm-3.text-sm-end
                                                     input.btn.btn-primary(type='submit' value='Submit' data-bs-dismiss='modal')
-                                                    button.btn.btn-default(data-bs-dismiss='modal') Cancel
+                                                    button.btn.btn-default(type='button' data-bs-dismiss='modal') Cancel
 
         #newWorkspaceModal.modal.hide.fade(tabindex='-1' aria-labelledby=`new-workspace-modal-label` aria-hidden='true')
             .modal-dialog.modal-md
                 .modal-content
                     .modal-header
                         h4.modal-title Create a Workspace
-                        button.btn-close(type='button' data-bs-dismiss='modal') &times;
+                        button.btn-close(type='button' data-bs-dismiss='modal')
                     .modal-body
                         form.form-horizontal(name='workspace-form' method='post' action='/workspaces/')
                             .form-group

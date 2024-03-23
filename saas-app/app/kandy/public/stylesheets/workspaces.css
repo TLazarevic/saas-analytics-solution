@@ -1,5 +1,6 @@
 .workspace-container {
     display: flex;
+    margin-top: 2rem;
 }
 
 .card {
@@ -23,6 +24,7 @@
 
 .new-workspace-card {
     background-color: #def5ff;
+    margin-left: 40px;
 }
 
 .button-container {

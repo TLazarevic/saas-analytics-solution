@@ -111,10 +111,17 @@ router.put('/:id/members', async (req, res, next) => {
 
   console.log(members)
 
-  // todo: check if user is WS member (can update)
-  // todo: forbidden for private wspaces
 
   try {
+    var workspace = await prisma.workspaces.findFirstOrThrow({
+      where: {
+        id: workspaceId
+      }
+    })
+
+    if (workspace.is_private)
+      res.status(404).send('Cannot add members to private workspaces.');
+
     await prisma.workspace_members.createMany({
       data: members.map(userId => ({
         user_id: userId,
@@ -122,11 +129,52 @@ router.put('/:id/members', async (req, res, next) => {
       })),
       skipDuplicates: true,
     });
-    res.status(200).send('Workspace deleted successfully');
+    res.status(200).send('Members added successfully.');
   } catch (error) {
-    console.log('Error deleting workspace:', error)
+    console.log('Error adding workspace members.', error)
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.get('/:id/search_users/:query', async (req, res) => {
+
+  try {
+    const query = req.params.query;
+    var userId = req.user.id;
+    var workspaceId = req.params.id;
+
+    const workspace_members = await prisma.workspace_members.findMany({
+      where: {
+        workspace_id: workspaceId
+      },
+    });
+
+    if (!workspace_members.some(member => member.user_id === userId)) {
+      res.status(403).json({ error: 'User is not authorized to add members to this workspace.' });
+    }
+
+    const foundUsers = await prisma.users.findMany({
+      take: 5,
+      where: {
+        OR: [
+          { name: { contains: query, mode: 'insensitive' } },
+          { last_name: { contains: query, mode: 'insensitive' } },
+          { email: { contains: query, mode: 'insensitive' } }
+        ],
+        AND: {
+          id: {
+            notIn: workspace_members.map(member => member.user_id)
+          }
+        },
+
+      },
+    });
+    res.status(200).json({ 'users': foundUsers });
+  } catch (error) {
+    console.error('Error retrieving user recommendations.', error);
+    res.status(500).render('error', { error: 'Internal Server Error' });
+  }
+}
+)
 
 module.exports = router;

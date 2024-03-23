@@ -30,7 +30,7 @@ $(document).ready(function () {
         });
 
         if (searchQuery.length >= 2) {
-            fetch("/users/search/" + searchQuery, {
+            fetch(workspace.id + "/search_users/" + searchQuery, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"

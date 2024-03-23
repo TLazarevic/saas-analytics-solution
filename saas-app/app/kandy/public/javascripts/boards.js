@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let columnId = event.data.dragEvent.data.source.id
         let newPosition = event.newIndex
-        let boardId = window.location.href.split('/')[4];
+        let boardId = window.boardId
 
         try {
             let response = null
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             body = JSON.stringify({ 'position': newPosition })
 
-            response = await fetch(`${boardId}/column/${columnId}/move`, {
+            response = await fetch(`/boards/${boardId}/column/${columnId}/move`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let prevColumnId = event.oldContainer.id
         let newColumnId = event.newContainer.id
         let newPosition = event.newIndex
-        let boardId = window.location.href.split('/')[4];
+        let boardId = window.boardId
+
+        console.log(boardId)
 
         try {
             let response = null
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 body = JSON.stringify({ 'position': newPosition })
             }
 
-            response = await fetch(`${boardId}/column/${prevColumnId}/card/${cardId}/move`, {
+            response = await fetch(`/boards/${boardId}/column/${prevColumnId}/card/${cardId}/move`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

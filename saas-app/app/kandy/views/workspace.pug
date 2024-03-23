@@ -10,16 +10,19 @@ block head
 block content
     include navbar.pug
     div.content
+        script.
+            var workspace = !{JSON.stringify(workspace)};
         h1 Workspace #{workspace.name}
-        p.members #{workspace.workspace_members.length} member(s)
-        button.btn.btn-light(data-bs-toggle='modal' role="button" data-bs-target='#addMembersModal') Add Members
+        if (!workspace.is_private)
+            p.members #{workspace.workspace_members.length} member(s)
+                button.btn.btn-light.add-members(data-bs-toggle='modal' role="button" data-bs-target='#addMembersModal') Add Members
         div.board-container
             div.card.new-board-card
                 img.card-img-top
                 div.card-body
                     h5.card-title Create a Board
                     p.card-text
-                    a.btn.btn-primary.btn-submit(data-bs-toggle='modal' role="button" data-bs-target='#newBoardModal') Create
+                    a.btn.btn-primary.btn-create(data-bs-toggle='modal' role="button" data-bs-target='#newBoardModal') Create
             each board in workspace.boards
                 div.card
                     img.card-img-top
@@ -38,7 +41,7 @@ block content
                         .modal-content
                             .modal-header
                                 h4.modal-title Confirm Delete
-                                button.btn-close(type='button' data-bs-dismiss='modal') &times;
+                                button.btn-close(type='button' data-bs-dismiss='modal')
                             .modal-body
                                 form.form-horizontal.board-delete-form(id=`${board.id}` name='board-delete-form')
                                     .form-group
@@ -53,7 +56,7 @@ block content
                 .modal-content
                     .modal-header
                         h4.modal-title Create a Board
-                        button.btn-close(type='button' data-bs-dismiss='modal') &times;
+                        button.btn-close(type='button' data-bs-dismiss='modal')
                     .modal-body
                         form.form-horizontal(name='board-form' method='post' action=`/boards/${workspace.id}`)
                             .form-group
@@ -79,13 +82,12 @@ block content
                 .modal-content
                     .modal-header
                         h5#modalLabel.modal-title Invite Workspace Members
-                        button.close(type='button' data-dismiss='modal' aria-label='Close')
-                        span(aria-hidden='true') &times;
+                        span(aria-hidden='true')
                     .modal-body
                         input#searchBar.form-control.mb-3(type='text' placeholder='Search users...')
 
                         ul.list-group#recommendationsList
 
                     .modal-footer
-                        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
                         button.btn.btn-primary(type='button' id="inviteMembers") Invite Selected
