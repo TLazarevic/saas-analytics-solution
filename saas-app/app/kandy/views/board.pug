@@ -24,20 +24,15 @@ block content
                     .title-container
                       div #{card.name}
                       div.priority-dot
-                        - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? 'ffffd3' : '#6fadc7'
-                        span(style=`color: ${priorityColor};`) •
+                        - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
+                        span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
                   .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal-${card.id}`)
                     .modal-dialog.modal-md
                       .modal-content
                         .modal-header
                           h4.modal-title 
-                            case card.priority
-                              when 'high'
-                                span(style="color: red;") •
-                              when 'medium'
-                                span(style="color: yellow;") •
-                              when 'low'
-                                span(style="color: blue;") •
+                            - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
+                            span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
                             = card.name
                           button.btn-close(type='button' data-bs-dismiss='modal')
                         .modal-body 
