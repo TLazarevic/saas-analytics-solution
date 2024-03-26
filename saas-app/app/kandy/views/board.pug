@@ -21,14 +21,27 @@ block content
                 p.column_header #{column.name}
                 each card in column.cards
                   div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal-${card.id}`)
-                    p #{card.name}
+                    .title-container
+                      div #{card.name}
+                      div.priority-dot
+                        - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? 'ffffd3' : '#6fadc7'
+                        span(style=`color: ${priorityColor};`) •
                   .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal-${card.id}`)
                     .modal-dialog.modal-md
                       .modal-content
                         .modal-header
-                          h4.modal-title #{card.name}
+                          h4.modal-title 
+                            case card.priority
+                              when 'high'
+                                span(style="color: red;") •
+                              when 'medium'
+                                span(style="color: yellow;") •
+                              when 'low'
+                                span(style="color: blue;") •
+                            = card.name
                           button.btn-close(type='button' data-bs-dismiss='modal')
-                        .modal-body #{card.description}
+                        .modal-body 
+                          div #{card.description}
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
                 .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
@@ -48,6 +61,18 @@ block content
                               label.col-sm-3.text-sm-end.col-form-label(for='inputDescription') Description
                               .col-sm-9
                                 input#inputDescription.normal-font-weight(type='text' name='description' autocomplete='description')
+                            .row
+                              label.col-sm-3.text-sm-end.col-form-label(for='inputPriority') Priority
+                              .col-sm-9
+                                form-check.form-check-inline#inputPriority.normal-font-weight
+                                  input.form-check-input(type='checkbox' name='priority' autocomplete='priority' id='new-card-priority-low' value='low')
+                                  label.form-check-label(for='new-card-priority-low') low
+                                form-check.form-check-inline#inputPriority.normal-font-weight
+                                  input.form-check-input(type='checkbox' name='priority' autocomplete='priority' id='new-card-priority-medium' value='medium')
+                                  label.form-check-label(for='new-card-priority-medium') medium
+                                form-check.form-check-inline#inputPriority.normal-font-weight
+                                  input.form-check-input(type='checkbox' name='priority' autocomplete='priority' id='new-card-priority-high' value='high')
+                                  label.form-check-label(for='new-card-priority-high') high
                             .row
                               .col-sm-9.offset-sm-3.text-sm-end
                                 input.btn.btn-primary(type='submit' value='Submit')
