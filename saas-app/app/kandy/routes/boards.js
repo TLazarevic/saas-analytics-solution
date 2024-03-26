@@ -1,7 +1,9 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, priority } = require('@prisma/client');
 const { v4: uuidv4 } = require('uuid');
+const { logger } = require('structlog');
 var express = require('express');
 var router = express.Router();
+
 
 const prisma = new PrismaClient()
 
@@ -169,6 +171,7 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
     const columnId = req.params.columnId;
     const name = req.body.name;
     const description = req.body.description;
+    const priority = req.body.priority;
 
     try {
         const maxPosition = await prisma.cards.aggregate({
@@ -186,7 +189,8 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
                 name: name,
                 description: description,
                 column_id: columnId,
-                position: maxPosition._max.position !== null ? maxPosition._max.position + 1 : 0
+                position: maxPosition._max.position !== null ? maxPosition._max.position + 1 : 0,
+                priority: priority
             }
         });
 
@@ -476,6 +480,69 @@ router.patch('/:id/column/:columnId/move', async (req, res) => {
         res.json({ success: true, result });
     } catch (error) {
         console.error('Error updating card or retrieving board:', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
+router.patch('/:id/priority/:cardId', async (req, res) => {
+
+    try {
+
+        const boardId = req.params.id;
+        const cardId = req.params.cardId;
+
+        const userId = req.user.id
+
+        const newPriority = req.body.priority;
+
+        logger.info("Updating card priority.", { cardId: cardId, boardId: boardId })
+
+        let workspaceId = await prisma.boards.findUnique({
+            where: { id: boardId },
+            select: { workspace_id: true }
+        });
+
+        let isMember = await prisma.workspace_members.findFirst({
+            where: {
+                workspace_id: workspaceId.workspace_id,
+                user_id: userId,
+            },
+            select: { user_id: true }
+        });
+
+        if (isMember) {
+
+            let card = await prisma.cards.findUnique({
+                where: { id: cardId }
+            });
+
+            let prevPriority = card.priority;
+
+            console.log(prevPriority)
+            console.log(newPriority)
+
+            if (newPriority == prevPriority) {
+                logger.info("New priority same as previous, nothing to do.")
+            }
+            else {
+                await prisma.cards.update({
+                    where: {
+                        id: cardId
+                    }, data: {
+                        priority: newPriority
+                    }
+                })
+                logger.info("New priority set.", { cardId: cardId, priority: newPriority })
+            }
+            res.json({ success: true });
+        }
+        else {
+            logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
+            res.render('404')
+        }
+    }
+    catch (error) {
+        console.error('Error updating card.', error);
         res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });

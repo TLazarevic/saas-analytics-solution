@@ -71,3 +71,15 @@
 .cards:hover {
     background-color: #f0f0f0;
 }
+
+.title-container {
+    display: flex;
+    position: relative;
+}
+
+.priority-dot {
+    position: absolute;
+    right: 1rem;
+    font-style: italic;
+    font-size: 10px;
+}

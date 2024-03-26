@@ -23,6 +23,7 @@
     "prisma": "^5.6.0",
     "pug": "^3.0.2",
     "serve-favicon": "^2.5.0",
+    "structlog": "^1.0.5",
     "uuid": "^9.0.1",
     "winston": "^3.11.0"
   },
