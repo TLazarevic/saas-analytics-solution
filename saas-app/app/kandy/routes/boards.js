@@ -1,4 +1,4 @@
-const { PrismaClient, priority } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const { v4: uuidv4 } = require('uuid');
 const { logger } = require('structlog');
 var express = require('express');
