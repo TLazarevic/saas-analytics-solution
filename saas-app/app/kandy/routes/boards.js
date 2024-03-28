@@ -518,9 +518,6 @@ router.patch('/:id/priority/:cardId', async (req, res) => {
 
             let prevPriority = card.priority;
 
-            console.log(prevPriority)
-            console.log(newPriority)
-
             if (newPriority == prevPriority) {
                 logger.info("New priority same as previous, nothing to do.")
             }

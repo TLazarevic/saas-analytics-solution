@@ -97,4 +97,44 @@ document.addEventListener('DOMContentLoaded', function () {
             // TODO Update UI
         }
     });
+
+
+    document.querySelectorAll('.card-details-form').forEach(form => {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const modalId = form.closest('.modal').id;
+            const cardId = modalId.split('_').pop();
+            const boardId = window.boardId
+            const url = `/boards/${boardId}/priority/${cardId}`;
+
+            const selectedPriority = this.querySelector('select[name="priority"]').value;
+
+            const formData = new FormData(form);
+            const jsonData = {};
+            formData.forEach((value, key) => { jsonData[key] = value; });
+
+            fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    });
 });

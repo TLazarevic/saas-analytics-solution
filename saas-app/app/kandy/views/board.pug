@@ -20,23 +20,32 @@ block content
               div.sortable_card(id=`${column.id}`)
                 p.column_header #{column.name}
                 each card in column.cards
-                  div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal-${card.id}`)
+                  div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal_${card.id}`)
                     .title-container
                       div #{card.name}
                       div.priority-dot
                         - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
                         span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
-                  .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal-${card.id}`)
+                  .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal_${card.id}`)
                     .modal-dialog.modal-md
                       .modal-content
                         .modal-header
-                          h4.modal-title 
+                          h4#cardDetailModalLabel.modal-title 
                             - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
                             span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
-                            = card.name
-                          button.btn-close(type='button' data-bs-dismiss='modal')
-                        .modal-body 
-                          div #{card.description}
+                            | #{card.name}
+                          button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                        .modal-body
+                          form.card-details-form
+                            .form-group
+                              label.form-label.mb-2.fw-bold Description
+                              p #{card.description}
+                            .form-group
+                              label.form-label.mb-2.fw-bold Priority
+                              select.form-select(name="priority")
+                                each priority, index in ['low', 'medium', 'high']
+                                  option(value=priority selected=(card.priority == priority)) #{priority}
+                            button.btn.btn-primary.m-2(type='submit') Save
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
                 .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
