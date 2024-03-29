@@ -8,10 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortable = new Sortable(
         cards, {
         draggable: '.sortCard',
-        delay: 70,
+        delay: 50,
         mirror: {
             constrainDimensions: true
         },
+        distance: 5
     }
     )
 
