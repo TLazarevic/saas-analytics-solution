@@ -484,7 +484,7 @@ router.patch('/:id/column/:columnId/move', async (req, res) => {
     }
 });
 
-router.patch('/:id/priority/:cardId', async (req, res) => {
+router.patch('/:id/:cardId', async (req, res) => {
 
     try {
 
@@ -495,7 +495,7 @@ router.patch('/:id/priority/:cardId', async (req, res) => {
 
         const newPriority = req.body.priority;
 
-        logger.info("Updating card priority.", { cardId: cardId, boardId: boardId })
+        logger.info("Modifying card.", { cardId: cardId, boardId: boardId })
 
         let workspaceId = await prisma.boards.findUnique({
             where: { id: boardId },

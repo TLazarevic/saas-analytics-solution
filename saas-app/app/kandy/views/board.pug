@@ -38,14 +38,14 @@ block content
                         .modal-body
                           form.card-details-form
                             .form-group
-                              label.form-label.mb-2.fw-bold Description
-                              p #{card.description}
-                            .form-group
-                              label.form-label.mb-2.fw-bold Priority
-                              select.form-select(name="priority")
-                                each priority, index in ['low', 'medium', 'high']
-                                  option(value=priority selected=(card.priority == priority)) #{priority}
-                            button.btn.btn-primary.m-2(type='submit') Save
+                              .row.mb-3
+                                label.form-label.mb-2.fw-bold Description
+                                p #{card.description}
+                                label.form-label.mb-2.fw-bold Priority
+                                select.form-select(name="priority")
+                                  each priority, index in ['low', 'medium', 'high']
+                                    option(value=priority selected=(card.priority == priority)) #{priority}
+                              button.btn.btn-primary.m-2(type='submit') Save
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
                 .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
@@ -57,29 +57,23 @@ block content
                       .modal-body
                         form.form-horizontal(name='card-form' method='POST' action='/boards/' + board.id + '/column/'+column.id+'/card')
                           .form-group
-                            .row
-                              label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
+                            .row.mb-3
+                              label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputName') Name
                               .col-sm-9
-                                input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
-                            .row
-                              label.col-sm-3.text-sm-end.col-form-label(for='inputDescription') Description
+                                input#inputName.form-control(type='text' name='name', required, autocomplete='name')
+                            .row.mb-3
+                              label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputDescription') Description
                               .col-sm-9
-                                input#inputDescription.normal-font-weight(type='text' name='description' autocomplete='description')
-                            .row
-                              label.col-sm-3.text-sm-end.col-form-label(for='inputPriority') Priority
+                                textarea#inputDescription.form-control(name='description' rows='3' autocomplete='description')
+                            .row.mb-3
+                              label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputPriority') Priority
                               .col-sm-9
-                                form-check.form-check-inline#inputPriority.normal-font-weight
-                                  input.form-check-input(type='checkbox' name='priority' autocomplete='priority' id='new-card-priority-low' value='low')
-                                  label.form-check-label(for='new-card-priority-low') low
-                                form-check.form-check-inline#inputPriority.normal-font-weight
-                                  input.form-check-input(type='checkbox' name='priority' autocomplete='priority' id='new-card-priority-medium' value='medium')
-                                  label.form-check-label(for='new-card-priority-medium') medium
-                                form-check.form-check-inline#inputPriority.normal-font-weight
-                                  input.form-check-input(type='checkbox' name='priority' autocomplete='priority' id='new-card-priority-high' value='high')
-                                  label.form-check-label(for='new-card-priority-high') high
-                            .row
+                                select.form-select(name="priority")
+                                  each priority, index in ['low', 'medium', 'high']
+                                    option(value=priority selected=('low'==priority)) #{priority}
+                            .row.mb-3
                               .col-sm-9.offset-sm-3.text-sm-end
-                                input.btn.btn-primary(type='submit' value='Submit')
+                                input.btn.btn-primary.m-2(type='submit' value='Submit')
                                 button.btn.btn-default(data-bs-dismiss='modal') Cancel
 
           div.column.new_column
@@ -94,11 +88,11 @@ block content
           .modal-body
             form.form-horizontal(name='column-form' method='post' action='/boards/' + board.id + '/column/')
               .form-group
-                .row
+                .row.mb-3
                   label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
                   .col-sm-9
                     input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
-                .row
+                .row.mb-3
                   .col-sm-9.offset-sm-3.text-sm-end
                     input.btn.btn-primary(type='submit' value='Submit')
                     button.btn.btn-default(data-bs-dismiss='modal') Cancel
