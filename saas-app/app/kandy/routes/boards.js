@@ -568,6 +568,11 @@ router.get('/:id/labels', async (req, res) => {
         if (isMember) {
 
             let preset_labels = await prisma.preset_labels.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    color: true,
+                },
                 where: { deleted_at: null }
             });
 
