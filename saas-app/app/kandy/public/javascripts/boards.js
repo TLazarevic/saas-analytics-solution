@@ -108,9 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modalId = form.closest('.modal').id;
             const cardId = modalId.split('_').pop();
             const boardId = window.boardId
-            const url = `/boards/${boardId}/priority/${cardId}`;
-
-            const selectedPriority = this.querySelector('select[name="priority"]').value;
+            const url = `/boards/${boardId}/${cardId}`;
 
             const formData = new FormData(form);
             const jsonData = {};
