@@ -544,4 +544,44 @@ router.patch('/:id/:cardId', async (req, res) => {
     }
 });
 
+router.get('/:id/labels', async (req, res) => {
+
+    try {
+
+        const boardId = req.params.id;
+        const userId = req.user.id
+
+
+        let workspaceId = await prisma.boards.findUnique({
+            where: { id: boardId },
+            select: { workspace_id: true }
+        });
+
+        let isMember = await prisma.workspace_members.findFirst({
+            where: {
+                workspace_id: workspaceId.workspace_id,
+                user_id: userId,
+            },
+            select: { user_id: true }
+        });
+
+        if (isMember) {
+
+            let preset_labels = await prisma.preset_labels.findMany({
+                where: { deleted_at: null }
+            });
+
+            res.json({ labels: preset_labels });
+        }
+        else {
+            logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
+            res.render('404')
+        }
+    }
+    catch (error) {
+        console.error('Error updating card.', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
 module.exports = router;

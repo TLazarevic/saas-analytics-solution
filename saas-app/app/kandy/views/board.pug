@@ -49,7 +49,7 @@ block content
                               button.btn.btn-primary.m-2(type='submit') Save
               div
                 div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
-                .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
+                .modal.new_card_modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
                   .modal-dialog.modal-md
                     .modal-content
                       .modal-header

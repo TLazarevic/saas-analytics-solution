@@ -60,6 +60,8 @@ CREATE TABLE
         CONSTRAINT "FK_columns.board_id" FOREIGN KEY (board_id) REFERENCES boards (id)
     );
 
+CREATE TYPE priority AS ENUM ('low', 'medium', 'high');
+
 CREATE TABLE
     IF NOT EXISTS cards (
         id uuid,
@@ -67,6 +69,7 @@ CREATE TABLE
         name varchar(255) NOT NULL,
         description varchar(255),
         position integer NOT NULL,
+        priority enum,
         due_date timestamp,
         created_at timestamp NOT NULL,
         updated_at timestamp NOT NULL,
@@ -115,6 +118,49 @@ CREATE TABLE
         updated_at timestamp NOT NULL,
         deleted_at timestamp,
         PRIMARY KEY (id)
+    );
+
+INSERT INTO
+    preset_labels (
+        id,
+        name,
+        color,
+        created_at,
+        updated_at,
+        deleted_at
+    )
+VALUES
+    (
+        '78a0ab11-b0ee-4731-92d0-ed2f9f04f57d',
+        'Bug',
+        'red',
+        current_timestamp,
+        current_timestamp,
+        null
+    ),
+    (
+        'e3bb74a8-ba29-443b-98df-1329196ec474',
+        'Enchancement',
+        'green',
+        current_timestamp,
+        current_timestamp,
+        null
+    ),
+    (
+        '949e9bd5-ddb3-4aeb-9e16-28b789de5d1b',
+        'Feature',
+        'blue',
+        current_timestamp,
+        current_timestamp,
+        null
+    ),
+    (
+        '1778bb7c-f5d4-4cc8-af56-0592e6db994f',
+        'Documentation',
+        'purple',
+        current_timestamp,
+        current_timestamp,
+        null
     );
 
 CREATE TABLE

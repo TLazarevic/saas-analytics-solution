@@ -136,4 +136,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     });
+
+    $('.new_card_modal').on('shown.bs.modal', function () {
+
+        const boardId = window.boardId
+
+        $.ajax({
+            url: `/boards/${boardId}/labels`,
+            method: 'GET',
+            success: function (response) {
+                console.log('Fetched labels:', response);
+                // You can also manipulate the modal content here
+            },
+            error: function (xhr, status, error) {
+                // Error handling
+                console.error('Error fetching labels:', status, error);
+            }
+        });
+    });
+
 });
