@@ -197,6 +197,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const form = modal.querySelector('form');
         const existingLabel = Array.from(selectedLabelsContainer.children).find(label => label.dataset.labelId === labelId);
 
+        console.log(labelName)
+        console.log(selectedLabelsContainer)
+
         if (existingLabel) {
             selectedLabelsContainer.removeChild(existingLabel);
             dropdownItem.classList.remove('selected');
@@ -223,6 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'selectedLabels[]';
             hiddenInput.value = labelId;
+            console.log(modal.querySelectorAll('[name="selectedLabels[]"]'))
             form.appendChild(hiddenInput);
 
             dropdownItem.classList.add('selected');

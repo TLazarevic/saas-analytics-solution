@@ -512,8 +512,9 @@ router.patch('/:id/:cardId', async (req, res) => {
         const boardId = req.params.id;
         const cardId = req.params.cardId;
         let rawSelectedLabels = req.body["selectedLabels[]"];
-        const selectedLabels = Array.isArray(rawSelectedLabels) ? rawSelectedLabels : [rawSelectedLabels];
-        let uniqueSelectedLabels = Array.from(new Set(selectedLabels.map(item => item)));
+        let parsedSelectedLabels = rawSelectedLabels ? rawSelectedLabels : []
+        const selectedLabels = Array.isArray(parsedSelectedLabels) ? parsedSelectedLabels : [parsedSelectedLabels];
+        let uniqueSelectedLabels = selectedLabels ? Array.from(new Set(selectedLabels.map(item => item))) : []
 
         const userId = req.user.id
 
@@ -557,8 +558,8 @@ router.patch('/:id/:cardId', async (req, res) => {
                 }
 
                 if (uniqueSelectedLabels) {
-                    const newLabels = Array.isArray(uniqueSelectedLabels) ? uniqueSelectedLabels.filter(item => !card.labeled_cards.map(labeled_card => labeled_card.label_id).includes(item)) : []
-                    const deletedLabels = Array.isArray(card.labeled_cards) ? card.labeled_cards.map(labeled_card => labeled_card.label_id).filter(item => !uniqueSelectedLabels.includes(item)) : []
+                    const newLabels = uniqueSelectedLabels ? uniqueSelectedLabels.filter(item => !card.labeled_cards.map(labeled_card => labeled_card.label_id).includes(item)) : []
+                    const deletedLabels = card.labeled_cards ? card.labeled_cards.map(labeled_card => labeled_card.label_id).filter(item => !uniqueSelectedLabels.includes(item)) : []
 
                     console.log(newLabels)
                     console.log(deletedLabels)
