@@ -83,3 +83,11 @@
     font-style: italic;
     font-size: 10px;
 }
+
+.selected-label {
+    background-color: #fbdcdc;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}

@@ -26,7 +26,7 @@ block content
                       div.priority-dot
                         - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
                         span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
-                  .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal_${card.id}`)
+                  .modal.card-details-modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal_${card.id}`)
                     .modal-dialog.modal-md
                       .modal-content
                         .modal-header
@@ -38,6 +38,16 @@ block content
                         .modal-body
                           form.card-details-form.form-horizontal
                             .form-group
+                              .row.mb-3
+                                .dropdown
+                                  button.dropdownLabelButton.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Labels
+                                  .dropdown-menu(aria-labelledby="dropdownLabelButton")
+                                .selectedLabels
+                                  if card.labeled_cards && card.labeled_cards.length > 0
+                                    each label in card.labeled_cards
+                                      .label.selected-label(id=label.label_id) 
+                                        span.deselect-label #{label.labels.name} x
+                                      input(name='selectedLabels[]' value=`${label.label_id}` hidden=true)
                               .row.mb-3
                                 label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Description
                                 p #{card.description}
@@ -63,6 +73,11 @@ block content
                               .col-sm-9
                                 input#inputName.form-control(type='text' name='name', required, autocomplete='name')
                             .row.mb-3
+                              .dropdown
+                                button.dropdownLabelButton.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Labels
+                                .dropdown-menu(aria-labelledby="dropdownLabelButton")
+                                .selectedLabels
+                            .row.mb-3
                               label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputDescription') Description
                               .col-sm-9
                                 textarea#inputDescription.form-control(name='description' rows='3' autocomplete='description')
@@ -78,9 +93,9 @@ block content
                                 button.btn.btn-default(data-bs-dismiss='modal') Cancel
 
           div.column.new_column
-            p.column_header.new_header(data-bs-toggle='modal' role="button" data-bs-target='#newColumnModal') Add a column
+            p.column_header.new_header(data-bs-toggle='modal' role="button" data-bs-target='#new-column-modal') Add a column
 
-    #newColumnModal.modal.hide.fade(tabindex='-1' aria-labelledby='newColumnModalLabel' aria-hidden='true')
+    #new-column-modal.modal.hide.fade(tabindex='-1' aria-labelledby='new-column-modal' aria-hidden='true')
       .modal-dialog.modal-md
         .modal-content
           .modal-header

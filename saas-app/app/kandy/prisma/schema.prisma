@@ -91,23 +91,15 @@ model labeled_cards {
 
 model labels {
   id            String          @id @db.Uuid
-  board_id      String          @db.Uuid
+  board_id      String?         @db.Uuid
   name          String?         @db.VarChar(255)
   color         color
+  is_preset     Boolean         @default(false)
   created_at    DateTime        @db.Timestamp(6)
   updated_at    DateTime        @db.Timestamp(6)
   deleted_at    DateTime?       @db.Timestamp(6)
   labeled_cards labeled_cards[]
-  boards        boards          @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_labels.board_id")
-}
-
-model preset_labels {
-  id         String    @id @db.Uuid
-  name       String?   @db.VarChar(255)
-  color      color
-  created_at DateTime  @db.Timestamp(6)
-  updated_at DateTime  @db.Timestamp(6)
-  deleted_at DateTime? @db.Timestamp(6)
+  boards        boards?         @relation(fields: [board_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_labels.board_id")
 }
 
 model starred_boards {

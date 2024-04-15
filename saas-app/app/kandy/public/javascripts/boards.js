@@ -137,22 +137,96 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    $('.new_card_modal').on('shown.bs.modal', function () {
+    document.querySelectorAll('.deselect-label').forEach(button => {
+        button.addEventListener('click', function (event) {
+            const modal = this.closest('.modal')
+            const selectedLabelsContainer = this.closest('.modal').querySelector('.selectedLabels');
+            const labelToRemove = this.closest('.selected-label');
+            selectedLabelsContainer.removeChild(labelToRemove);
 
-        const boardId = window.boardId
+            console.log(event.target)
+            let labelName = labelToRemove.textContent;
+            let labelId = labelToRemove.dataset.labelId;
+            toggleLabelSelection(modal, labelName, labelId, event.target);
 
-        $.ajax({
-            url: `/boards/${boardId}/labels`,
-            method: 'GET',
-            success: function (response) {
-                console.log('Fetched labels:', response);
-                // You can also manipulate the modal content here
-            },
-            error: function (xhr, status, error) {
-                // Error handling
-                console.error('Error fetching labels:', status, error);
+        });
+    })
+
+    document.querySelectorAll('.new_card_modal,  .card-details-modal').forEach(modal => {
+
+        const dropdownButton = modal.querySelector('.dropdownLabelButton');
+
+        var dropdownElement = new bootstrap.Dropdown(dropdownButton);
+
+        dropdownButton.addEventListener('click', function (event) {
+            const boardId = window.boardId;
+            let dropdownMenu = dropdownButton.nextElementSibling;
+            dropdownMenu.innerHTML = '';
+
+            $.ajax({
+                url: `/boards/${boardId}/labels`,
+                method: 'GET',
+                success: function (response) {
+                    for (const label of response.labels) {
+                        let labelDiv = document.createElement('div');
+                        labelDiv.className = 'dropdown-item';
+                        labelDiv.textContent = label.name;
+                        labelDiv.dataset.labelId = label.id;
+
+                        dropdownMenu.appendChild(labelDiv);
+                    }
+                    dropdownElement.toggle();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching labels:', status, error);
+                }
+            });
+        });
+
+        modal.querySelector('.dropdown-menu').addEventListener('click', function (event) {
+            if (event.target.matches('.dropdown-item')) {
+                let labelName = event.target.textContent;
+                let labelId = event.target.dataset.labelId;
+                toggleLabelSelection(modal, labelName, labelId, event.target);
             }
         });
     });
+
+    function toggleLabelSelection(modal, labelName, labelId, dropdownItem) {
+        const selectedLabelsContainer = modal.querySelector('.selectedLabels');
+        const form = modal.querySelector('form');
+        const existingLabel = Array.from(selectedLabelsContainer.children).find(label => label.dataset.labelId === labelId);
+
+        if (existingLabel) {
+            selectedLabelsContainer.removeChild(existingLabel);
+            dropdownItem.classList.remove('selected');
+
+            const inputToRemove = form.querySelector(`input[name="selectedLabels[]"][value="${labelId}"]`);
+            form.removeChild(inputToRemove);
+
+            console.log(inputToRemove)
+        } else {
+            let newLabel = document.createElement('div');
+            newLabel.className = 'label selected-label';
+            newLabel.textContent = labelName;
+            newLabel.dataset.labelId = labelId;
+
+            let deselectBtn = document.createElement('span');
+            deselectBtn.textContent = ' x';
+            deselectBtn.className = 'deselect-label';
+            deselectBtn.onclick = () => { selectedLabelsContainer.removeChild(newLabel); form.removeChild(form.querySelector(`input[name="selectedLabels[]"][value="${labelId}"]`)); };
+
+            newLabel.appendChild(deselectBtn);
+            selectedLabelsContainer.appendChild(newLabel);
+
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'selectedLabels[]';
+            hiddenInput.value = labelId;
+            form.appendChild(hiddenInput);
+
+            dropdownItem.classList.add('selected');
+        }
+    }
 
 });
