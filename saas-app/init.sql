@@ -121,10 +121,11 @@ CREATE TABLE
     );
 
 INSERT INTO
-    preset_labels (
+    labels (
         id,
         name,
         color,
+        is_preset,
         created_at,
         updated_at,
         deleted_at
@@ -134,6 +135,7 @@ VALUES
         '78a0ab11-b0ee-4731-92d0-ed2f9f04f57d',
         'Bug',
         'red',
+        True,
         current_timestamp,
         current_timestamp,
         null
@@ -142,6 +144,7 @@ VALUES
         'e3bb74a8-ba29-443b-98df-1329196ec474',
         'Enchancement',
         'green',
+        True,
         current_timestamp,
         current_timestamp,
         null
@@ -150,6 +153,7 @@ VALUES
         '949e9bd5-ddb3-4aeb-9e16-28b789de5d1b',
         'Feature',
         'blue',
+        True,
         current_timestamp,
         current_timestamp,
         null
@@ -158,6 +162,7 @@ VALUES
         '1778bb7c-f5d4-4cc8-af56-0592e6db994f',
         'Documentation',
         'purple',
+        True,
         current_timestamp,
         current_timestamp,
         null
