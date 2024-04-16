@@ -23,6 +23,10 @@ block content
                   div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal_${card.id}`)
                     .title-container
                       div #{card.name}
+                      div.labels
+                      if card.labeled_cards && card.labeled_cards.length > 0
+                        each label in card.labeled_cards
+                          #{label.labels.name}
                       div.priority-dot
                         - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
                         span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
@@ -45,8 +49,9 @@ block content
                                 .selectedLabels
                                   if card.labeled_cards && card.labeled_cards.length > 0
                                     each label in card.labeled_cards
-                                      .label.selected-label(id=label.label_id) 
-                                        span.deselect-label #{label.labels.name} x
+                                      .label.selected-label(data-label-id = label.label_id)
+                                        span.label-name #{label.labels.name}
+                                        span.deselect-label &nbsp;x
                                       input(name='selectedLabels[]' value=`${label.label_id}` hidden=true)
                               .row.mb-3
                                 label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Description

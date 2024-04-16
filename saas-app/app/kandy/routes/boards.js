@@ -594,7 +594,7 @@ router.patch('/:id/:cardId', async (req, res) => {
 
             logger.info("Card updated.", { cardId: cardId })
 
-            res.json({ success: true })
+            res.redirect(`/boards/${boardId}`);
         }
         else {
             logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })

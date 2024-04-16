@@ -112,7 +112,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(form);
             const jsonData = {};
-            formData.forEach((value, key) => { jsonData[key] = value; });
+            formData.forEach((value, key) => {
+                if (jsonData.hasOwnProperty(key)) {
+                    if (!Array.isArray(jsonData[key])) {
+                        jsonData[key] = [jsonData[key]];
+                    }
+                    jsonData[key].push(value);
+                } else {
+                    jsonData[key] = value;
+                }
+            });
+            console.log(jsonData)
+            console.log()
 
             fetch(url, {
                 method: 'PATCH',
@@ -122,10 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify(jsonData),
             })
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                    if (response.ok) {
+                        console.log('Row updated successfully');
+                    } else {
+                        console.error('Failed to update row:', response.message);
                     }
-                    return response.json();
                 })
                 .then(data => {
                     console.log('Success:', data);
@@ -142,11 +154,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const modal = this.closest('.modal')
             const selectedLabelsContainer = this.closest('.modal').querySelector('.selectedLabels');
             const labelToRemove = this.closest('.selected-label');
-            selectedLabelsContainer.removeChild(labelToRemove);
+            const labelName = labelToRemove.querySelector('.label-name').textContent;
+            //selectedLabelsContainer.removeChild(labelToRemove);
 
             console.log(event.target)
-            let labelName = labelToRemove.textContent;
             let labelId = labelToRemove.dataset.labelId;
+            console.log('aaaa')
+            console.log(labelId)
             toggleLabelSelection(modal, labelName, labelId, event.target);
 
         });
@@ -195,20 +209,35 @@ document.addEventListener('DOMContentLoaded', function () {
     function toggleLabelSelection(modal, labelName, labelId, dropdownItem) {
         const selectedLabelsContainer = modal.querySelector('.selectedLabels');
         const form = modal.querySelector('form');
-        const existingLabel = Array.from(selectedLabelsContainer.children).find(label => label.dataset.labelId === labelId);
+        const existingLabel = Array.from(selectedLabelsContainer.children).find(label => label.dataset.labelId == labelId);
 
         console.log(labelName)
         console.log(selectedLabelsContainer)
 
+        console.log('Entering if')
+        console.log(Array.from(selectedLabelsContainer.children)); // To see what children are present
+        console.log(labelId); // To check the value of labelId being compared
+
         if (existingLabel) {
+            console.log('Existing label')
             selectedLabelsContainer.removeChild(existingLabel);
             dropdownItem.classList.remove('selected');
 
             const inputToRemove = form.querySelector(`input[name="selectedLabels[]"][value="${labelId}"]`);
-            form.removeChild(inputToRemove);
+            console.log(labelName)
+            console.log(labelId)
+            console.log(inputToRemove);
+            console.log(form)
+            let formdata = new FormData(form)
+            for (let [key, value] of formdata.entries()) {
+                console.log(`${key}: ${value}`);
+            }
+            inputToRemove.parentNode.removeChild(inputToRemove);
+
 
             console.log(inputToRemove)
         } else {
+            console.log('Creating new selected label')
             let newLabel = document.createElement('div');
             newLabel.className = 'label selected-label';
             newLabel.textContent = labelName;
@@ -226,8 +255,14 @@ document.addEventListener('DOMContentLoaded', function () {
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'selectedLabels[]';
             hiddenInput.value = labelId;
-            console.log(modal.querySelectorAll('[name="selectedLabels[]"]'))
+            console.log(hiddenInput.value)
             form.appendChild(hiddenInput);
+
+            let formdata = new FormData(form)
+            for (let [key, value] of formdata.entries()) {
+                console.log(`${key}: ${value}`);
+            }
+            console.log(modal.querySelectorAll('[name="selectedLabels[]"]'))
 
             dropdownItem.classList.add('selected');
         }
