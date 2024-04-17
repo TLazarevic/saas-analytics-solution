@@ -12,89 +12,140 @@ block content
   body
     include navbar.pug
     h1.board-name #{board.name}
-    div.content
-      div.grid.flex-start-content.board
-        div.grid.flex-start-content.flex-div.sortable_column
-          each column in board.columns
-            div.column.sortColumn(id=`${column.id}`)
-              div.sortable_card(id=`${column.id}`)
-                p.column_header #{column.name}
-                each card in column.cards
-                  div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal_${card.id}`)
-                    .title-container
-                      div #{card.name}
-                      div.priority-dot
-                        - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
-                        span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
-                  .modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal_${card.id}`)
+    .body-content
+      div.content
+        div.grid.flex-start-content.board
+          div.grid.flex-start-content.flex-div.sortable_column
+            each column in board.columns
+              div.column.sortColumn(id=`${column.id}`)
+                div.sortable_card(id=`${column.id}`)
+                  p.column_header #{column.name}
+                  each card in column.cards
+                    div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal_${card.id}`)
+                      .title-container
+                        div #{card.name}
+                        .priority-dot
+                          - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
+                          span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
+                      .labels
+                        if card.labeled_cards && card.labeled_cards.length > 0
+                          i.bi.bi-tags
+                          span.label-card  #{card.labeled_cards[0].labels.name}  
+                          if card.labeled_cards && card.labeled_cards.length > 1
+                            span.label-card + #{card.labeled_cards.length - 1}
+                    .modal.card-details-modal.hide.fade(tabindex='-1' aria-labelledby='cardDetailModalLabel' aria-hidden='true' id=`cardDetailModal_${card.id}`)
+                      .modal-dialog.modal-md
+                        .modal-content
+                          .modal-header
+                            h4#cardDetailModalLabel.modal-title 
+                              - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
+                              span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
+                              | #{card.name}
+                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                          .modal-body
+                            form.card-details-form.form-horizontal
+                              .form-group
+                                .row.mb-3
+                                  .dropdown
+                                    button.dropdownLabelButton.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Labels
+                                    .dropdown-menu(aria-labelledby="dropdownLabelButton")
+                                  .selectedLabels
+                                    if card.labeled_cards && card.labeled_cards.length > 0
+                                      each label in card.labeled_cards
+                                        .label.selected-label(data-label-id = label.label_id)
+                                          span.label-name #{label.labels.name}
+                                          span.deselect-label &nbsp;x
+                                        input(name='selectedLabels[]' value=`${label.label_id}` hidden=true)
+                                .row.mb-3
+                                  label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Description
+                                  p #{card.description}
+                                  label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Priority
+                                  .col-sm-9
+                                    select.form-select(name="priority")
+                                      each priority, index in ['low', 'medium', 'high']
+                                        option(value=priority selected=(card.priority == priority)) #{priority}
+                                button.btn.btn-primary.m-2(type='submit') Save
+                div
+                  div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
+                  .modal.new_card_modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
                     .modal-dialog.modal-md
                       .modal-content
                         .modal-header
-                          h4#cardDetailModalLabel.modal-title 
-                            - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
-                            span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
-                            | #{card.name}
-                          button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                          h4.modal-title Add a card to #{column.name}
+                          button.btn-close(type='button' data-bs-dismiss='modal')
                         .modal-body
-                          form.card-details-form.form-horizontal
+                          form.form-horizontal(name='card-form' method='POST' action='/boards/' + board.id + '/column/'+column.id+'/card')
                             .form-group
                               .row.mb-3
-                                label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Description
-                                p #{card.description}
-                                label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Priority
+                                label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputName') Name
+                                .col-sm-9
+                                  input#inputName.form-control(type='text' name='name', required, autocomplete='name')
+                              .row.mb-3
+                                .dropdown
+                                  button.dropdownLabelButton.btn.btn-secondary.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Labels
+                                  .dropdown-menu(aria-labelledby="dropdownLabelButton")
+                                  .selectedLabels
+                              .row.mb-3
+                                label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputDescription') Description
+                                .col-sm-9
+                                  textarea#inputDescription.form-control(name='description' rows='3' autocomplete='description')
+                              .row.mb-3
+                                label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputPriority') Priority
                                 .col-sm-9
                                   select.form-select(name="priority")
                                     each priority, index in ['low', 'medium', 'high']
-                                      option(value=priority selected=(card.priority == priority)) #{priority}
-                              button.btn.btn-primary.m-2(type='submit') Save
-              div
-                div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
-                .modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
-                  .modal-dialog.modal-md
-                    .modal-content
-                      .modal-header
-                        h4.modal-title Add a card to #{column.name}
-                        button.btn-close(type='button' data-bs-dismiss='modal')
-                      .modal-body
-                        form.form-horizontal(name='card-form' method='POST' action='/boards/' + board.id + '/column/'+column.id+'/card')
-                          .form-group
-                            .row.mb-3
-                              label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputName') Name
-                              .col-sm-9
-                                input#inputName.form-control(type='text' name='name', required, autocomplete='name')
-                            .row.mb-3
-                              label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputDescription') Description
-                              .col-sm-9
-                                textarea#inputDescription.form-control(name='description' rows='3' autocomplete='description')
-                            .row.mb-3
-                              label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputPriority') Priority
-                              .col-sm-9
-                                select.form-select(name="priority")
-                                  each priority, index in ['low', 'medium', 'high']
-                                    option(value=priority selected=('low'==priority)) #{priority}
-                            .row.mb-3
-                              .col-sm-9.offset-sm-3.text-sm-end
-                                input.btn.btn-primary.m-2(type='submit' value='Submit')
-                                button.btn.btn-default(data-bs-dismiss='modal') Cancel
+                                      option(value=priority selected=('low'==priority)) #{priority}
+                              .row.mb-3
+                                .col-sm-9.offset-sm-3.text-sm-end
+                                  input.btn.btn-primary.m-2(type='submit' value='Submit')
+                                  button.btn.btn-default(data-bs-dismiss='modal') Cancel
 
-          div.column.new_column
-            p.column_header.new_header(data-bs-toggle='modal' role="button" data-bs-target='#newColumnModal') Add a column
+            div.column.new_column
+              p.column_header.new_header(data-bs-toggle='modal' role="button" data-bs-target='#new-column-modal') Add a column
 
-    #newColumnModal.modal.hide.fade(tabindex='-1' aria-labelledby='newColumnModalLabel' aria-hidden='true')
-      .modal-dialog.modal-md
-        .modal-content
-          .modal-header
-            h4.modal-title Add a column
-            button.btn-close(type='button' data-bs-dismiss='modal')
-          .modal-body
-            form.form-horizontal(name='column-form' method='post' action='/boards/' + board.id + '/column/')
-              .form-group
-                .row.mb-3
-                  label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
-                  .col-sm-9
-                    input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
-                .row.mb-3
-                  .col-sm-9.offset-sm-3.text-sm-end
-                    input.btn.btn-primary(type='submit' value='Submit')
-                    button.btn.btn-default(data-bs-dismiss='modal') Cancel
+      #new-column-modal.modal.hide.fade(tabindex='-1' aria-labelledby='new-column-modal' aria-hidden='true')
+        .modal-dialog.modal-md
+          .modal-content
+            .modal-header
+              h4.modal-title Add a column
+              button.btn-close(type='button' data-bs-dismiss='modal')
+            .modal-body
+              form.form-horizontal(name='column-form' method='post' action='/boards/' + board.id + '/column/')
+                .form-group
+                  .row.mb-3
+                    label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
+                    .col-sm-9
+                      input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
+                  .row.mb-3
+                    .col-sm-9.offset-sm-3.text-sm-end
+                      input.btn.btn-primary(type='submit' value='Submit')
+                      button.btn.btn-default(data-bs-dismiss='modal') Cancel
+
+      #new-label-modal.modal.hide.fade(tabindex='-1' aria-labelledby='new-label-modal' aria-hidden='true')
+        .modal-dialog.modal-md
+          .modal-content
+            .modal-header
+              h4.modal-title Add a custom label
+              button.btn-close(type='button' data-bs-dismiss='modal')
+            .modal-body
+              form.form-horizontal(id ='new-label-form' name='new-label-form' method='post' action='/boards/' + board.id + '/labels')
+                .form-group
+                  .row.mb-3
+                    label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
+                    .col-sm-9
+                      input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
+                  .row.mb-3
+                    label.col-sm-3.text-sm-end.col-form-label(for='colorSelect') Color
+                    .col-sm-3
+                      select#colorSelect.form-control(name='color', required)
+                        option(value='red') Red
+                        option(value='green') Green
+                        option(value='blue') Blue
+                        option(value='yellow') Yellow
+                        option(value='purple') Purple
+                        option(value='orange') Orange
+                  .row.mb-3
+                    .col-sm-9.offset-sm-3.text-sm-end
+                      input.btn.btn-primary(type='submit' value='Submit')
+                      button.btn.btn-default(data-bs-dismiss='modal') Cancel
 

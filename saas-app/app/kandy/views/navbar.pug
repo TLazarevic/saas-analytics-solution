@@ -8,6 +8,8 @@ body
             span.app-name Kandy
             if (user) 
                 ul
+                    if currentPage === 'boards'
+                        li: a(href='#' data-bs-toggle='modal' data-bs-target='#new-label-modal') New Label
                     li: a(href="/workspaces") Home
                     li: a(href="/subscriptions") Upgrade
                     li: a(href="/auth/logout") Logout

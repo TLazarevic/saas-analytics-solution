@@ -83,3 +83,21 @@
     font-style: italic;
     font-size: 10px;
 }
+
+.selected-label {
+    background-color: #fbdcdc;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.labels {
+    align-self: stretch;
+    text-align: left;
+}
+
+.label-card {
+    font-size: 0.75rem;
+    margin: 0;
+}
