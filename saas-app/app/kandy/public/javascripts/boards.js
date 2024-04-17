@@ -122,8 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     jsonData[key] = value;
                 }
             });
-            console.log(jsonData)
-            console.log()
 
             fetch(url, {
                 method: 'PATCH',
@@ -157,10 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const labelName = labelToRemove.querySelector('.label-name').textContent;
             //selectedLabelsContainer.removeChild(labelToRemove);
 
-            console.log(event.target)
             let labelId = labelToRemove.dataset.labelId;
-            console.log('aaaa')
-            console.log(labelId)
             toggleLabelSelection(modal, labelName, labelId, event.target);
 
         });
@@ -172,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var dropdownElement = new bootstrap.Dropdown(dropdownButton);
 
-        dropdownButton.addEventListener('click', function (event) {
+        dropdownButton.addEventListener('click', function (_event) {
             const boardId = window.boardId;
             let dropdownMenu = dropdownButton.nextElementSibling;
             dropdownMenu.innerHTML = '';
@@ -191,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     dropdownElement.toggle();
                 },
-                error: function (xhr, status, error) {
+                error: function (_xhr, status, error) {
                     console.error('Error fetching labels:', status, error);
                 }
             });
@@ -211,33 +206,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const form = modal.querySelector('form');
         const existingLabel = Array.from(selectedLabelsContainer.children).find(label => label.dataset.labelId == labelId);
 
-        console.log(labelName)
-        console.log(selectedLabelsContainer)
-
-        console.log('Entering if')
-        console.log(Array.from(selectedLabelsContainer.children)); // To see what children are present
-        console.log(labelId); // To check the value of labelId being compared
-
         if (existingLabel) {
-            console.log('Existing label')
             selectedLabelsContainer.removeChild(existingLabel);
             dropdownItem.classList.remove('selected');
 
             const inputToRemove = form.querySelector(`input[name="selectedLabels[]"][value="${labelId}"]`);
-            console.log(labelName)
-            console.log(labelId)
-            console.log(inputToRemove);
-            console.log(form)
-            let formdata = new FormData(form)
-            for (let [key, value] of formdata.entries()) {
-                console.log(`${key}: ${value}`);
-            }
             inputToRemove.parentNode.removeChild(inputToRemove);
 
-
-            console.log(inputToRemove)
         } else {
-            console.log('Creating new selected label')
             let newLabel = document.createElement('div');
             newLabel.className = 'label selected-label';
             newLabel.textContent = labelName;
@@ -255,17 +231,34 @@ document.addEventListener('DOMContentLoaded', function () {
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'selectedLabels[]';
             hiddenInput.value = labelId;
-            console.log(hiddenInput.value)
             form.appendChild(hiddenInput);
-
-            let formdata = new FormData(form)
-            for (let [key, value] of formdata.entries()) {
-                console.log(`${key}: ${value}`);
-            }
-            console.log(modal.querySelectorAll('[name="selectedLabels[]"]'))
 
             dropdownItem.classList.add('selected');
         }
     }
 
+    $('#new-label-form').submit(function (e) {
+        e.preventDefault();
+
+        var formData = $(this).serializeArray();
+        var jsonObject = {};
+
+        $.map(formData, function (n, _i) {
+            jsonObject[n['name']] = n['value'];
+        });
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+                console.log('Success');
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+
+    })
 });

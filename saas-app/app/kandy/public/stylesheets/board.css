@@ -91,3 +91,13 @@
     border-radius: 5px;
     display: inline-block;
 }
+
+.labels {
+    align-self: stretch;
+    text-align: left;
+}
+
+.label-card {
+    font-size: 0.75rem;
+    margin: 0;
+}

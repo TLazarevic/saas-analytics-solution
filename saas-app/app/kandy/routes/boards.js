@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, color } = require('@prisma/client');
 const { v4: uuidv4 } = require('uuid');
 const { logger } = require('structlog');
 var express = require('express');
@@ -48,7 +48,7 @@ router.get('/:id', async (req, res) => {
             });
 
             if (board) {
-                res.render('board', { board: board });
+                res.render('board', { board: board, currentPage: 'boards' });
             }
             else {
                 console.error('Board not found.', boardId);
@@ -158,7 +158,7 @@ router.post('/:id/column', async (req, res) => {
                 },
             });
 
-            res.render('board', { board: board });
+            res.render('board', { board: board, currentPage: 'boards' });
         } catch (error) {
             console.error('Error retrieving board:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -561,12 +561,6 @@ router.patch('/:id/:cardId', async (req, res) => {
                     const newLabels = uniqueSelectedLabels ? uniqueSelectedLabels.filter(item => !card.labeled_cards.map(labeled_card => labeled_card.label_id).includes(item)) : []
                     const deletedLabels = card.labeled_cards ? card.labeled_cards.map(labeled_card => labeled_card.label_id).filter(item => !uniqueSelectedLabels.includes(item)) : []
 
-                    console.log(newLabels)
-                    console.log(deletedLabels)
-                    console.log(card.labeled_cards)
-                    console.log(uniqueSelectedLabels)
-                    console.log(rawSelectedLabels)
-
                     const newLabeledCardsPromises = newLabels.map(labelId => {
                         return prisma.labeled_cards.create({
                             data: {
@@ -648,13 +642,14 @@ router.get('/:id/labels', async (req, res) => {
 });
 
 
-router.post('/:id/card/:cardId/labels/:labelId', async (req, res) => {
+router.post('/:id/labels', async (req, res) => {
 
     try {
 
         const boardId = req.params.id;
         const cardId = req.params.cardId;
-        const labelId = req.params.labelId;
+        const name = req.body.name;
+        const color = req.body.color;
         const userId = req.user.id
 
 
@@ -673,14 +668,16 @@ router.post('/:id/card/:cardId/labels/:labelId', async (req, res) => {
 
         if (isMember) {
 
-            await prisma.labeled_cards.create({
+            await prisma.labels.create({
                 data: {
-                    card_id: cardId,
-                    label_id: labelId
+                    id: uuidv4(),
+                    name: name,
+                    color: color,
+                    board_id: boardId
                 }
             });
 
-            res.json({ success: true });
+            res.redirect(`/boards/${boardId}`);
         }
         else {
             logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
