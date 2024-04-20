@@ -2,11 +2,9 @@ import Sortable from 'https://cdn.jsdelivr.net/npm/@shopify/draggable/build/esm/
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    const paleColors = window.paleColors
-    console.log(JSON.stringify(paleColors))
-
     const columns = document.querySelectorAll('.sortable_column');
     const cards = document.querySelectorAll('.sortable_card');
+    const paleColors = window.paleColors
 
     const sortable = new Sortable(
         cards, {
