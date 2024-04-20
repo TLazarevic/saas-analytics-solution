@@ -86,8 +86,10 @@
 
 .selected-label {
     background-color: #fbdcdc;
+    color: #444242;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
     padding: 5px;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
     border-radius: 5px;
     display: inline-block;
 }
