@@ -47,8 +47,17 @@ router.get('/:id', async (req, res) => {
                 }
             });
 
+            const paleColors = {
+                "red": "#ffcccc",
+                "green": "#ccffcc",
+                "blue": "#ccccff",
+                "yellow": "#ffffcc",
+                "purple": "#e6ccff",
+                "orange": "#ffdfcc"
+            };
+
             if (board) {
-                res.render('board', { board: board, currentPage: 'boards' });
+                res.render('board', { board: board, currentPage: 'boards', paleColors: paleColors });
             }
             else {
                 console.error('Board not found.', boardId);

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const columns = document.querySelectorAll('.sortable_column');
     const cards = document.querySelectorAll('.sortable_card');
+    const paleColors = window.paleColors
 
     const sortable = new Sortable(
         cards, {
@@ -150,10 +151,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.deselect-label').forEach(button => {
         button.addEventListener('click', function (event) {
             const modal = this.closest('.modal')
-            const selectedLabelsContainer = this.closest('.modal').querySelector('.selectedLabels');
             const labelToRemove = this.closest('.selected-label');
             const labelName = labelToRemove.querySelector('.label-name').textContent;
-            //selectedLabelsContainer.removeChild(labelToRemove);
 
             let labelId = labelToRemove.dataset.labelId;
             toggleLabelSelection(modal, labelName, labelId, event.target);
@@ -180,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         let labelDiv = document.createElement('div');
                         labelDiv.className = 'dropdown-item';
                         labelDiv.textContent = label.name;
+                        labelDiv.dataset.color = label.color;
                         labelDiv.dataset.labelId = label.id;
 
                         dropdownMenu.appendChild(labelDiv);
@@ -196,12 +196,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (event.target.matches('.dropdown-item')) {
                 let labelName = event.target.textContent;
                 let labelId = event.target.dataset.labelId;
-                toggleLabelSelection(modal, labelName, labelId, event.target);
+                let labelColor = event.target.dataset.color;
+                toggleLabelSelection(modal, labelName, labelColor, labelId, event.target);
             }
         });
     });
 
-    function toggleLabelSelection(modal, labelName, labelId, dropdownItem) {
+    function toggleLabelSelection(modal, labelName, labelColor, labelId, dropdownItem) {
         const selectedLabelsContainer = modal.querySelector('.selectedLabels');
         const form = modal.querySelector('form');
         const existingLabel = Array.from(selectedLabelsContainer.children).find(label => label.dataset.labelId == labelId);
@@ -214,8 +215,10 @@ document.addEventListener('DOMContentLoaded', function () {
             inputToRemove.parentNode.removeChild(inputToRemove);
 
         } else {
+
             let newLabel = document.createElement('div');
             newLabel.className = 'label selected-label';
+            newLabel.style = `background-color: ${paleColors[labelColor]}`
             newLabel.textContent = labelName;
             newLabel.dataset.labelId = labelId;
 
