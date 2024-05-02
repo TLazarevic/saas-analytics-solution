@@ -15,6 +15,25 @@ var userRouter = require('./routes/users');
 
 const auth = require('./middleware/auth');
 
+var schedule = require('node-schedule');
+
+var userDeletion = schedule.scheduleJob('0 * * * *', function deleteOldUsers() {
+  let current = new Date();
+  current.setDate(current.getDate() - 30);
+
+  prisma.users.deleteMany({
+    where: {
+      deleted_at: {
+        lte: current
+      }
+    }
+  }).then(() => {
+    console.log("Successfully executed scheduled users deletion.");
+  }).catch(err => {
+    console.log("Error while running scheduled users deletion: " + err);
+  });
+});
+
 const prisma = new PrismaClient()
 var app = express();
 var favicon = require('serve-favicon');

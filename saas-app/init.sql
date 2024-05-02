@@ -230,3 +230,18 @@ SELECT
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT
 SELECT
     ON TABLES TO airbyte;
+
+ALTER USER airbyte REPLICATION;
+
+SELECT
+    pg_create_logical_replication_slot ('airbyte_slot', 'pgoutput');
+
+ALTER TABLE users REPLICA IDENTITY DEFAULT;
+
+ALTER TABLE subscriptions REPLICA IDENTITY DEFAULT;
+
+ALTER TABLE subscription_plans REPLICA IDENTITY DEFAULT;
+
+CREATE PUBLICATION airbyte_publication FOR TABLE users,
+subscriptions,
+subscription_plans;
