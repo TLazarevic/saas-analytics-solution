@@ -12,7 +12,16 @@ services:
     volumes:
       - database_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    command: -p 5433
+    command:
+      - postgres
+      - -c
+      - wal_level=logical
+      - -c
+      - max_wal_senders=3
+      - -c
+      - max_replication_slots=1
+      - -p
+      - "5433"
 volumes:
   database_data:
     driver: local

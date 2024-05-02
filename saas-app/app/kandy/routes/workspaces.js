@@ -109,9 +109,6 @@ router.put('/:id/members', async (req, res, next) => {
   var workspaceId = req.params.id
   var members = req.body.users
 
-  console.log(members)
-
-
   try {
     var workspace = await prisma.workspaces.findFirstOrThrow({
       where: {

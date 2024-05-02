@@ -1,0 +1,33 @@
+extends layout
+
+block head
+    link(rel="stylesheet" href="stylesheets/style.css")
+    script(src="/javascripts/profile.js")
+block content
+    include navbar.pug
+    h1.title My Account
+    if (errors)
+        each err in errors
+            .error #{err}
+
+    main.container.mt-5
+        div.row
+            div.col-md-4
+                div.card
+                    div.card-body
+                        h5.card-title #{user.name} #{user.last_name}
+                        p.card-text Username: #{user.username}
+                        p.card-text Email: #{user.email}
+
+            div.col-md-8
+                div.card
+                    div.card-header Biography
+                    div.card-body
+                        p #{user.bio}
+
+            div.col-md-12
+                div.card.mt-3
+                    div.card-header Account info
+                    div.card-body
+                        p.card-text Member since: #{user.created_at.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}
+                        button.btn.btn-danger(id="delete-acc") Delete Account

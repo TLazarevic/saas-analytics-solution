@@ -30,7 +30,7 @@ router.post(
     "/login",
     [
         check("email", "Please enter a valid email.").isEmail(),
-        check("password", "Please enter a valid password.").isLength({
+        check("password", "Password must be at least 6 characters long.").isLength({
             min: 6
         })
     ],
@@ -46,7 +46,7 @@ router.post(
                 where: { email: email }
             });
             if (!user) {
-                res.locals.errors = ["This email is not tied to an account."]
+                res.locals.errors = ["This email is not connected to an account."]
                 return res.status(400).render('login')
             }
 
@@ -60,6 +60,17 @@ router.post(
                     id: user.id
                 }
             };
+            let delete_period = new Date(new Date().setDate(new Date().getDate() - 30))
+            if (user.deleted_at & user.deleted_at < delete_period) {
+                res.locals.errors = ["This email is not connected to an account."]
+                return res.status(400).render('login')
+            }
+            else if (user.deleted_at & user.deleted_at > delete_period) {
+                await prisma.users.update({
+                    where: { id: user.id },
+                    data: { deleted_at: null }
+                });
+            }
             jwt.sign(
                 payload,
                 JWT_SECRET,
@@ -75,8 +86,9 @@ router.post(
                     }).redirect('/workspaces');
                 }
             );
+        }
 
-        } catch (e) {
+        catch (e) {
             console.error(e);
             res.status(500).json({
                 message: "Server Error"
@@ -103,7 +115,7 @@ router.post(
             .not()
             .isEmpty(),
         check("email", "Please enter a valid email.").isEmail(),
-        check("password", "Please enter a valid password.").isLength({
+        check("password", "Password must be at least 6 characters long.").isLength({
             min: 6
         })
     ],
@@ -125,7 +137,7 @@ router.post(
                 where: { email: email }
             });
             if (user) {
-                res.locals.errors = ["Email already taken."]
+                res.locals.errors = ["Email already taken. Try logging in instead."]
                 return res.status(400).render('signup')
             }
 
