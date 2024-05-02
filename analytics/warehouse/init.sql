@@ -1,4 +1,4 @@
--- airflow
+-- airbyte
 CREATE USER
 OR REPLACE analytics;
 
@@ -18,6 +18,9 @@ SELECT
 GRANT INSERT ON analytics.* TO analytics;
 
 GRANT TRUNCATE ON analytics.* TO analytics;
+
+GRANT
+ALTER DELETE ON analytics.* TO analytics;
 
 GRANT CREATE DATABASE ON _airbyte_analytics.* TO analytics;
 

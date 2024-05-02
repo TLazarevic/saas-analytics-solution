@@ -3,3 +3,4 @@ dags/
 plugins/
 /logs/
 /analytics/jitsu/.env
+node_modules/
