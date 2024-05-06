@@ -41,7 +41,7 @@ block content
                             h4#cardDetailModalLabel.modal-title 
                               - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
                               span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
-                              | #{card.name}
+                              span.editable(contenteditable="false") #{card.name}
                             button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                           .modal-body
                             form.card-details-form.form-horizontal
@@ -58,14 +58,17 @@ block content
                                           span.deselect-label &nbsp;x
                                         input(name='selectedLabels[]' value=`${label.label_id}` hidden=true)
                                 .row.mb-3
-                                  label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Description
-                                  p #{card.description}
+                                  label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputDescription') Description
+                                  .col-sm-9
+                                    textarea#inputDescription.form-control(name='description' rows='3' autocomplete='description') #{card.description}
+                                .row.mb-3
                                   label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Priority
                                   .col-sm-9
                                     select.form-select(name="priority")
                                       each priority, index in ['low', 'medium', 'high']
                                         option(value=priority selected=(card.priority == priority)) #{priority}
                                 button.btn.btn-primary.m-2(type='submit') Save
+                                button.btn.btn-danger.m-2.archive-card-btn(type='button') Archive
                 div
                   div.cards.new_card(data-bs-toggle='modal' role="button" data-bs-target=`#newCard-modal-${column.id}`) Add a card
                   .modal.new_card_modal.hide.fade(tabindex='-1' aria-labelledby=`newCard-modal-${column.id}-label` aria-hidden='true' id=`newCard-modal-${column.id}`)
