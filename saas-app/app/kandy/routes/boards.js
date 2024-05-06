@@ -33,6 +33,7 @@ router.get('/:id', async (req, res) => {
                         orderBy: { position: 'asc' },
                         include: {
                             cards: {
+                                where: { archived_at: null },
                                 orderBy: { position: 'asc' },
                                 include: {
                                     labeled_cards: {
@@ -528,6 +529,7 @@ router.patch('/:id/:cardId', async (req, res) => {
         const userId = req.user.id
 
         const newPriority = req.body.priority;
+        const newDescription = req.body.description;
 
         logger.info("Modifying card.", { cardId: cardId, boardId: boardId })
 
@@ -554,17 +556,14 @@ router.patch('/:id/:cardId', async (req, res) => {
                     throw new Error('Card not found');
                 }
 
-                let prevPriority = card.priority;
-
-                if (newPriority !== prevPriority) {
-                    await prisma.cards.update({
-                        where: {
-                            id: cardId
-                        }, data: {
-                            priority: newPriority
-                        }
-                    })
-                }
+                await prisma.cards.update({
+                    where: {
+                        id: cardId
+                    }, data: {
+                        priority: newPriority,
+                        description: newDescription
+                    }
+                })
 
                 if (uniqueSelectedLabels) {
                     const newLabels = uniqueSelectedLabels ? uniqueSelectedLabels.filter(item => !card.labeled_cards.map(labeled_card => labeled_card.label_id).includes(item)) : []
@@ -606,6 +605,126 @@ router.patch('/:id/:cardId', async (req, res) => {
     }
     catch (error) {
         console.error('Error updating card.', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
+router.delete('/:id/:cardId', async (req, res) => {
+
+    try {
+
+        const boardId = req.params.id;
+        const cardId = req.params.cardId;
+
+        const userId = req.user.id
+
+        logger.info("Archiving card.", { cardId: cardId, boardId: boardId })
+
+        let workspaceId = await prisma.boards.findUnique({
+            where: { id: boardId },
+            select: { workspace_id: true }
+        });
+
+        let isMember = await prisma.workspace_members.findFirst({
+            where: {
+                workspace_id: workspaceId.workspace_id,
+                user_id: userId,
+            },
+            select: { user_id: true }
+        });
+
+        if (isMember) {
+            await prisma.$transaction(async (prisma) => {
+                let card = await prisma.cards.findUnique({
+                    where: { id: cardId }, include: { labeled_cards: true }
+                });
+
+                if (!card) {
+                    throw new Error('Card not found.', { cardId: cardId });
+                }
+
+                await prisma.cards.update({
+                    where: {
+                        id: cardId
+                    }, data: {
+                        archived_at: new Date()
+                    }
+                })
+
+            })
+
+            logger.info("Card archived.", { cardId: cardId })
+
+            res.redirect(`/boards/${boardId}`);
+        }
+        else {
+            logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
+            res.render('404')
+        }
+    }
+    catch (error) {
+        console.error('Error archiving card.', error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+});
+
+router.patch('/:id/:cardId/rename', async (req, res) => {
+
+    try {
+
+        const boardId = req.params.id;
+        const cardId = req.params.cardId;
+
+        const userId = req.user.id;
+
+        const newName = req.body.name;
+
+        logger.info("Renaming card.", { cardId: cardId, boardId: boardId })
+
+        let workspaceId = await prisma.boards.findUnique({
+            where: { id: boardId },
+            select: { workspace_id: true }
+        });
+
+        let isMember = await prisma.workspace_members.findFirst({
+            where: {
+                workspace_id: workspaceId.workspace_id,
+                user_id: userId,
+            },
+            select: { user_id: true }
+        });
+
+        if (isMember) {
+            await prisma.$transaction(async (prisma) => {
+                let card = await prisma.cards.findUnique({
+                    where: { id: cardId }, include: { labeled_cards: true }
+                });
+
+                if (!card) {
+                    throw new Error('Card not found.', { cardId: cardId });
+                }
+
+                await prisma.cards.update({
+                    where: {
+                        id: cardId
+                    }, data: {
+                        name: newName
+                    }
+                })
+
+            })
+
+            logger.info("Card renamed.", { cardId: cardId })
+
+            res.json({ success: true, result });
+        }
+        else {
+            logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
+            res.render('404')
+        }
+    }
+    catch (error) {
+        console.error('Error renaming card.', error);
         res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });

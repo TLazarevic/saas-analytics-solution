@@ -160,6 +160,83 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })
 
+
+    document.querySelectorAll('.archive-card-btn').forEach(btn => {
+        btn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const modalId = event.target.closest('.modal').id;
+            const cardId = modalId.split('_').pop();
+            const boardId = window.boardId;
+            const url = `/boards/${boardId}/${cardId}`;
+
+            fetch(url, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Card archived successfully');
+                    } else {
+                        console.error('Failed to archive card:', response.message);
+                    }
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+    })
+
+    document.querySelectorAll('.editable').forEach(editableSpan => {
+
+        editableSpan.addEventListener('click', function () {
+            this.contentEditable = "true";
+            this.focus();
+        });
+
+        editableSpan.addEventListener('blur', function () {
+            this.contentEditable = "false";
+
+            const modalId = event.target.closest('.modal').id;
+            const cardId = modalId.split('_').pop();
+            const boardId = window.boardId;
+            const url = `/boards/${boardId}/${cardId}/rename`;
+
+            fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ "name": this.textContent }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Row updated successfully');
+                    } else {
+                        console.error('Failed to update row:', response.message);
+                    }
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+        editableSpan.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.blur();
+            }
+        });
+    });
+
     document.querySelectorAll('.new_card_modal,  .card-details-modal').forEach(modal => {
 
         const dropdownButton = modal.querySelector('.dropdownLabelButton');
