@@ -170,8 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const boardId = window.boardId;
             const url = `/boards/${boardId}/${cardId}`;
 
-            console.log('deleting')
-
             fetch(url, {
                 method: 'DELETE',
             })
