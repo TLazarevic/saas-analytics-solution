@@ -20,7 +20,9 @@ block content
             each column in board.columns
               div.column.sortColumn(id=`${column.id}`)
                 div.sortable_card(id=`${column.id}`)
-                  p.column_header #{column.name}
+                  p.column_header
+                    span.column-name.editable #{column.name}
+                    span.archive-column x
                   each card in column.cards
                     div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal_${card.id}`)
                       .title-container
@@ -40,8 +42,8 @@ block content
                           .modal-header
                             h4#cardDetailModalLabel.modal-title 
                               - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
-                              span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
-                              span.editable(contenteditable="false") #{card.name}
+                              span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 30px; margin-right: 5px;`) •
+                              span.editable.card-name(contenteditable="false") #{card.name}
                             button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                           .modal-body
                             form.card-details-form.form-horizontal
@@ -119,7 +121,7 @@ block content
                   .row.mb-3
                     label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name
                     .col-sm-9
-                      input#inputName.normal-font-weight(type='text' name='name', required, autocomplete='name')
+                      input#inputName.form-control(type='text' name='name', required, autocomplete='name')
                   .row.mb-3
                     .col-sm-9.offset-sm-3.text-sm-end
                       input.btn.btn-primary(type='submit' value='Submit')

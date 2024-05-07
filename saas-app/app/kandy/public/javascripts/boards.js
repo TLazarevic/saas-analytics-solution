@@ -21,10 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
         columns, {
         draggable: '.sortColumn',
         handle: ".column_header",
-        delay: 0,
+        delay: 50,
         mirror: {
             constrainDimensions: true
         },
+        distance: 5
     }
     )
 
@@ -188,10 +189,37 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error:', error);
                 });
         });
-
     })
 
-    document.querySelectorAll('.editable').forEach(editableSpan => {
+    document.querySelectorAll('.archive-column').forEach(btn => {
+        btn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const columnId = event.target.closest('.sortable_card').id;
+            const boardId = window.boardId;
+            const url = `/boards/${boardId}/column/${columnId}`;
+
+            fetch(url, {
+                method: 'DELETE',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Column archived successfully');
+                    } else {
+                        console.error('Failed to archive column:', response.message);
+                    }
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    })
+
+    document.querySelectorAll('.editable.card-name').forEach(editableSpan => {
 
         editableSpan.addEventListener('click', function () {
             this.contentEditable = "true";
@@ -218,6 +246,51 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log('Row updated successfully');
                     } else {
                         console.error('Failed to update row:', response.message);
+                    }
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+        editableSpan.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.blur();
+            }
+        });
+    });
+
+    document.querySelectorAll('.editable.column-name').forEach(editableSpan => {
+
+        editableSpan.addEventListener('dblclick', function () {
+            this.contentEditable = "true";
+            this.focus();
+        });
+
+        editableSpan.addEventListener('blur', function () {
+            this.contentEditable = "false";
+
+            const columnId = event.target.closest('.sortable_card').id;
+            const boardId = window.boardId;
+            const url = `/boards/${boardId}/column/${columnId}/rename`;
+
+            fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ "name": this.textContent }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Column renamed successfully');
+                    } else {
+                        console.error('Failed to rename column:', response.message);
                     }
                 })
                 .then(data => {

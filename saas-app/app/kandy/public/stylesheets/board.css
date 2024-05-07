@@ -77,11 +77,23 @@
     position: relative;
 }
 
+.column_header {
+    display: flex;
+    position: relative;
+}
+
 .priority-dot {
     position: absolute;
     right: 1rem;
-    font-style: italic;
+    font-size: 20px;
+    align-self: center;
+}
+
+.archive-column {
+    position: absolute;
+    right: 1rem;
     font-size: 10px;
+    align-self: center;
 }
 
 .selected-label {
