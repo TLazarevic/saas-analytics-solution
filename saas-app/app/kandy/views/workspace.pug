@@ -12,6 +12,7 @@ block content
         script.
             var workspace = !{JSON.stringify(workspace)};
         h1 Workspace #{workspace.name}
+        div#message
         if (!workspace.is_private)
             p.members #{workspace.workspace_members.length} member(s)
                 button.btn.btn-light.add-members(data-bs-toggle='modal' role="button" data-bs-target='#addMembersModal') Add Members
@@ -57,7 +58,7 @@ block content
                         h4.modal-title Create a Board
                         button.btn-close(type='button' data-bs-dismiss='modal')
                     .modal-body
-                        form.form-horizontal(name='board-form' method='post' action=`/boards/${workspace.id}`)
+                        form.form-horizontal(id='board-form' name='board-form')
                             .form-group
                                 .row
                                     label.col-sm-3.text-sm-end.col-form-label(for='inputName') Name

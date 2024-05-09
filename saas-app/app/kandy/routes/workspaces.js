@@ -109,27 +109,57 @@ router.put('/:id/members', async (req, res, next) => {
   var workspaceId = req.params.id
   var members = req.body.users
 
-  try {
-    var workspace = await prisma.workspaces.findFirstOrThrow({
-      where: {
-        id: workspaceId
+  const isMember = await prisma.workspace_members.findFirst({
+    where: {
+      workspace_id: workspaceId,
+      user_id: userId,
+    },
+    select: { user_id: true }
+  });
+
+  if (isMember) {
+
+    try {
+      var workspace = await prisma.workspaces.findFirstOrThrow({
+        where: {
+          id: workspaceId
+        }, include: { workspace_members: true }
+      })
+
+      if (workspace.is_private) {
+        res.status(404).send('Cannot add members to private workspaces.')
+        return
       }
-    })
 
-    if (workspace.is_private)
-      res.status(404).send('Cannot add members to private workspaces.');
+      const userSubscription = await prisma.subscriptions.findFirst({ where: { user_id: userId, cancelled_at: null }, include: { subscription_plan: true } })
 
-    await prisma.workspace_members.createMany({
-      data: members.map(userId => ({
-        user_id: userId,
-        workspace_id: workspaceId,
-      })),
-      skipDuplicates: true,
-    });
-    res.status(200).send('Members added successfully.');
-  } catch (error) {
-    console.log('Error adding workspace members.', error)
-    res.status(500).json({ error: 'Internal Server Error' });
+      if (userSubscription.subscription_plan.name == 'free' | userSubscription.subscription_plan.name == 'silver') {
+        const member_count = workspace.workspace_members.length
+
+        if ((userSubscription.subscription_plan.name == 'free' & member_count >= 10) | (userSubscription.subscription_plan.name == 'silver' & member_count >= 100)) {
+          console.warn('Member limit reached.');
+          res.locals.errors = ['Member limit reached.']
+          res.status(400).json({ error: 'Member limit reached. Upgrade to add more members.' })
+          return
+        }
+      }
+
+      await prisma.workspace_members.createMany({
+        data: members.map(userId => ({
+          user_id: userId,
+          workspace_id: workspaceId,
+        })),
+        skipDuplicates: true,
+      });
+      res.status(200).send('Members added successfully.');
+    } catch (error) {
+      console.log('Error adding workspace members.', error)
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+  else {
+    logger.info("User is not authorised to perform this action.", { userId: userId })
+    res.render('404')
   }
 });
 

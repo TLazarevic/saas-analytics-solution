@@ -79,23 +79,65 @@ router.post('/:workspaceId', async (req, res) => {
     var name = req.body["name"]
     var decription = req.body["description"]
     var privacy = req.body["privacy"] ? true : false
-    var workspace_id = req.params["workspaceId"]
+    var workspaceId = req.params["workspaceId"]
     var id = uuidv4()
 
-    try {
-        await prisma.boards.create({
-            data: {
-                id: id,
-                name: name,
-                description: decription,
-                is_public: !privacy,
-                workspace_id: workspace_id
+    const isMember = await prisma.workspace_members.findFirst({
+        where: {
+            workspace_id: workspaceId,
+            user_id: userId,
+        },
+        select: { user_id: true }
+    });
+
+    if (isMember) {
+        const userSubscription = await prisma.subscriptions.findFirst({ where: { user_id: userId, cancelled_at: null }, include: { subscription_plan: true } })
+
+        if (userSubscription.subscription_plan.name == 'free') {
+
+            const workspaces = await prisma.workspaces.findMany({
+                where: {
+                    deleted_at: null,
+                    workspace_members: {
+                        some: {
+                            user_id: userId
+                        }
+                    }
+                }, include: { boards: true }
+            })
+
+            const board_count = workspaces.reduce((total, workspace) => {
+                const activeBoards = workspace.boards.filter(board => board.deleted_at == null);
+                return total + activeBoards.length;
+            }, 0);
+
+            if (board_count >= 5) {
+                console.warn('Board limit reached.');
+                res.locals.errors = ['Board limit reached.']
+                res.status(400).json({ error: 'Board limit reached. Upgrade to create more boards.' })
+                return
             }
-        })
-        res.redirect('/workspaces/' + workspace_id)
-    } catch (error) {
-        console.error('Error creating the workspace:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+
+        }
+
+        try {
+            await prisma.boards.create({
+                data: {
+                    id: id,
+                    name: name,
+                    description: decription,
+                    is_public: !privacy,
+                    workspace_id: workspaceId
+                }
+            })
+            res.redirect('/workspaces/' + workspaceId)
+        } catch (error) {
+            console.error('Error creating the workspace:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    } else {
+        logger.info("User is not authorised to perform this action.", { userId: userId })
+        res.render('404')
     }
 })
 
