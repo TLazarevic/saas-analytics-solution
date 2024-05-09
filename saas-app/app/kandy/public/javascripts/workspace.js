@@ -90,6 +90,14 @@ $(document).ready(function () {
             success: function () {
                 console.log("Adding members successful.")
                 window.location = self.location;
+            },
+            error: function (xhr) {
+                console.log("Adding members failed.")
+                if (xhr.status === 400) {
+                    $('#message').text(xhr.responseJSON.error);
+                } else {
+                    $('#message').text('An unexpected error occurred');
+                }
             }
         })
     })
