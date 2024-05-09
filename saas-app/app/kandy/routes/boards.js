@@ -113,7 +113,8 @@ router.post('/:workspaceId', async (req, res) => {
 
             if (board_count >= 5) {
                 console.warn('Board limit reached.');
-                res.status(400).json({ error: 'Board limit reached.' });
+                res.locals.errors = ['Board limit reached.']
+                res.status(400).json({ error: 'Board limit reached. Upgrade to create more boards.' })
                 return
             }
 

@@ -94,6 +94,30 @@ $(document).ready(function () {
         })
     })
 
+    $('#board-form').submit(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var workspaceId = workspace.id;
+        console.log("Creating a board in workspace:", workspaceId);
+
+        $.ajax({
+            url: `/boards/${workspaceId}`,
+            type: 'POST',
+            success: function () {
+                console.log("Board created successfuly.")
+                window.location.reload();
+            },
+            error: function (xhr) {
+                if (xhr.status === 400) {
+                    $('#message').text(xhr.responseJSON.error);
+                } else {
+                    $('#message').text('An unexpected error occurred');
+                }
+            }
+        })
+    })
+
 });
 
 
