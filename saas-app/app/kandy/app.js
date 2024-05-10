@@ -35,10 +35,14 @@ var userDeletion = schedule.scheduleJob('0 * * * *', function deleteOldUsers() {
 });
 
 const prisma = new PrismaClient()
+
+process.env.PORT = 8083;
+
 var app = express();
 var favicon = require('serve-favicon');
 
 app.use(express.json());
+
 app.use('/public', express.static('public'));
 
 app.set('views', path.join(__dirname, 'views'));

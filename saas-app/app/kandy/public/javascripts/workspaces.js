@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('.workspace-delete-form').submit(function (e) {
         e.preventDefault();
         e.stopPropagation();

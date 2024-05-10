@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@auth/express": "^0.2.0",
+    "@jitsu/js": "^1.9.3",
+    "@jitsu/sdk-js": "^3.1.5",
     "@prisma/client": "^5.6.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
