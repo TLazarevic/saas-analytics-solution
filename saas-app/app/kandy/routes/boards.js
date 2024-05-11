@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const { v4: uuidv4 } = require('uuid');
 const { logger } = require('structlog');
+var analytics = require('../util/analytics')
 var express = require('express');
 var router = express.Router();
 
@@ -242,8 +243,10 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
             }
         })
 
+        let card = null;
+
         await prisma.$transaction(async (prisma) => {
-            const card = await prisma.cards.create({
+            card = await prisma.cards.create({
                 data: {
                     id: uuidv4(),
                     name: name,
@@ -268,23 +271,9 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
 
         });
 
-        try {
-            const board = await prisma.boards.findUnique({
-                where: { id: boardId },
-                include: {
-                    columns: {
-                        include: {
-                            cards: true,
-                        },
-                    },
-                },
-            });
+        analytics.track("Task Created", { board_id: boardId, card_id: card.id });
+        res.status(201).json(card);
 
-            res.redirect(`/boards/${boardId}`);
-        } catch (error) {
-            console.error('Error retrieving board:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
     } catch (error) {
         console.error('Error creating card:', error);
         res.status(500).json({ error: 'Internal Server Error' });
