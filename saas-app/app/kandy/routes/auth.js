@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const auth = require('../middleware/auth');
 const dayjs = require("dayjs");
+var analytics = require('../util/analytics')
 
 const prisma = new PrismaClient()
 
@@ -79,6 +80,9 @@ router.post(
                 },
                 (err, token) => {
                     if (err) throw err;
+
+                    analytics.identify(user.id)
+
                     res.cookie("kandyCookie", token, {
                         secure: process.env.NODE_ENV !== "development",
                         httpOnly: true,
