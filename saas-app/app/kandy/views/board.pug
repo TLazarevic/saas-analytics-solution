@@ -13,6 +13,7 @@ block content
   body
     include navbar.pug
     h1.board-name #{board.name}
+    div#message
     .body-content
       div.content
         div.grid.flex-start-content.board
@@ -26,7 +27,7 @@ block content
                   each card in column.cards
                     div.sortCard.cards(id=`${card.id}` data-bs-toggle='modal' role="button" data-bs-target=`#cardDetailModal_${card.id}`)
                       .title-container
-                        div #{card.name}
+                        div.card-name #{card.name}
                         .priority-dot
                           - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
                           span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`) •
@@ -43,7 +44,7 @@ block content
                             h4#cardDetailModalLabel.modal-title 
                               - var priorityColor = card.priority === 'high' ? '#f88fa9' : card.priority === 'medium' ? '#ffffd3' : '#6fadc7'
                               span(style=`color: ${priorityColor}; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 30px; margin-right: 5px;`) •
-                              span.editable.card-name(contenteditable="false") #{card.name}
+                              span.editable.card-name-details(contenteditable="false") #{card.name}
                             button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                           .modal-body
                             form.card-details-form.form-horizontal
@@ -80,7 +81,7 @@ block content
                           h4.modal-title Add a card to #{column.name}
                           button.btn-close(type='button' data-bs-dismiss='modal')
                         .modal-body
-                          form.form-horizontal(name='card-form' method='POST' action='/boards/' + board.id + '/column/'+column.id+'/card')
+                          form.form-horizontal(id='new-card-form' name='new-card-form' method='POST' action='/boards/' + board.id + '/column/'+column.id+'/card')
                             .form-group
                               .row.mb-3
                                 label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputName') Name

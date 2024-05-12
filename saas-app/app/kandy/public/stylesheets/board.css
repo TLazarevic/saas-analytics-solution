@@ -115,3 +115,28 @@
     font-size: 0.75rem;
     margin: 0;
 }
+
+.card-name {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.card-name-details {
+    width: 400px;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+    text-overflow: clip;
+    display: inline-block;
+}
+
+#message {
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-left: 40px;
+    color: red;
+}

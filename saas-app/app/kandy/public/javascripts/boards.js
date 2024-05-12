@@ -101,6 +101,50 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    document.querySelectorAll('#new-card-form').forEach(form => {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const url = form.action
+
+            const formData = new FormData(form);
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                if (jsonData.hasOwnProperty(key)) {
+                    if (!Array.isArray(jsonData[key])) {
+                        jsonData[key] = [jsonData[key]];
+                    }
+                    jsonData[key].push(value);
+                } else {
+                    jsonData[key] = value;
+                }
+            });
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Card created successfully');
+                        window.location.reload();
+                    } else {
+                        if (response.status === 400) {
+                            $('#message').text(xhr.responseJSON.error);
+                        } else {
+                            $('#message').text('An unexpected error occurred');
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.error('Failed to create card.', error);
+                });
+        });
+    });
 
     document.querySelectorAll('.card-details-form').forEach(form => {
         form.addEventListener('submit', function (event) {
@@ -219,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })
 
-    document.querySelectorAll('.editable.card-name').forEach(editableSpan => {
+    document.querySelectorAll('.editable.card-name-details').forEach(editableSpan => {
 
         editableSpan.addEventListener('click', function () {
             this.contentEditable = "true";
@@ -272,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.focus();
         });
 
-        editableSpan.addEventListener('blur', function () {
+        editableSpan.addEventListener('blur', function (event) {
             this.contentEditable = "false";
 
             const columnId = event.target.closest('.sortable_card').id;

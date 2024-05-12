@@ -11,7 +11,7 @@ async function track(event_name, properties) {
 }
 
 async function identify(user_id) {
-    console.log("Identifying user for analytic pirposes.", user_id)
+    console.log("Identifying user for analytics.", user_id)
     await jitsu.identify(user_id);
 }
 

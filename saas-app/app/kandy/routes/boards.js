@@ -786,6 +786,8 @@ router.patch('/:id/:cardId/rename', async (req, res) => {
         });
 
         if (isMember) {
+            let updatedCard = null
+
             await prisma.$transaction(async (prisma) => {
                 let card = await prisma.cards.findUnique({
                     where: { id: cardId }, include: { labeled_cards: true }
@@ -795,7 +797,7 @@ router.patch('/:id/:cardId/rename', async (req, res) => {
                     throw new Error('Card not found.', { cardId: cardId });
                 }
 
-                await prisma.cards.update({
+                updatedCard = await prisma.cards.update({
                     where: {
                         id: cardId
                     }, data: {
@@ -807,7 +809,7 @@ router.patch('/:id/:cardId/rename', async (req, res) => {
 
             logger.info("Card renamed.", { cardId: cardId })
 
-            res.json({ success: true, result });
+            res.status(200).json(updatedCard);
         }
         else {
             logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
