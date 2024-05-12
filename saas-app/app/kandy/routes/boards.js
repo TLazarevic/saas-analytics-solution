@@ -292,7 +292,7 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
 
             });
 
-            analytics.track("Task Created", { board_id: boardId, card_id: card.id });
+            analytics.track("Task Created", { workspace_id: workspace.id, board_id: boardId, card_id: card.id, name: card.name });
             res.status(201).json(card);
 
         } catch (error) {
