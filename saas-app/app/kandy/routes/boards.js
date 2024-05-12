@@ -226,6 +226,7 @@ router.post('/:id/column', async (req, res) => {
 router.post('/:id/column/:columnId/card', async (req, res) => {
     const boardId = req.params.id;
     const columnId = req.params.columnId;
+
     const name = req.body.name;
     const description = req.body.description;
     const priority = req.body.priority;
@@ -233,50 +234,75 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
     const selectedLabels = Array.isArray(rawSelectedLabels) ? rawSelectedLabels : [rawSelectedLabels];
     let uniqueSelectedLabels = Array.from(new Set(selectedLabels.map(item => item)));
 
-    try {
-        const maxPosition = await prisma.cards.aggregate({
-            where: {
-                column_id: columnId,
-            },
-            _max: {
-                position: true,
-            }
-        })
+    const userId = req.user.id
 
-        let card = null;
+    workspace = await prisma.workspaces.findFirst({
+        where: {
+            boards: { some: { id: boardId } }
+        },
+        include: {
+            workspace_members: true
+        }
+    });
 
-        await prisma.$transaction(async (prisma) => {
-            card = await prisma.cards.create({
-                data: {
-                    id: uuidv4(),
-                    name: name,
-                    description: description,
+    let isMember = await prisma.workspace_members.findFirst({
+        where: {
+            workspace_id: workspace.id,
+            user_id: userId,
+        },
+        select: { user_id: true }
+    });
+
+    if (isMember) {
+        try {
+            const maxPosition = await prisma.cards.aggregate({
+                where: {
                     column_id: columnId,
-                    position: maxPosition._max.position !== null ? maxPosition._max.position + 1 : 0,
-                    priority: priority
+                },
+                _max: {
+                    position: true,
                 }
+            })
+
+            let card = null;
+
+            await prisma.$transaction(async (prisma) => {
+                card = await prisma.cards.create({
+                    data: {
+                        id: uuidv4(),
+                        name: name,
+                        description: description,
+                        column_id: columnId,
+                        position: maxPosition._max.position !== null ? maxPosition._max.position + 1 : 0,
+                        priority: priority
+                    }
+                });
+
+                if (Array.isArray(uniqueSelectedLabels) && uniqueSelectedLabels.every(label => label !== undefined)) {
+                    const labeledCardsPromises = uniqueSelectedLabels.map(labelId =>
+                        prisma.labeled_cards.create({
+                            data: {
+                                card_id: card.id,
+                                label_id: labelId
+                            }
+                        })
+                    );
+                    await Promise.all(labeledCardsPromises);
+                }
+
             });
 
-            if (Array.isArray(uniqueSelectedLabels) && uniqueSelectedLabels.every(label => label !== undefined)) {
-                const labeledCardsPromises = uniqueSelectedLabels.map(labelId =>
-                    prisma.labeled_cards.create({
-                        data: {
-                            card_id: card.id,
-                            label_id: labelId
-                        }
-                    })
-                );
-                await Promise.all(labeledCardsPromises);
-            }
+            analytics.track("Task Created", { board_id: boardId, card_id: card.id });
+            res.status(201).json(card);
 
-        });
-
-        analytics.track("Task Created", { board_id: boardId, card_id: card.id });
-        res.status(201).json(card);
-
-    } catch (error) {
-        console.error('Error creating card:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        } catch (error) {
+            console.error('Error creating card:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    else {
+        logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
+        res.render('404')
     }
 })
 
@@ -804,11 +830,9 @@ router.patch('/:id/:cardId/rename', async (req, res) => {
                         name: newName
                     }
                 })
-
             })
 
             logger.info("Card renamed.", { cardId: cardId })
-
             res.status(200).json(updatedCard);
         }
         else {
