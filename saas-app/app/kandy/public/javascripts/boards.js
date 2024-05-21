@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (response.status === 400) {
                             $('#message').text(xhr.responseJSON.error);
                         } else {
-                            $('#message').text('An unexpected error occurred');
+                            $('#message').text(xhr.responseJSON.error);
                         }
                     }
                 })
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modalId = form.closest('.modal').id;
             const cardId = modalId.split('_').pop();
             const boardId = window.boardId
-            const url = `/boards/${boardId}/${cardId}`;
+            const url = `/boards/${boardId}/card/${cardId}`;
 
             const formData = new FormData(form);
             const jsonData = {};
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modalId = event.target.closest('.modal').id;
             const cardId = modalId.split('_').pop();
             const boardId = window.boardId;
-            const url = `/boards/${boardId}/${cardId}/rename`;
+            const url = `/boards/${boardId}/card/${cardId}/rename`;
 
             fetch(url, {
                 method: 'PATCH',

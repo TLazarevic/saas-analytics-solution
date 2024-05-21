@@ -1,6 +1,6 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('../prisma/client');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -8,8 +8,6 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const dayjs = require("dayjs");
 var analytics = require('../util/analytics')
-
-const prisma = new PrismaClient()
 
 const JWT_SECRET = process.env.JWT_SECRET
 

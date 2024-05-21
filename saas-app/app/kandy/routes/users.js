@@ -1,9 +1,7 @@
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('../prisma/client');
 var express = require('express');
 const { logger } = require('structlog');
 var router = express.Router();
-
-const prisma = new PrismaClient()
 
 router.get('/', async (req, res) => {
 

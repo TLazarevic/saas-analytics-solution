@@ -1,12 +1,9 @@
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('../prisma/client');
 const { v4: uuidv4 } = require('uuid');
 const { logger } = require('structlog');
 var analytics = require('../util/analytics')
 var express = require('express');
 var router = express.Router();
-
-
-const prisma = new PrismaClient()
 
 router.get('/:id', async (req, res) => {
     const userId = req.user.id
@@ -255,7 +252,7 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
 
     if (isMember) {
         try {
-            const maxPosition = await prisma.cards.aggregate({
+            const maxPosition = await fprisma.cards.aggregate({
                 where: {
                     column_id: columnId,
                 },
@@ -293,11 +290,11 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
             });
 
             analytics.track("Task Created", { workspace_id: workspace.id, board_id: boardId, card_id: card.id, name: card.name });
-            res.status(201).json(card);
+            res.redirect(`/boards/${boardId}`);
 
         } catch (error) {
             console.error('Error creating card:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).render(`board`, { error: 'Internal Server Error' })
         }
     }
     else {
@@ -573,10 +570,9 @@ router.patch('/:id/column/:columnId/move', async (req, res) => {
     }
 });
 
-router.patch('/:id/:cardId', async (req, res) => {
+router.patch('/:id/card/:cardId', async (req, res) => {
 
     try {
-
         const boardId = req.params.id;
         const cardId = req.params.cardId;
         let rawSelectedLabels = req.body["selectedLabels[]"];
@@ -605,8 +601,10 @@ router.patch('/:id/:cardId', async (req, res) => {
         });
 
         if (isMember) {
+            let card
+            let updatedCard = null
             await prisma.$transaction(async (prisma) => {
-                let card = await prisma.cards.findUnique({
+                card = await prisma.cards.findUnique({
                     where: { id: cardId }, include: { labeled_cards: true }
                 });
 
@@ -614,7 +612,7 @@ router.patch('/:id/:cardId', async (req, res) => {
                     throw new Error('Card not found');
                 }
 
-                await prisma.cards.update({
+                updatedCard = await prisma.cards.update({
                     where: {
                         id: cardId
                     }, data: {
@@ -652,7 +650,14 @@ router.patch('/:id/:cardId', async (req, res) => {
                 }
             })
 
-            logger.info("Card updated.", { cardId: cardId })
+            logger.info("Card updated.", { cardId: cardId });
+
+            let modified_fields = []
+            if (card.description != updatedCard.decription)
+                modified_fields.push("description")
+            if (card.priority != updatedCard.priority)
+                modified_fields.push("priority")
+            analytics.track("Task Modified", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: card.id, modified_fields: modified_fields });
 
             res.redirect(`/boards/${boardId}`);
         }
@@ -785,7 +790,7 @@ router.delete('/:id/column/:columnId', async (req, res) => {
     }
 });
 
-router.patch('/:id/:cardId/rename', async (req, res) => {
+router.patch('/:id/card/:cardId/rename', async (req, res) => {
 
     try {
 
@@ -942,7 +947,7 @@ router.get('/:id/labels', async (req, res) => {
         }
     }
     catch (error) {
-        console.error('Error updating card.', error);
+        console.error('Error retrieving labels.', error);
         res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });
@@ -951,13 +956,12 @@ router.get('/:id/labels', async (req, res) => {
 router.post('/:id/labels', async (req, res) => {
 
     try {
-
         const boardId = req.params.id;
-        const cardId = req.params.cardId;
         const name = req.body.name;
         const color = req.body.color;
         const userId = req.user.id
 
+        console.log('Creating label.')
 
         let workspaceId = await prisma.boards.findUnique({
             where: { id: boardId },
@@ -986,7 +990,7 @@ router.post('/:id/labels', async (req, res) => {
             res.redirect(`/boards/${boardId}`);
         }
         else {
-            logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
+            logger.info("User is not authorised to perform this action.", { userId: userId })
             res.render('404')
         }
     }
