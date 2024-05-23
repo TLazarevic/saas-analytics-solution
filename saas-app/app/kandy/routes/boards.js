@@ -611,6 +611,9 @@ router.patch('/:id/card/:cardId', async (req, res) => {
         if (isMember) {
             let card
             let updatedCard = null
+            let newLabels = null
+            let deletedLabels = null
+
             await prisma.$transaction(async (prisma) => {
                 card = await prisma.cards.findUnique({
                     where: { id: cardId }, include: { labeled_cards: true }
@@ -619,6 +622,9 @@ router.patch('/:id/card/:cardId', async (req, res) => {
                 if (!card) {
                     throw new Error('Card not found');
                 }
+
+                newLabels = uniqueSelectedLabels ? uniqueSelectedLabels.filter(item => !card.labeled_cards.map(labeled_card => labeled_card.label_id).includes(item)) : []
+                deletedLabels = card.labeled_cards ? card.labeled_cards.map(labeled_card => labeled_card.label_id).filter(item => !uniqueSelectedLabels.includes(item)) : []
 
                 updatedCard = await prisma.cards.update({
                     where: {
@@ -630,9 +636,6 @@ router.patch('/:id/card/:cardId', async (req, res) => {
                 })
 
                 if (uniqueSelectedLabels) {
-                    const newLabels = uniqueSelectedLabels ? uniqueSelectedLabels.filter(item => !card.labeled_cards.map(labeled_card => labeled_card.label_id).includes(item)) : []
-                    const deletedLabels = card.labeled_cards ? card.labeled_cards.map(labeled_card => labeled_card.label_id).filter(item => !uniqueSelectedLabels.includes(item)) : []
-
                     const newLabeledCardsPromises = newLabels.map(labelId => {
                         return prisma.labeled_cards.create({
                             data: {
@@ -668,7 +671,14 @@ router.patch('/:id/card/:cardId', async (req, res) => {
 
             analytics.track("Task Modified", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: card.id, modified_fields: modified_fields });
 
-            res.redirect(`/boards/${boardId}`);
+            const labeledCardsPromises = newLabels.map(async labelId => {
+                let label = await prisma.labels.findFirst({ where: { id: labelId } });
+                analytics.track("Label Added", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: card.id, label_id: labelId, type: label.is_preset ? "preset" : "custom" })
+            }
+            );
+            await Promise.all(labeledCardsPromises);
+
+            res.redirect(303, `/boards/${boardId}`);
         }
         else {
             logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
