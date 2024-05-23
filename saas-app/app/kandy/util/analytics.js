@@ -2,7 +2,7 @@ const { jitsuAnalytics } = require('@jitsu/js');
 
 const jitsu = jitsuAnalytics({
     host: "http://localhost:8080",
-    writeKey: "u82ByV5Vbr4EL5KOuyjQgoUfoXrZKlcs:Q6qVs9syFPhOVOFuv0sGiHXUzDvqlJHM",
+    writeKey: process.env.WRITE_KEY_JITSU,
 });
 
 async function track(event_name, properties) {

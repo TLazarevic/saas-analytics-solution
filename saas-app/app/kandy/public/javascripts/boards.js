@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modalId = event.target.closest('.modal').id;
             const cardId = modalId.split('_').pop();
             const boardId = window.boardId;
-            const url = `/boards/${boardId}/${cardId}`;
+            const url = `/boards/${boardId}/card/${cardId}`;
 
             fetch(url, {
                 method: 'DELETE',

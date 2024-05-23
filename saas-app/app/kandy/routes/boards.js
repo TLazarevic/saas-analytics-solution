@@ -252,7 +252,7 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
 
     if (isMember) {
         try {
-            const maxPosition = await fprisma.cards.aggregate({
+            const maxPosition = await prisma.cards.aggregate({
                 where: {
                     column_id: columnId,
                 },
@@ -290,6 +290,7 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
             });
 
             analytics.track("Task Created", { workspace_id: workspace.id, board_id: boardId, card_id: card.id, name: card.name });
+
             res.redirect(`/boards/${boardId}`);
 
         } catch (error) {
@@ -657,6 +658,7 @@ router.patch('/:id/card/:cardId', async (req, res) => {
                 modified_fields.push("description")
             if (card.priority != updatedCard.priority)
                 modified_fields.push("priority")
+
             analytics.track("Task Modified", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: card.id, modified_fields: modified_fields });
 
             res.redirect(`/boards/${boardId}`);
@@ -672,7 +674,7 @@ router.patch('/:id/card/:cardId', async (req, res) => {
     }
 });
 
-router.delete('/:id/:cardId', async (req, res) => {
+router.delete('/:id/card/:cardId', async (req, res) => {
 
     try {
         const boardId = req.params.id;
@@ -715,9 +717,11 @@ router.delete('/:id/:cardId', async (req, res) => {
 
             })
 
-            logger.info("Card archived.", { cardId: cardId })
+            logger.info("Card archived.", { cardId: cardId });
 
-            res.redirect(`/boards/${boardId}`);
+            analytics.track("Task Archived", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: cardId });
+
+            res.redirect(303, `/boards/${boardId}`);
         }
         else {
             logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
@@ -838,6 +842,9 @@ router.patch('/:id/card/:cardId/rename', async (req, res) => {
             })
 
             logger.info("Card renamed.", { cardId: cardId })
+
+            analytics.track("Task Modified", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: updatedCard.id, modified_fields: ['name'] });
+
             res.status(200).json(updatedCard);
         }
         else {
