@@ -14,6 +14,9 @@ block content
     include navbar.pug
     h1.board-name #{board.name}
     div#message
+    if (errors)
+      each err in errors
+        .error #{err}
     .body-content
       div.content
         div.grid.flex-start-content.board

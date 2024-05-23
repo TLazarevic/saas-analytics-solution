@@ -112,7 +112,7 @@ router.post('/:workspaceId', async (req, res) => {
             if (board_count >= 5) {
                 console.warn('Board limit reached.');
                 res.locals.errors = ['Board limit reached.']
-                res.status(400).json({ error: 'Board limit reached. Upgrade to create more boards.' })
+                res.status(400).json({ error: 'Board limit reached. Upgrade to create more boards.' });
                 return
             }
 
@@ -290,6 +290,13 @@ router.post('/:id/column/:columnId/card', async (req, res) => {
             });
 
             analytics.track("Task Created", { workspace_id: workspace.id, board_id: boardId, card_id: card.id, name: card.name });
+
+            const labeledCardsPromises = uniqueSelectedLabels.map(async labelId => {
+                let label = await prisma.labels.findFirst({ where: { id: labelId } });
+                analytics.track("Label Added", { workspace_id: workspace.id, board_id: boardId, card_id: card.id, label_id: labelId, type: label.is_preset ? "preset" : "custom" })
+            }
+            );
+            await Promise.all(labeledCardsPromises);
 
             res.redirect(`/boards/${boardId}`);
 
@@ -960,15 +967,16 @@ router.get('/:id/labels', async (req, res) => {
 });
 
 
-router.post('/:id/labels', async (req, res) => {
+router.post('/:id/labels', async (req, res, next) => {
+
+    const boardId = req.params.id;
 
     try {
-        const boardId = req.params.id;
+        console.log('Creating label.');
+
         const name = req.body.name;
         const color = req.body.color;
-        const userId = req.user.id
-
-        console.log('Creating label.')
+        const userId = req.user.id;
 
         let workspaceId = await prisma.boards.findUnique({
             where: { id: boardId },
@@ -983,9 +991,11 @@ router.post('/:id/labels', async (req, res) => {
             select: { user_id: true }
         });
 
+        var newLabel = null
+
         if (isMember) {
 
-            await prisma.labels.create({
+            newLabel = await prisma.labels.create({
                 data: {
                     id: uuidv4(),
                     name: name,
@@ -993,6 +1003,10 @@ router.post('/:id/labels', async (req, res) => {
                     board_id: boardId
                 }
             });
+
+            logger.info("Label created", { id: newLabel.id });
+
+            analytics.track("Label Created", { workspace_id: workspaceId.workspace_id, board_id: boardId, label_id: newLabel.id });
 
             res.redirect(`/boards/${boardId}`);
         }
@@ -1003,7 +1017,7 @@ router.post('/:id/labels', async (req, res) => {
     }
     catch (error) {
         console.error('Error adding label to a card.', error);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
+        next(error);
     }
 });
 

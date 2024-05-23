@@ -451,9 +451,10 @@ document.addEventListener('DOMContentLoaded', function () {
             data: JSON.stringify(jsonObject),
             success: function (data) {
                 console.log('Success');
+                $('#new-label-modal').modal('hide');
             },
-            error: function (error) {
-                console.error('Error:', error);
+            error: function (xhr) {
+                console.log('Error');
             }
         });
 
