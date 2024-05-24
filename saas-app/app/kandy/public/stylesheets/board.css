@@ -135,15 +135,23 @@
 }
 
 #custom-labels {
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 .custom-label {
     margin-top: 5px;
+    padding: 5px;
     position: relative;
+    border-radius: 8px;
 }
 
 .edit-label {
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
+}
+
+.delete-label {
     position: absolute;
     right: 5px;
     cursor: pointer;

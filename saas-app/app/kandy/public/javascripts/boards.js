@@ -477,6 +477,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $('#new-label-form').submit(function (e) {
         e.preventDefault();
+        e.stopPropagation();
 
         var formData = $(this).serializeArray();
         var jsonObject = {};
@@ -493,16 +494,17 @@ document.addEventListener('DOMContentLoaded', function () {
             success: function (data) {
                 console.log('Success');
                 $('#new-label-modal').modal('hide');
+                // $('#custom-labels-modal').modal('show');
             },
             error: function (xhr) {
                 console.log('Error');
             }
         });
-
     })
 
-    document.querySelector("#custom-labels-modal").addEventListener('shown.bs.modal', function (e) {
-        $(this).off('shown.bs.modal');
+    $("#custom-labels-modal").on('shown.bs.modal', function (e) {
+        //$(this).off('shown.bs.modal');
+        console.log('main shown')
 
         $.ajax({
             url: `/boards/${boardId}/labels?type=custom`,
@@ -520,7 +522,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     labelDiv.classList.add('custom-label', 'mb-2');
 
                     let editIcon = document.createElement('i');
-                    editIcon.classList.add('bi', 'bi-pencil', 'edit-label');
+                    editIcon.classList.add('bi', 'bi-pencil-fill', 'edit-label');
                     editIcon.addEventListener('click', () => {
 
                         $('#custom-labels-modal').modal('hide');
@@ -533,8 +535,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     });
 
+                    let deleteIcon = document.createElement('i');
+                    deleteIcon.classList.add('bi', 'bi-trash-fill', 'delete-label');
+
                     labelDiv.appendChild(editIcon);
+                    labelDiv.appendChild(deleteIcon);
                     labelContainer.appendChild(labelDiv);
+
+                    deleteIcon.addEventListener('click', () => {
+
+                        let labelId = deleteIcon.closest('.custom-label').dataset.labelId
+
+                        $.ajax({
+                            url: `/boards/${boardId}/labels/${labelId}`,
+                            method: 'DELETE',
+                            success: function (response) {
+                                labelContainer.removeChild(labelDiv)
+                            },
+                            error: function (_xhr, status, error) {
+                                console.error('Error deleting label:', status, error);
+                            }
+                        });
+                    });
                 }
             },
             error: function (_xhr, status, error) {
@@ -543,24 +565,33 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })
 
-    $('#edit-label-modal').on('shown.bs.modal', () => {
+    $('#edit-label-modal').on('shown.bs.modal', function () {
         $(this).off('shown.bs.modal');
 
         $('#custom-labels-modal').modal('hide');
     });
 
-    $('#edit-label-modal').on('hide.bs.modal', () => {
+    $('#edit-label-modal').on('hidden.bs.modal', function () {
         $(this).off('hide.bs.modal');
 
         $('#custom-labels-modal').modal('show');
     });
 
-    $('#new-label-modal').on('hide.bs.modal', () => {
-        $(this).off('hide.bs.modal');
-
-        console.log('showing custom')
+    $('#new-label-modal').on('hidden.bs.modal', function () {
+        console.log('hiding new label showing custom labels')
 
         $('#custom-labels-modal').modal('show');
+
+        setTimeout(function () {
+            console.log('Is #custom-labels-modal visible?', $('#custom-labels-modal').is(':visible'));
+        }, 500);
+
+    });
+
+    $('#custom-labels-modal').on('hidden.bs.modal', function () {
+        $(this).off('hide.bs.modal');
+
+        console.log('hiding MAIN I AM HIDDEN')
     });
 
 });

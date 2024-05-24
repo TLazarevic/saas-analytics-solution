@@ -1103,8 +1103,9 @@ router.post('/:id/labels', async (req, res, next) => {
     }
 });
 
-
 router.post('/:id/labels/:labelId/edit', async (req, res, next) => {
+
+    // TODO: add a check that the label is not preset
 
     const boardId = req.params.id;
     const labelId = req.params.labelId;
@@ -1133,6 +1134,10 @@ router.post('/:id/labels/:labelId/edit', async (req, res, next) => {
 
         if (isMember) {
 
+            oldLabel = await prisma.labels.findFirst({
+                where: { id: labelId }
+            });
+
             newLabel = await prisma.labels.update({
                 where: { id: labelId },
                 data: {
@@ -1141,11 +1146,21 @@ router.post('/:id/labels/:labelId/edit', async (req, res, next) => {
                 }
             });
 
+            const modifiedFields = [];
+
+            if (oldLabel.name !== newLabel.name) {
+                modifiedFields.push('name');
+            }
+
+            if (oldLabel.color !== newLabel.color) {
+                modifiedFields.push('color');
+            }
+
             logger.info("Label edited", { id: newLabel.id });
 
-            //analytics.track("Label Created", { workspace_id: workspaceId.workspace_id, board_id: boardId, label_id: newLabel.id });
+            analytics.track("Label Modified", { workspace_id: workspaceId.workspace_id, board_id: boardId, label_id: newLabel.id, modified_fields: modifiedFields });
 
-            res.redirect(`/boards/${boardId}`);
+            res.redirect(303, `/boards/${boardId}`);
         }
         else {
             logger.info("User is not authorised to perform this action.", { userId: userId })
@@ -1154,6 +1169,54 @@ router.post('/:id/labels/:labelId/edit', async (req, res, next) => {
     }
     catch (error) {
         console.error('Error editing label.', error);
+        next(error);
+    }
+});
+
+router.delete('/:id/labels/:labelId', async (req, res, next) => {
+
+    const boardId = req.params.id;
+    const labelId = req.params.labelId;
+
+    try {
+        console.log('Deleting label.', { label_id: labelId });
+
+        const name = req.body.name;
+        const color = req.body.color;
+        const userId = req.user.id;
+
+        let workspaceId = await prisma.boards.findUnique({
+            where: { id: boardId },
+            select: { workspace_id: true }
+        });
+
+        let isMember = await prisma.workspace_members.findFirst({
+            where: {
+                workspace_id: workspaceId.workspace_id,
+                user_id: userId,
+            },
+            select: { user_id: true }
+        });
+
+        var newLabel = null
+
+        if (isMember) {
+
+            newLabel = await prisma.labels.delete({
+                where: { id: labelId }
+            });
+
+            logger.info("Label deleted", { id: labelId });
+
+            res.redirect(303, `/boards/${boardId}`);
+        }
+        else {
+            logger.info("User is not authorised to perform this action.", { userId: userId })
+            res.render('404')
+        }
+    }
+    catch (error) {
+        console.error('Error deleting label.', error);
         next(error);
     }
 });

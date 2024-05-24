@@ -69,9 +69,9 @@ block content
                                   .col-sm-9
                                     textarea#inputDescription.form-control(name='description' rows='3' autocomplete='description') #{card.description}
                                 .row.mb-3
-                                  label.form-label.col-sm-3.col-form-label.mb-2.fw-bold Priority
+                                  label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputPriority') Priority
                                   .col-sm-9
-                                    select.form-select(name="priority")
+                                    select#inputPriority.form-select(name="priority")
                                       each priority, index in ['low', 'medium', 'high']
                                         option(value=priority selected=(card.priority == priority)) #{priority}
                                 button.btn.btn-primary.m-2(type='submit') Save
@@ -103,7 +103,7 @@ block content
                               .row.mb-3
                                 label.form-label.col-sm-3.col-form-label.mb-2.fw-bold(for='inputPriority') Priority
                                 .col-sm-9
-                                  select.form-select(name="priority")
+                                  select#inputPriority.form-select(name="priority")
                                     each priority, index in ['low', 'medium', 'high']
                                       option(value=priority selected=('low'==priority)) #{priority}
                               .row.mb-3
@@ -139,7 +139,7 @@ block content
               h4.modal-title Custom labels
               button.btn-close(type='button' data-bs-dismiss='modal')
             .modal-body
-              button.btn.btn-primary(data-bs-toggle='modal' data-bs-target='#new-label-modal') New Custom Label
+              button.btn.btn-light(data-bs-toggle='modal' data-bs-target='#new-label-modal') Create a New Label
               #custom-labels
 
       #new-label-modal.modal.hide.fade(tabindex='-1' aria-labelledby='new-label-modal' aria-hidden='true')
