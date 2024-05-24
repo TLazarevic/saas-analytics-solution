@@ -174,6 +174,69 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 
+
+router.patch('/:id/rename', async (req, res, next) => {
+
+    try {
+
+        const boardId = req.params.id;
+
+        const userId = req.user.id;
+
+        const newName = req.body.name;
+
+        logger.info("Renaming board.", { boardId: boardId })
+
+        let workspaceId = await prisma.boards.findUnique({
+            where: { id: boardId },
+            select: { workspace_id: true }
+        });
+
+        let isMember = await prisma.workspace_members.findFirst({
+            where: {
+                workspace_id: workspaceId.workspace_id,
+                user_id: userId,
+            },
+            select: { user_id: true }
+        });
+
+        if (isMember) {
+            await prisma.$transaction(async (prisma) => {
+                let board = await prisma.boards.findUnique({
+                    where: { id: boardId }
+                });
+
+                if (!board) {
+                    throw new Error('Board not found.', { boardId: boardId });
+                }
+
+                await prisma.boards.update({
+                    where: {
+                        id: boardId
+                    }, data: {
+                        name: newName
+                    }
+                })
+
+            })
+
+            logger.info("Board renamed.", { boardId: boardId })
+
+            analytics.track("Board Renamed", { workspace_id: workspaceId.workspace_id, board_id: boardId });
+
+            res.redirect(303, `/boards/${boardId}`);
+        }
+        else {
+            logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
+            res.render('404')
+        }
+    }
+    catch (error) {
+        console.error('Error renaming board.', error);
+        next(error)
+    }
+});
+
 router.post('/:id/column', async (req, res) => {
     const boardId = req.params.id;
     const name = req.body.name;
@@ -921,9 +984,11 @@ router.patch('/:id/column/:columnId/rename', async (req, res) => {
 
             })
 
-            logger.info("Column renamed.", { cardId: cardId })
+            logger.info("Column renamed.", { columnId: columnId });
 
-            res.json({ success: true, result });
+            analytics.track("Column Renamed", { workspace_id: workspaceId.workspace_id, board_id: boardId, column_id: columnId });
+
+            res.redirect(303, `/boards/${boardId}`);
         }
         else {
             logger.info("User is not authorised to perform this action.", { userId: userId, cardId: cardId })
@@ -939,10 +1004,10 @@ router.patch('/:id/column/:columnId/rename', async (req, res) => {
 router.get('/:id/labels', async (req, res) => {
 
     try {
-
         const boardId = req.params.id;
         const userId = req.user.id
 
+        const labelType = req.query.type
 
         let workspaceId = await prisma.boards.findUnique({
             where: { id: boardId },
@@ -959,9 +1024,16 @@ router.get('/:id/labels', async (req, res) => {
 
         if (isMember) {
 
-            let board_labels = await prisma.labels.findMany({
-                where: { OR: [{ board_id: boardId }, { board_id: null }] }, orderBy: [{ board_id: 'asc' }, { name: 'asc' }]
-            })
+            let board_labels = []
+            if (labelType && labelType == 'custom') {
+                board_labels = await prisma.labels.findMany({
+                    where: { AND: [{ board_id: boardId }, { is_preset: false }] }, orderBy: [{ board_id: 'asc' }, { created_at: 'asc' }]
+                })
+            } else {
+                board_labels = await prisma.labels.findMany({
+                    where: { OR: [{ board_id: boardId }, { board_id: null }] }, orderBy: [{ board_id: 'asc' }, { name: 'asc' }]
+                })
+            }
 
             res.json({ labels: board_labels });
         }
@@ -1027,6 +1099,61 @@ router.post('/:id/labels', async (req, res, next) => {
     }
     catch (error) {
         console.error('Error adding label to a card.', error);
+        next(error);
+    }
+});
+
+
+router.post('/:id/labels/:labelId/edit', async (req, res, next) => {
+
+    const boardId = req.params.id;
+    const labelId = req.params.labelId;
+
+    try {
+        console.log('Editing label.');
+
+        const name = req.body.name;
+        const color = req.body.color;
+        const userId = req.user.id;
+
+        let workspaceId = await prisma.boards.findUnique({
+            where: { id: boardId },
+            select: { workspace_id: true }
+        });
+
+        let isMember = await prisma.workspace_members.findFirst({
+            where: {
+                workspace_id: workspaceId.workspace_id,
+                user_id: userId,
+            },
+            select: { user_id: true }
+        });
+
+        var newLabel = null
+
+        if (isMember) {
+
+            newLabel = await prisma.labels.update({
+                where: { id: labelId },
+                data: {
+                    name: name,
+                    color: color
+                }
+            });
+
+            logger.info("Label edited", { id: newLabel.id });
+
+            //analytics.track("Label Created", { workspace_id: workspaceId.workspace_id, board_id: boardId, label_id: newLabel.id });
+
+            res.redirect(`/boards/${boardId}`);
+        }
+        else {
+            logger.info("User is not authorised to perform this action.", { userId: userId })
+            res.render('404')
+        }
+    }
+    catch (error) {
+        console.error('Error editing label.', error);
         next(error);
     }
 });

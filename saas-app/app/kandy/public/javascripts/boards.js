@@ -263,6 +263,47 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })
 
+    document.querySelector('.editable.board-name').addEventListener('dblclick', function () {
+        this.contentEditable = "true";
+        this.focus();
+    });
+
+    document.querySelector('.editable.board-name').addEventListener('blur', function (event) {
+        this.contentEditable = "false";
+
+        const boardId = window.boardId;
+        const url = `/boards/${boardId}/rename`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ "name": this.textContent }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Board renamed successfully');
+                } else {
+                    console.error('Failed to rename board:', response.message);
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+
+    document.querySelector('.editable.board-name').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.blur();
+        }
+    });
+
     document.querySelectorAll('.editable.card-name-details').forEach(editableSpan => {
 
         editableSpan.addEventListener('click', function () {
@@ -459,4 +500,67 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     })
+
+    document.querySelector("#custom-labels-modal").addEventListener('shown.bs.modal', function (e) {
+        $(this).off('shown.bs.modal');
+
+        $.ajax({
+            url: `/boards/${boardId}/labels?type=custom`,
+            method: 'GET',
+            success: function (response) {
+                let labelContainer = document.querySelector('#custom-labels');
+                labelContainer.innerHTML = '';
+
+                for (const label of response.labels) {
+                    let labelDiv = document.createElement('div');
+                    labelDiv.textContent = label.name;
+                    labelDiv.dataset.color = label.color;
+                    labelDiv.dataset.labelId = label.id;
+                    labelDiv.style = `background-color: ${paleColors ? paleColors[label.color] : '#ffffff'}; width:200px`;
+                    labelDiv.classList.add('custom-label', 'mb-2');
+
+                    let editIcon = document.createElement('i');
+                    editIcon.classList.add('bi', 'bi-pencil', 'edit-label');
+                    editIcon.addEventListener('click', () => {
+
+                        $('#custom-labels-modal').modal('hide');
+                        $('#edit-label-modal').modal('show');
+
+                        document.getElementById('edit-label-inputName').value = label.name;
+                        document.getElementById('edit-label-colorSelect').value = label.color;
+                        document.getElementById('edit-label-labelId').value = label.id;
+                        document.getElementById('edit-label-form').action = `/boards/${window.boardId}/labels/${label.id}/edit`;
+
+                    });
+
+                    labelDiv.appendChild(editIcon);
+                    labelContainer.appendChild(labelDiv);
+                }
+            },
+            error: function (_xhr, status, error) {
+                console.error('Error fetching labels:', status, error);
+            }
+        });
+    })
+
+    $('#edit-label-modal').on('shown.bs.modal', () => {
+        $(this).off('shown.bs.modal');
+
+        $('#custom-labels-modal').modal('hide');
+    });
+
+    $('#edit-label-modal').on('hide.bs.modal', () => {
+        $(this).off('hide.bs.modal');
+
+        $('#custom-labels-modal').modal('show');
+    });
+
+    $('#new-label-modal').on('hide.bs.modal', () => {
+        $(this).off('hide.bs.modal');
+
+        console.log('showing custom')
+
+        $('#custom-labels-modal').modal('show');
+    });
+
 });

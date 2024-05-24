@@ -134,6 +134,21 @@
     display: inline-block;
 }
 
+#custom-labels {
+    padding-top: 5px;
+}
+
+.custom-label {
+    margin-top: 5px;
+    position: relative;
+}
+
+.edit-label {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+
 #message {
     padding-top: 16px;
     padding-right: 16px;
