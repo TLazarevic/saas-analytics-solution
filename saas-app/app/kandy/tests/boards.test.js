@@ -54,5 +54,3 @@ it('should create label', async () => {
     expect(track).toHaveBeenCalledTimes(1);
     expect(track).toHaveBeenCalledWith("Label Created", { workspace_id: workspace_id, board_id: board_id, label_id: label_id });
 })
-
-
