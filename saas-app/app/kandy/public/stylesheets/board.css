@@ -163,3 +163,7 @@
     padding-left: 40px;
     color: red;
 }
+
+.modal-backdrop {
+    background-color: transparent;
+}

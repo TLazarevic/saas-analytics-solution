@@ -4,7 +4,7 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 const auth = function (req, res, next) {
     const token = req.cookies["kandyCookie"];
-    if (!token) return res.status(403).redirect('/auth/login');
+    if (!token) return res.redirect('/auth/login');
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded.user;
@@ -12,7 +12,7 @@ const auth = function (req, res, next) {
         next();
     } catch (e) {
         console.error(e);
-        res.status(403).redirect('/auth/login');
+        res.redirect('/auth/login');
     }
 };
 

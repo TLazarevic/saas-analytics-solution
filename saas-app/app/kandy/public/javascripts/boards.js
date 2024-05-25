@@ -494,7 +494,6 @@ document.addEventListener('DOMContentLoaded', function () {
             success: function (data) {
                 console.log('Success');
                 $('#new-label-modal').modal('hide');
-                // $('#custom-labels-modal').modal('show');
             },
             error: function (xhr) {
                 console.log('Error');
@@ -503,8 +502,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     $("#custom-labels-modal").on('shown.bs.modal', function (e) {
-        //$(this).off('shown.bs.modal');
-        console.log('main shown')
 
         $.ajax({
             url: `/boards/${boardId}/labels?type=custom`,
@@ -566,32 +563,23 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     $('#edit-label-modal').on('shown.bs.modal', function () {
-        $(this).off('shown.bs.modal');
-
         $('#custom-labels-modal').modal('hide');
     });
 
     $('#edit-label-modal').on('hidden.bs.modal', function () {
-        $(this).off('hide.bs.modal');
-
+        console.log('resetting')
+        $(this).find('form').trigger('reset');
+        $('.modal-backdrop').remove();
         $('#custom-labels-modal').modal('show');
     });
 
     $('#new-label-modal').on('hidden.bs.modal', function () {
-        console.log('hiding new label showing custom labels')
-
-        $('#custom-labels-modal').modal('show');
-
-        setTimeout(function () {
-            console.log('Is #custom-labels-modal visible?', $('#custom-labels-modal').is(':visible'));
-        }, 500);
-
+        $('.modal-backdrop').remove();
+        // $('#custom-labels-modal').modal('show');
     });
 
     $('#custom-labels-modal').on('hidden.bs.modal', function () {
-        $(this).off('hide.bs.modal');
-
-        console.log('hiding MAIN I AM HIDDEN')
+        $('.modal-backdrop').remove();
     });
 
 });
