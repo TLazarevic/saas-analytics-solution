@@ -727,12 +727,13 @@ router.patch('/:id/card/:cardId', async (req, res) => {
             logger.info("Card updated.", { cardId: cardId });
 
             let modified_fields = []
-            if (card.description != updatedCard.decription)
+            if (card.description != updatedCard.description)
                 modified_fields.push("description")
             if (card.priority != updatedCard.priority)
                 modified_fields.push("priority")
 
-            analytics.track("Task Modified", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: card.id, modified_fields: modified_fields });
+            if (Array.isArray(modified_fields) && modified_fields.length)
+                analytics.track("Task Modified", { workspace_id: workspaceId.workspace_id, board_id: boardId, card_id: card.id, modified_fields: modified_fields });
 
             const labeledCardsPromises = newLabels.map(async labelId => {
                 let label = await prisma.labels.findFirst({ where: { id: labelId } });

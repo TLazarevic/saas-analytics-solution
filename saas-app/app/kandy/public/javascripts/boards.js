@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortable = new Sortable(
         cards, {
         draggable: '.sortCard',
-        delay: 50,
+        delay: 30,
         mirror: {
             constrainDimensions: true
         },
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         columns, {
         draggable: '.sortColumn',
         handle: ".column_header",
-        delay: 50,
+        delay: 30,
         mirror: {
             constrainDimensions: true
         },

@@ -84,3 +84,10 @@
     width: 40px;
     color: #6fadc7;
 }
+
+#message {
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-left: 40px;
+    color: red;
+}
