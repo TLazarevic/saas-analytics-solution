@@ -107,11 +107,14 @@ $(document).ready(function () {
         e.stopPropagation();
 
         var workspaceId = workspace.id;
+        var formData = $(this).serialize();
+
         console.log("Creating a board in workspace:", workspaceId);
 
         $.ajax({
             url: `/boards/${workspaceId}`,
             type: 'POST',
+            data: formData,
             success: function () {
                 console.log("Board created successfuly.")
                 window.location.reload();

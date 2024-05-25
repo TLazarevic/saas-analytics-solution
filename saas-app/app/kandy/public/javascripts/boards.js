@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortable = new Sortable(
         cards, {
         draggable: '.sortCard',
-        delay: 50,
+        delay: 30,
         mirror: {
             constrainDimensions: true
         },
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         columns, {
         draggable: '.sortColumn',
         handle: ".column_header",
-        delay: 50,
+        delay: 30,
         mirror: {
             constrainDimensions: true
         },
@@ -101,6 +101,50 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    document.querySelectorAll('#new-card-form').forEach(form => {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const url = form.action
+
+            const formData = new FormData(form);
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                if (jsonData.hasOwnProperty(key)) {
+                    if (!Array.isArray(jsonData[key])) {
+                        jsonData[key] = [jsonData[key]];
+                    }
+                    jsonData[key].push(value);
+                } else {
+                    jsonData[key] = value;
+                }
+            });
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Card created successfully');
+                        window.location.reload();
+                    } else {
+                        if (response.status === 400) {
+                            $('#message').text(xhr.responseJSON.error);
+                        } else {
+                            $('#message').text(xhr.responseJSON.error);
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.error('Failed to create card.', error);
+                });
+        });
+    });
 
     document.querySelectorAll('.card-details-form').forEach(form => {
         form.addEventListener('submit', function (event) {
@@ -110,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modalId = form.closest('.modal').id;
             const cardId = modalId.split('_').pop();
             const boardId = window.boardId
-            const url = `/boards/${boardId}/${cardId}`;
+            const url = `/boards/${boardId}/card/${cardId}`;
 
             const formData = new FormData(form);
             const jsonData = {};
@@ -169,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modalId = event.target.closest('.modal').id;
             const cardId = modalId.split('_').pop();
             const boardId = window.boardId;
-            const url = `/boards/${boardId}/${cardId}`;
+            const url = `/boards/${boardId}/card/${cardId}`;
 
             fetch(url, {
                 method: 'DELETE',
@@ -219,7 +263,48 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })
 
-    document.querySelectorAll('.editable.card-name').forEach(editableSpan => {
+    document.querySelector('.editable.board-name').addEventListener('dblclick', function () {
+        this.contentEditable = "true";
+        this.focus();
+    });
+
+    document.querySelector('.editable.board-name').addEventListener('blur', function (event) {
+        this.contentEditable = "false";
+
+        const boardId = window.boardId;
+        const url = `/boards/${boardId}/rename`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ "name": this.textContent }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Board renamed successfully');
+                } else {
+                    console.error('Failed to rename board:', response.message);
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+
+    document.querySelector('.editable.board-name').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.blur();
+        }
+    });
+
+    document.querySelectorAll('.editable.card-name-details').forEach(editableSpan => {
 
         editableSpan.addEventListener('click', function () {
             this.contentEditable = "true";
@@ -232,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const modalId = event.target.closest('.modal').id;
             const cardId = modalId.split('_').pop();
             const boardId = window.boardId;
-            const url = `/boards/${boardId}/${cardId}/rename`;
+            const url = `/boards/${boardId}/card/${cardId}/rename`;
 
             fetch(url, {
                 method: 'PATCH',
@@ -272,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.focus();
         });
 
-        editableSpan.addEventListener('blur', function () {
+        editableSpan.addEventListener('blur', function (event) {
             this.contentEditable = "false";
 
             const columnId = event.target.closest('.sortable_card').id;
@@ -392,6 +477,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $('#new-label-form').submit(function (e) {
         e.preventDefault();
+        e.stopPropagation();
 
         var formData = $(this).serializeArray();
         var jsonObject = {};
@@ -407,11 +493,93 @@ document.addEventListener('DOMContentLoaded', function () {
             data: JSON.stringify(jsonObject),
             success: function (data) {
                 console.log('Success');
+                $('#new-label-modal').modal('hide');
             },
-            error: function (error) {
-                console.error('Error:', error);
+            error: function (xhr) {
+                console.log('Error');
             }
         });
-
     })
+
+    $("#custom-labels-modal").on('shown.bs.modal', function (e) {
+
+        $.ajax({
+            url: `/boards/${boardId}/labels?type=custom`,
+            method: 'GET',
+            success: function (response) {
+                let labelContainer = document.querySelector('#custom-labels');
+                labelContainer.innerHTML = '';
+
+                for (const label of response.labels) {
+                    let labelDiv = document.createElement('div');
+                    labelDiv.textContent = label.name;
+                    labelDiv.dataset.color = label.color;
+                    labelDiv.dataset.labelId = label.id;
+                    labelDiv.style = `background-color: ${paleColors ? paleColors[label.color] : '#ffffff'}; width:200px`;
+                    labelDiv.classList.add('custom-label', 'mb-2');
+
+                    let editIcon = document.createElement('i');
+                    editIcon.classList.add('bi', 'bi-pencil-fill', 'edit-label');
+                    editIcon.addEventListener('click', () => {
+
+                        $('#custom-labels-modal').modal('hide');
+                        $('#edit-label-modal').modal('show');
+
+                        document.getElementById('edit-label-inputName').value = label.name;
+                        document.getElementById('edit-label-colorSelect').value = label.color;
+                        document.getElementById('edit-label-labelId').value = label.id;
+                        document.getElementById('edit-label-form').action = `/boards/${window.boardId}/labels/${label.id}/edit`;
+
+                    });
+
+                    let deleteIcon = document.createElement('i');
+                    deleteIcon.classList.add('bi', 'bi-trash-fill', 'delete-label');
+
+                    labelDiv.appendChild(editIcon);
+                    labelDiv.appendChild(deleteIcon);
+                    labelContainer.appendChild(labelDiv);
+
+                    deleteIcon.addEventListener('click', () => {
+
+                        let labelId = deleteIcon.closest('.custom-label').dataset.labelId
+
+                        $.ajax({
+                            url: `/boards/${boardId}/labels/${labelId}`,
+                            method: 'DELETE',
+                            success: function (response) {
+                                labelContainer.removeChild(labelDiv)
+                            },
+                            error: function (_xhr, status, error) {
+                                console.error('Error deleting label:', status, error);
+                            }
+                        });
+                    });
+                }
+            },
+            error: function (_xhr, status, error) {
+                console.error('Error fetching labels:', status, error);
+            }
+        });
+    })
+
+    $('#edit-label-modal').on('shown.bs.modal', function () {
+        $('#custom-labels-modal').modal('hide');
+    });
+
+    $('#edit-label-modal').on('hidden.bs.modal', function () {
+        console.log('resetting')
+        $(this).find('form').trigger('reset');
+        $('.modal-backdrop').remove();
+        $('#custom-labels-modal').modal('show');
+    });
+
+    $('#new-label-modal').on('hidden.bs.modal', function () {
+        $('.modal-backdrop').remove();
+        // $('#custom-labels-modal').modal('show');
+    });
+
+    $('#custom-labels-modal').on('hidden.bs.modal', function () {
+        $('.modal-backdrop').remove();
+    });
+
 });

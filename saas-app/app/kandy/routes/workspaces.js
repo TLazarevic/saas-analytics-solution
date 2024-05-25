@@ -1,10 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('../prisma/client');
 const { v4: uuidv4 } = require('uuid');
 
 var express = require('express');
 var router = express.Router();
-
-const prisma = new PrismaClient()
 
 router.get('/', async (req, res, next) => {
   var userId = req.user.id;

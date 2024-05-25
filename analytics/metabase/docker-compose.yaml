@@ -11,4 +11,4 @@ services:
       - MB_DB_FILE=/metabase-data/metabase.db
     volumes:
       - ./plugins/ch.jar:/app/plugins/clickhouse.jar
-      - ~/metabase-data:/metabase-data
+      - ./metabase-data:/metabase-data

@@ -41,10 +41,10 @@ GRANT TRUNCATE ON _airbyte_analytics.* TO analytics;
 
 -- fix airbyte bug
 ALTER TABLE analytics.subscription_plans
-ADD COLUMN `_airbyte_unique_key` String FIRST;
+ADD COLUMN IF NOT EXISTS `_airbyte_unique_key` String FIRST;
 
 ALTER TABLE analytics.subscriptions
-ADD COLUMN `_airbyte_unique_key` String FIRST;
+ADD COLUMN IF NOT EXISTS `_airbyte_unique_key` String FIRST;
 
 -- jitsu
 CREATE DATABASE IF NOT EXISTS events;

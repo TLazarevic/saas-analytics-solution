@@ -1,9 +1,9 @@
 .board-name {
     font-family: Arial, sans-serif;
-    font-size: 24px;
+    font-size: 28px;
     color: #333333;
     margin-left: 40px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .board {
@@ -40,6 +40,9 @@
     background-color: #fb9fc1;
     color: white;
     text-align: center;
+    min-height: 40px;
+    z-index: 1;
+    border-radius: 2px;
 }
 
 .new_header {
@@ -59,6 +62,9 @@
     color: white;
     margin-top: 3px;
     margin-bottom: 3px;
+    min-height: 50px;
+    align-items: center;
+    z-index: 2;
 }
 
 .new_card {
@@ -80,6 +86,7 @@
 .column_header {
     display: flex;
     position: relative;
+    align-items: center;
 }
 
 .priority-dot {
@@ -114,4 +121,56 @@
 .label-card {
     font-size: 0.75rem;
     margin: 0;
+}
+
+.card-name {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.card-name-details {
+    width: 400px;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+    text-overflow: clip;
+    display: inline-block;
+}
+
+#custom-labels {
+    padding-top: 10px;
+}
+
+.custom-label {
+    margin-top: 5px;
+    padding: 5px;
+    position: relative;
+    border-radius: 8px;
+}
+
+.edit-label {
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
+}
+
+.delete-label {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+
+#message {
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-left: 40px;
+    color: red;
+}
+
+.modal-backdrop {
+    background-color: transparent;
 }
