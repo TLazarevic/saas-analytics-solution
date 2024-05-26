@@ -72,9 +72,9 @@ services:
       retries: 10
     ports:
       - "${EXTERNAL_POSTGRES_PORT:-5432}:5432"
-  ## permissions problem is not that trivial to solve https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/42
-  #    volumes:
-  #      - ./data/postgres:/var/lib/postgresql/data
+    ## permissions problem is not that trivial to solve https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/42
+    volumes:
+      - jitsu_database_data:/var/lib/postgresql/data
 
   console:
     tty: true
@@ -251,3 +251,7 @@ services:
     depends_on:
       bulker:
         condition: service_healthy
+
+volumes:
+  jitsu_database_data:
+    driver: local
