@@ -19,7 +19,7 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 - Visualization: Metabase
 - ...
 
-![architecture diagram](diagrams/Architecture_diagram.jpg)
+![architecture diagram](diagrams_and_spec/Architecture_diagram.jpg)
 
 [Event Specification](diagrams_and_spec/event_spec.md)
 
@@ -27,10 +27,10 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 
 Kanban board demo app
 
-![demo](diagrams/Demo.gif)
+![demo](diagrams_and_spec/Demo.gif)
 
 #### Relational database schema
 
-![database schema](diagrams/Database%20schema.png)
+![database schema](diagrams_and_spec/Database%20schema.png)
 
 + more to come
