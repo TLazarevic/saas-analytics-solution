@@ -50,7 +50,8 @@ router.get('/search/:query', async (req, res) => {
         where: {
             OR: [
                 { name: { contains: query, mode: 'insensitive' } },
-                { last_name: { contains: query, mode: 'insensitive' } }
+                { last_name: { contains: query, mode: 'insensitive' } },
+                { username: { contains: query, mode: 'insensitive' } }
             ],
             NOT: { id: user.id }
         },

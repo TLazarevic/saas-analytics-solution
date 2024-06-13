@@ -37,7 +37,7 @@ $(document).ready(function () {
                 }
             })
                 .then(response => response.json())
-                .then(data => data["users"].forEach(function (filteredMember) {
+                .then(data => {
                     $('#recommendationsList .list-group-item').each(function () {
                         var itemId = this.id;
                         if (!selectedIdsToInvite.has(itemId)) {
@@ -45,10 +45,22 @@ $(document).ready(function () {
                         }
                     });
 
-                    if (!selectedIdsToInvite.has(filteredMember.id.toString())) {
-                        $('#recommendationsList').append(`<li id=${filteredMember.id} class="list-group-item">${filteredMember.name} ${filteredMember.last_name}</li>`);
-                    }
-                }));
+                    data["users"].forEach(function (filteredMember) {
+                        if (!selectedIdsToInvite.has(filteredMember.id.toString())) {
+                            let displayName = "";
+
+                            if (filteredMember.name) {
+                                displayName += filteredMember.name;
+                            }
+
+                            if (filteredMember.last_name) {
+                                displayName += (displayName ? " " : "") + filteredMember.last_name;
+                            }
+
+                            $('#recommendationsList').append(`<li id=${filteredMember.id} class="list-group-item">${displayName} <i>${filteredMember.username}</i></li>`);
+                        }
+                    });
+                });
         }
     });
 
