@@ -8,3 +8,4 @@ include:
     env_file: ./airbyte/.env
   - path: jitsu/docker-compose.yaml
     env_file: ./jitsu/.env
+  - path: airflow/docker-compose.yaml
