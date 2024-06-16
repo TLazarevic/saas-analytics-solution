@@ -1,0 +1,10 @@
+mint:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: mint
+      user: airflow
+      password: airflow
+
+      

@@ -1,0 +1,570 @@
+[2024-06-15T18:33:22.955+0000] {processor.py:161} INFO - Started process (PID=1188) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:22.959+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:33:22.965+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:33:22.964+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:22.976+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:33:22.972+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 4, in <module>
+    from airflow.operators import DockerOperator
+ImportError: cannot import name 'DockerOperator' from 'airflow.operators' (/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/__init__.py)
+[2024-06-15T18:33:22.978+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:23.002+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.075 seconds
+[2024-06-15T18:33:34.437+0000] {processor.py:161} INFO - Started process (PID=1196) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:34.439+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:33:34.446+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:33:34.445+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:34.456+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:33:34.454+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1129, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1059, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 1
+    rom airflow.providers.docker.operators.docker import DockerOperator
+        ^^^^^^^
+SyntaxError: invalid syntax
+[2024-06-15T18:33:34.457+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:34.470+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.044 seconds
+[2024-06-15T18:33:35.986+0000] {processor.py:161} INFO - Started process (PID=1203) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:35.987+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:33:35.990+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:33:35.989+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:35.995+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:33:35.994+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:33:35.996+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:33:36.042+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.062 seconds
+[2024-06-15T18:34:07.066+0000] {processor.py:161} INFO - Started process (PID=1262) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:07.069+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:07.073+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:07.072+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:07.079+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:07.077+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:07.080+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:07.104+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.070 seconds
+[2024-06-15T18:34:14.759+0000] {processor.py:161} INFO - Started process (PID=1306) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:14.761+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:14.766+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:14.765+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:14.775+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:14.774+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:14.776+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:14.813+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.068 seconds
+[2024-06-15T18:34:16.788+0000] {processor.py:161} INFO - Started process (PID=1307) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:16.790+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:16.792+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:16.792+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:16.801+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:16.799+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:16.802+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:16.821+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.043 seconds
+[2024-06-15T18:34:27.542+0000] {processor.py:161} INFO - Started process (PID=1310) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:27.544+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:27.549+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:27.548+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:27.562+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:27.559+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:27.563+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:27.594+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.059 seconds
+[2024-06-15T18:34:29.591+0000] {processor.py:161} INFO - Started process (PID=1311) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:29.593+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:29.597+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:29.596+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:29.605+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:29.604+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:29.607+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:29.628+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.048 seconds
+[2024-06-15T18:34:32.739+0000] {processor.py:161} INFO - Started process (PID=1312) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:32.741+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:32.745+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:32.744+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:32.754+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:32.752+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:32.756+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:32.777+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.072 seconds
+[2024-06-15T18:34:34.783+0000] {processor.py:161} INFO - Started process (PID=1313) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:34.786+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:34.790+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:34.790+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:34.812+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:34.807+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:34.814+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:34.861+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.089 seconds
+[2024-06-15T18:34:36.122+0000] {processor.py:161} INFO - Started process (PID=1322) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:36.123+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:36.124+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:36.124+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:36.128+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:36.127+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/full_dbt_execute.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/full_dbt_execute.py", line 14, in <module>
+    dag=dag
+        ^^^
+NameError: name 'dag' is not defined
+[2024-06-15T18:34:36.129+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:36.154+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.037 seconds
+[2024-06-15T18:34:47.525+0000] {processor.py:161} INFO - Started process (PID=1371) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:47.527+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:34:47.530+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:47.529+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:47.543+0000] {processor.py:840} INFO - DAG(s) 'create_layers_in_snowflake' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:34:47.868+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:47.864+0000] {override.py:1829} INFO - Created Permission View: can read on DAG:create_layers_in_snowflake
+[2024-06-15T18:34:47.881+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:47.881+0000] {override.py:1829} INFO - Created Permission View: can edit on DAG:create_layers_in_snowflake
+[2024-06-15T18:34:47.886+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:47.886+0000] {override.py:1829} INFO - Created Permission View: can delete on DAG:create_layers_in_snowflake
+[2024-06-15T18:34:47.886+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:47.886+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T18:34:47.897+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:47.897+0000] {dag.py:3118} INFO - Creating ORM DAG for create_layers_in_snowflake
+[2024-06-15T18:34:47.900+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:34:47.900+0000] {dag.py:3954} INFO - Setting next_dagrun for create_layers_in_snowflake to None, run_after=None
+[2024-06-15T18:34:47.911+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.398 seconds
+[2024-06-15T18:35:18.122+0000] {processor.py:161} INFO - Started process (PID=1430) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:18.124+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:35:18.128+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:18.128+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:18.140+0000] {processor.py:840} INFO - DAG(s) 'create_layers_in_snowflake' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:18.554+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:18.554+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T18:35:18.576+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:18.576+0000] {dag.py:3954} INFO - Setting next_dagrun for create_layers_in_snowflake to None, run_after=None
+[2024-06-15T18:35:18.589+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.480 seconds
+[2024-06-15T18:35:23.338+0000] {processor.py:161} INFO - Started process (PID=1431) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:23.341+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:35:23.346+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:23.345+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:23.360+0000] {processor.py:840} INFO - DAG(s) 'dbt_run' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:23.701+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:23.700+0000] {override.py:1829} INFO - Created Permission View: can read on DAG:dbt_run
+[2024-06-15T18:35:23.705+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:23.705+0000] {override.py:1829} INFO - Created Permission View: can edit on DAG:dbt_run
+[2024-06-15T18:35:23.707+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:23.707+0000] {override.py:1829} INFO - Created Permission View: can delete on DAG:dbt_run
+[2024-06-15T18:35:23.707+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:23.707+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T18:35:23.712+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:23.712+0000] {dag.py:3118} INFO - Creating ORM DAG for dbt_run
+[2024-06-15T18:35:23.712+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:23.712+0000] {dag.py:3954} INFO - Setting next_dagrun for dbt_run to None, run_after=None
+[2024-06-15T18:35:23.719+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.395 seconds
+[2024-06-15T18:35:33.505+0000] {processor.py:161} INFO - Started process (PID=1434) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:33.507+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:35:33.513+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:33.512+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:33.528+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:33.880+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:33.879+0000] {override.py:1829} INFO - Created Permission View: can read on DAG:full_dbt_execute
+[2024-06-15T18:35:33.884+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:33.884+0000] {override.py:1829} INFO - Created Permission View: can edit on DAG:full_dbt_execute
+[2024-06-15T18:35:33.886+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:33.886+0000] {override.py:1829} INFO - Created Permission View: can delete on DAG:full_dbt_execute
+[2024-06-15T18:35:33.886+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:33.886+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T18:35:33.891+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:33.891+0000] {dag.py:3118} INFO - Creating ORM DAG for full_dbt_execute
+[2024-06-15T18:35:33.892+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:33.892+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T18:35:33.899+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.428 seconds
+[2024-06-15T18:35:35.935+0000] {processor.py:161} INFO - Started process (PID=1435) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:35.939+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:35:35.949+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:35.948+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:35.967+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:35.997+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:35.997+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T18:35:36.015+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:36.015+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T18:35:36.029+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.115 seconds
+[2024-06-15T18:35:51.339+0000] {processor.py:161} INFO - Started process (PID=1491) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:51.343+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:35:51.347+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:51.346+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:51.362+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:51.382+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:51.381+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T18:35:51.409+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:51.409+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T18:35:51.427+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.112 seconds
+[2024-06-15T18:35:55.422+0000] {processor.py:161} INFO - Started process (PID=1492) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:55.424+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T18:35:55.428+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:55.428+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:55.443+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T18:35:55.468+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:55.468+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T18:35:55.496+0000] {logging_mixin.py:188} INFO - [2024-06-15T18:35:55.496+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T18:35:55.511+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.102 seconds
+[2024-06-15T20:22:41.045+0000] {processor.py:161} INFO - Started process (PID=30) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:22:41.048+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:22:41.051+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:22:41.051+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:22:41.077+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:22:41.302+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:22:41.302+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:22:41.318+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:22:41.317+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:22:41.354+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.332 seconds
+[2024-06-15T20:23:11.530+0000] {processor.py:161} INFO - Started process (PID=90) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:11.531+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:23:11.532+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:11.532+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:11.537+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:11.621+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:11.620+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:23:11.632+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:11.632+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:23:11.644+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.117 seconds
+[2024-06-15T20:23:41.935+0000] {processor.py:161} INFO - Started process (PID=148) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:41.942+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:23:41.950+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:41.947+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:41.978+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:42.108+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:42.108+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:23:42.114+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:42.114+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:23:42.124+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.201 seconds
+[2024-06-15T20:23:43.396+0000] {processor.py:161} INFO - Started process (PID=158) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:43.397+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:23:43.399+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:43.398+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:43.410+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:43.424+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:43.424+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:23:43.432+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:43.432+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:23:43.442+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.053 seconds
+[2024-06-15T20:23:55.960+0000] {processor.py:161} INFO - Started process (PID=202) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:55.964+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:23:55.965+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:55.965+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:55.983+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:23:56.004+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:56.004+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:23:56.023+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:23:56.023+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:23:56.039+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.088 seconds
+[2024-06-15T20:24:01.041+0000] {processor.py:161} INFO - Started process (PID=209) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:24:01.044+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:24:01.046+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:24:01.046+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:24:01.082+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:24:01.112+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:24:01.112+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:24:01.128+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:24:01.128+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:24:01.176+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.146 seconds
+[2024-06-15T20:24:45.222+0000] {processor.py:161} INFO - Started process (PID=29) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:24:45.225+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:24:45.227+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:24:45.227+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:24:45.246+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:24:45.508+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:24:45.507+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:24:45.524+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:24:45.523+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:24:45.553+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.340 seconds
+[2024-06-15T20:25:15.850+0000] {processor.py:161} INFO - Started process (PID=88) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:25:15.852+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:25:15.856+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:25:15.856+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:25:15.870+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:25:16.020+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:25:16.020+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:25:16.036+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:25:16.035+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:25:16.049+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.224 seconds
+[2024-06-15T20:25:46.303+0000] {processor.py:161} INFO - Started process (PID=147) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:25:46.304+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:25:46.307+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:25:46.307+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:25:46.333+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:25:46.450+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:25:46.450+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:25:46.456+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:25:46.456+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:25:46.466+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.172 seconds
+[2024-06-15T20:26:16.648+0000] {processor.py:161} INFO - Started process (PID=206) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:26:16.650+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:26:16.655+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:26:16.654+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:26:16.667+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:26:16.778+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:26:16.778+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:26:16.785+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:26:16.785+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:26:16.794+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.160 seconds
+[2024-06-15T20:26:46.989+0000] {processor.py:161} INFO - Started process (PID=265) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:26:46.991+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:26:46.995+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:26:46.995+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:26:47.021+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:26:47.145+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:26:47.144+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:26:47.166+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:26:47.166+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:26:47.183+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.204 seconds
+[2024-06-15T20:27:17.253+0000] {processor.py:161} INFO - Started process (PID=324) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:27:17.255+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:27:17.261+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:27:17.260+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:27:17.273+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:27:17.396+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:27:17.396+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:27:17.401+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:27:17.401+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:27:17.411+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.167 seconds
+[2024-06-15T20:27:47.812+0000] {processor.py:161} INFO - Started process (PID=382) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:27:47.814+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:27:47.819+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:27:47.819+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:27:47.842+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:27:47.966+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:27:47.965+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:27:47.972+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:27:47.972+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:27:47.997+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.195 seconds
+[2024-06-15T20:28:18.435+0000] {processor.py:161} INFO - Started process (PID=441) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:28:18.438+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:28:18.442+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:28:18.442+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:28:18.453+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:28:18.569+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:28:18.569+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:28:18.587+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:28:18.587+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:28:18.607+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.185 seconds
+[2024-06-15T20:28:48.789+0000] {processor.py:161} INFO - Started process (PID=499) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:28:48.793+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:28:48.799+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:28:48.798+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:28:48.811+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:28:48.937+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:28:48.937+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:28:48.945+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:28:48.944+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:28:48.954+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.199 seconds
+[2024-06-15T20:29:19.515+0000] {processor.py:161} INFO - Started process (PID=558) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:29:19.517+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:29:19.521+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:29:19.521+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:29:19.533+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:29:19.686+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:29:19.686+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:29:19.698+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:29:19.698+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:29:19.714+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.215 seconds
+[2024-06-15T20:29:49.795+0000] {processor.py:161} INFO - Started process (PID=617) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:29:49.798+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:29:49.805+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:29:49.804+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:29:49.826+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:29:49.948+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:29:49.948+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:29:49.953+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:29:49.952+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:29:49.961+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.183 seconds
+[2024-06-15T20:30:20.038+0000] {processor.py:161} INFO - Started process (PID=676) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:30:20.040+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:30:20.044+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:30:20.043+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:30:20.055+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:30:20.187+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:30:20.187+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:30:20.195+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:30:20.195+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:30:20.204+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.179 seconds
+[2024-06-15T20:30:51.190+0000] {processor.py:161} INFO - Started process (PID=735) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:30:51.193+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:30:51.199+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:30:51.198+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:30:51.225+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:30:51.348+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:30:51.348+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:30:51.363+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:30:51.362+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:30:51.565+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.391 seconds
+[2024-06-15T20:31:21.637+0000] {processor.py:161} INFO - Started process (PID=794) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:31:21.639+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:31:21.642+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:31:21.642+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:31:21.650+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:31:21.758+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:31:21.758+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:31:21.765+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:31:21.765+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:31:21.923+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.294 seconds
+[2024-06-15T20:31:52.076+0000] {processor.py:161} INFO - Started process (PID=853) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:31:52.079+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:31:52.083+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:31:52.082+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:31:52.097+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:31:52.205+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:31:52.205+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:31:52.213+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:31:52.213+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:31:52.368+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.321 seconds
+[2024-06-15T20:32:22.488+0000] {processor.py:161} INFO - Started process (PID=912) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:32:22.489+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:32:22.495+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:32:22.494+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:32:22.527+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:32:22.664+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:32:22.664+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:32:22.671+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:32:22.671+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:32:22.834+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.361 seconds
+[2024-06-15T20:32:53.011+0000] {processor.py:161} INFO - Started process (PID=971) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:32:53.013+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:32:53.018+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:32:53.017+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:32:53.032+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:32:53.146+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:32:53.146+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:32:53.152+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:32:53.152+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:32:53.310+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.337 seconds
+[2024-06-15T20:33:23.622+0000] {processor.py:161} INFO - Started process (PID=1030) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:33:23.624+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:33:23.629+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:33:23.628+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:33:23.644+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:33:23.792+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:33:23.792+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:33:23.799+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:33:23.799+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:33:24.038+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.429 seconds
+[2024-06-15T20:40:17.701+0000] {processor.py:161} INFO - Started process (PID=31) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:40:17.703+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:40:17.706+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:40:17.706+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:40:17.723+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:40:18.101+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:40:18.101+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:40:18.163+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:40:18.163+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:40:18.195+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.500 seconds
+[2024-06-15T20:40:48.747+0000] {processor.py:161} INFO - Started process (PID=90) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:40:48.750+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:40:48.766+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:40:48.765+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:40:48.793+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:40:48.921+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:40:48.921+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:40:48.929+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:40:48.929+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:40:48.940+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.205 seconds
+[2024-06-15T20:41:19.321+0000] {processor.py:161} INFO - Started process (PID=149) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:41:19.324+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:41:19.334+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:41:19.333+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:41:19.347+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:41:19.609+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:41:19.609+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:41:19.613+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:41:19.613+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:41:19.620+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.327 seconds
+[2024-06-15T20:41:49.721+0000] {processor.py:161} INFO - Started process (PID=211) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:41:49.723+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:41:49.727+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:41:49.726+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:41:49.755+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:41:50.007+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:41:50.007+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:41:50.013+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:41:50.012+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:41:50.022+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.318 seconds
+[2024-06-15T20:42:20.086+0000] {processor.py:161} INFO - Started process (PID=272) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:42:20.087+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:42:20.088+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:42:20.088+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:42:20.093+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:42:20.402+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:42:20.402+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:42:20.406+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:42:20.406+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:42:20.414+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.332 seconds
+[2024-06-15T20:42:50.515+0000] {processor.py:161} INFO - Started process (PID=325) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:42:50.518+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:42:50.524+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:42:50.523+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:42:50.541+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:42:50.868+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:42:50.867+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:42:50.876+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:42:50.876+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:42:50.886+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.384 seconds
+[2024-06-15T20:43:21.106+0000] {processor.py:161} INFO - Started process (PID=384) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:43:21.109+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:43:21.113+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:43:21.112+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:43:21.127+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:43:21.526+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:43:21.525+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:43:21.532+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:43:21.532+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:43:21.543+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.479 seconds
+[2024-06-15T20:43:51.835+0000] {processor.py:161} INFO - Started process (PID=443) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:43:51.837+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:43:51.841+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:43:51.840+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:43:51.852+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:43:51.980+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:43:51.980+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:43:51.993+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:43:51.992+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:43:52.004+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.188 seconds
+[2024-06-15T20:44:22.110+0000] {processor.py:161} INFO - Started process (PID=501) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:22.112+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:44:22.118+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:22.117+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:22.126+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:22.234+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:22.233+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:44:22.240+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:22.240+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:44:22.250+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.157 seconds
+[2024-06-15T20:44:52.975+0000] {processor.py:161} INFO - Started process (PID=560) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:52.980+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:44:53.008+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:53.008+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:53.019+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:53.152+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:53.152+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:44:53.159+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:53.159+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:44:53.169+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.210 seconds
+[2024-06-15T20:44:55.892+0000] {processor.py:161} INFO - Started process (PID=583) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:55.894+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:44:55.899+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:55.898+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:55.910+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:44:55.922+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:55.922+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:44:55.933+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:44:55.933+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:44:55.945+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.080 seconds
+[2024-06-15T20:46:35.417+0000] {processor.py:161} INFO - Started process (PID=31) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:46:35.418+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:46:35.420+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:46:35.420+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:46:35.437+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:46:35.634+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:46:35.634+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:46:35.654+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:46:35.654+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:46:35.680+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.269 seconds
+[2024-06-15T20:47:06.026+0000] {processor.py:161} INFO - Started process (PID=91) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:47:06.027+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:47:06.028+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:47:06.028+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:47:06.032+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:47:06.223+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:47:06.223+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:47:06.229+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:47:06.229+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:47:06.238+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.215 seconds
+[2024-06-15T20:47:36.348+0000] {processor.py:161} INFO - Started process (PID=149) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:47:36.354+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:47:36.362+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:47:36.362+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:47:36.373+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:47:36.621+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:47:36.621+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:47:36.636+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:47:36.636+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:47:36.648+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.315 seconds
+[2024-06-15T20:48:07.019+0000] {processor.py:161} INFO - Started process (PID=208) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:48:07.025+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:48:07.042+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:48:07.041+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:48:07.055+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:48:07.349+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:48:07.349+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:48:07.355+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:48:07.355+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:48:07.365+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.369 seconds
+[2024-06-15T20:48:37.863+0000] {processor.py:161} INFO - Started process (PID=267) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:48:37.866+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:48:37.871+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:48:37.871+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:48:37.882+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:48:37.985+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:48:37.985+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:48:37.992+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:48:37.991+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:48:38.002+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.152 seconds
+[2024-06-15T20:49:08.110+0000] {processor.py:161} INFO - Started process (PID=327) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:49:08.111+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:49:08.112+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:49:08.111+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:49:08.116+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:49:08.202+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:49:08.202+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:49:08.207+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:49:08.207+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:49:08.216+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.110 seconds
+[2024-06-15T20:49:38.343+0000] {processor.py:161} INFO - Started process (PID=387) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:49:38.343+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:49:38.344+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:49:38.344+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:49:38.350+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:49:38.420+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:49:38.420+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:49:38.425+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:49:38.425+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:49:38.433+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.093 seconds
+[2024-06-15T20:50:09.302+0000] {processor.py:161} INFO - Started process (PID=444) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:50:09.304+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:50:09.306+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:50:09.306+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:50:09.334+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:50:09.484+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:50:09.484+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:50:09.492+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:50:09.492+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:50:09.503+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.210 seconds
+[2024-06-15T20:50:34.555+0000] {processor.py:161} INFO - Started process (PID=503) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:50:34.559+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:50:34.561+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:50:34.561+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:50:34.579+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:50:34.595+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:50:34.595+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:50:34.613+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:50:34.613+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:50:34.630+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.116 seconds
+[2024-06-15T20:51:05.328+0000] {processor.py:161} INFO - Started process (PID=562) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:51:05.332+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:51:05.336+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:51:05.336+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:51:05.350+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:51:05.490+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:51:05.490+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:51:05.497+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:51:05.497+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:51:05.507+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.191 seconds
+[2024-06-15T20:51:35.753+0000] {processor.py:161} INFO - Started process (PID=621) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:51:35.754+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:51:35.757+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:51:35.757+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:51:35.766+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:51:35.874+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:51:35.874+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:51:35.882+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:51:35.882+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:51:35.892+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.151 seconds
+[2024-06-15T20:52:06.008+0000] {processor.py:161} INFO - Started process (PID=680) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:06.010+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:52:06.015+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:06.014+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:06.029+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:06.158+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:06.158+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:52:06.165+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:06.165+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:52:06.179+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.184 seconds
+[2024-06-15T20:52:34.343+0000] {processor.py:161} INFO - Started process (PID=739) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:34.345+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:52:34.349+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:34.349+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:34.363+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:34.392+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:34.391+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:52:34.413+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:34.413+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:52:34.427+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.095 seconds
+[2024-06-15T20:52:37.424+0000] {processor.py:161} INFO - Started process (PID=740) to work on /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:37.425+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/full_dbt_execute.py for tasks to queue
+[2024-06-15T20:52:37.426+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:37.426+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:37.433+0000] {processor.py:840} INFO - DAG(s) 'full_dbt_execute' retrieved from /opt/airflow/dags/full_dbt_execute.py
+[2024-06-15T20:52:37.546+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:37.546+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-06-15T20:52:37.552+0000] {logging_mixin.py:188} INFO - [2024-06-15T20:52:37.552+0000] {dag.py:3954} INFO - Setting next_dagrun for full_dbt_execute to None, run_after=None
+[2024-06-15T20:52:37.562+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/full_dbt_execute.py took 0.161 seconds

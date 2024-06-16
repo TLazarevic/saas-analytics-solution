@@ -1,0 +1,79 @@
+[2024-06-16T08:05:43.466+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-16T08:05:43.482+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T08:05:41.136086+00:00 [queued]>
+[2024-06-16T08:05:43.486+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T08:05:41.136086+00:00 [queued]>
+[2024-06-16T08:05:43.486+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-16T08:05:43.492+0000] {taskinstance.py:2330} INFO - Executing <Task(DockerOperator): run_dbt> on 2024-06-16 08:05:41.136086+00:00
+[2024-06-16T08:05:43.501+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=91) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-16T08:05:43.502+0000] {standard_task_runner.py:63} INFO - Started process 93 to run task
+[2024-06-16T08:05:43.502+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'full_dbt_execute', 'run_dbt', 'manual__2024-06-16T08:05:41.136086+00:00', '--job-id', '89', '--raw', '--subdir', 'DAGS_FOLDER/full_dbt_execute.py', '--cfg-path', '/tmp/tmpactljmfj']
+[2024-06-16T08:05:43.504+0000] {standard_task_runner.py:91} INFO - Job 89: Subtask run_dbt
+[2024-06-16T08:05:43.540+0000] {task_command.py:426} INFO - Running <TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T08:05:41.136086+00:00 [running]> on host a1b8253dd4b8
+[2024-06-16T08:05:43.581+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='full_dbt_execute' AIRFLOW_CTX_TASK_ID='run_dbt' AIRFLOW_CTX_EXECUTION_DATE='2024-06-16T08:05:41.136086+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-16T08:05:41.136086+00:00'
+[2024-06-16T08:05:43.583+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-16T08:05:43.649+0000] {docker.py:366} INFO - Starting docker container from image custom_dbt_image
+[2024-06-16T08:05:43.670+0000] {docker.py:374} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2024-06-16T08:05:46.177+0000] {docker.py:436} INFO - Usage: dbt run [OPTIONS]
+Try 'dbt run -h' for help.
+
+Error: Invalid value for '--profiles-dir': Path '/root/.dbt' does not exist.
+[2024-06-16T08:05:46.310+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-16T08:05:46.347+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/airflow/.local/lib/python3.12/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.45/containers/create
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 371, in _run_image
+    return self._run_image_with_mounts([*self.mounts, tmp_mount], add_tmp_variable=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 398, in _run_image_with_mounts
+    self.container = self.cli.create_container(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.45/containers/create: Bad Request ("invalid mount config for type "bind": bind source path does not exist: /host_mnt/private/tmp/airflowtmp7ajl_zpg")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 509, in execute
+    return self._run_image()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 380, in _run_image
+    return self._run_image_with_mounts(self.mounts, add_tmp_variable=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 444, in _run_image_with_mounts
+    raise DockerContainerFailedException(f"Docker container failed: {result!r}", logs=log_lines)
+airflow.providers.docker.exceptions.DockerContainerFailedException: Docker container failed: {'StatusCode': 2}
+[2024-06-16T08:05:46.358+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=full_dbt_execute, task_id=run_dbt, run_id=manual__2024-06-16T08:05:41.136086+00:00, execution_date=20240616T080541, start_date=20240616T080543, end_date=20240616T080546
+[2024-06-16T08:05:46.371+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 89 for task run_dbt (Docker container failed: {'StatusCode': 2}; 93)
+[2024-06-16T08:05:46.409+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-16T08:05:46.437+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-16T08:05:46.441+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

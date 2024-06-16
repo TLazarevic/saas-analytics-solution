@@ -1,0 +1,20 @@
+services:
+
+  dbt:
+    image: custom_dbt_image
+    container_name: dbt
+    build: .
+    command:
+      - bash
+      - -c
+      - |
+        echo "Launching dbt"
+        #
+        sleep infinity
+    restart: unless-stopped
+    volumes:
+      - ./dbt_source:/dbt_source
+    ports:
+      - "8085:8085"
+    environment:
+      - TZ=Etc/GMT

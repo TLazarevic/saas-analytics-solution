@@ -1,0 +1,44 @@
+[2024-06-15T20:26:38.810+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-15T20:26:38.846+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-15T20:26:35.903075+00:00 [queued]>
+[2024-06-15T20:26:38.852+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-15T20:26:35.903075+00:00 [queued]>
+[2024-06-15T20:26:38.854+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-15T20:26:38.864+0000] {taskinstance.py:2330} INFO - Executing <Task(DockerOperator): run_dbt> on 2024-06-15 20:26:35.903075+00:00
+[2024-06-15T20:26:38.873+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=67) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-15T20:26:38.875+0000] {standard_task_runner.py:63} INFO - Started process 69 to run task
+[2024-06-15T20:26:38.874+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'full_dbt_execute', 'run_dbt', 'manual__2024-06-15T20:26:35.903075+00:00', '--job-id', '77', '--raw', '--subdir', 'DAGS_FOLDER/full_dbt_execute.py', '--cfg-path', '/tmp/tmpkvqzn9rt']
+[2024-06-15T20:26:38.877+0000] {standard_task_runner.py:91} INFO - Job 77: Subtask run_dbt
+[2024-06-15T20:26:38.922+0000] {task_command.py:426} INFO - Running <TaskInstance: full_dbt_execute.run_dbt manual__2024-06-15T20:26:35.903075+00:00 [running]> on host c35e16f586ba
+[2024-06-15T20:26:38.982+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='full_dbt_execute' AIRFLOW_CTX_TASK_ID='run_dbt' AIRFLOW_CTX_EXECUTION_DATE='2024-06-15T20:26:35.903075+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-15T20:26:35.903075+00:00'
+[2024-06-15T20:26:38.984+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-15T20:26:38.992+0000] {docker.py:157} ERROR - Failed to establish connection to Docker host unix://var/run/docker.sock: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+[2024-06-15T20:26:38.993+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-15T20:26:39.008+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 492, in execute
+    if self.force_pull or not self.cli.images(name=self.image):
+                              ^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 362, in cli
+    return self.hook.api_client
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/functools.py", line 995, in __get__
+    val = self.func(instance)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/hooks/docker.py", line 161, in api_client
+    raise AirflowException("Failed to establish connection to any given Docker hosts.")
+airflow.exceptions.AirflowException: Failed to establish connection to any given Docker hosts.
+[2024-06-15T20:26:39.013+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=full_dbt_execute, task_id=run_dbt, run_id=manual__2024-06-15T20:26:35.903075+00:00, execution_date=20240615T202635, start_date=20240615T202638, end_date=20240615T202639
+[2024-06-15T20:26:39.021+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 77 for task run_dbt (Failed to establish connection to any given Docker hosts.; 69)
+[2024-06-15T20:26:39.065+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-15T20:26:39.077+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-15T20:26:39.079+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -82,3 +82,15 @@ SELECT
 GRANT
 SELECT
     ON events.* TO metabase;
+
+-- airflow and dbt
+CREATE USER
+OR REPLACE airflow IDENTIFIED
+WITH
+    plaintext_password BY 'airflow';
+
+GRANT CREATE DATABASE ON mint.* TO airflow;
+
+GRANT
+SELECT
+    ON mint.* TO airflow;
