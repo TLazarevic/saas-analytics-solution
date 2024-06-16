@@ -6,5 +6,8 @@ mint:
       schema: mint
       user: airflow
       password: airflow
+      driver: native
+      port: 9000
+      host: warehouse
 
       
