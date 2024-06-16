@@ -1,0 +1,120 @@
+[2024-06-16T12:15:57.297+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-16T12:15:57.311+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T12:15:54.833087+00:00 [queued]>
+[2024-06-16T12:15:57.315+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T12:15:54.833087+00:00 [queued]>
+[2024-06-16T12:15:57.315+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-16T12:15:57.321+0000] {taskinstance.py:2330} INFO - Executing <Task(DockerOperator): run_dbt> on 2024-06-16 12:15:54.833087+00:00
+[2024-06-16T12:15:57.343+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=61) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-16T12:15:57.345+0000] {standard_task_runner.py:63} INFO - Started process 63 to run task
+[2024-06-16T12:15:57.345+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'full_dbt_execute', 'run_dbt', 'manual__2024-06-16T12:15:54.833087+00:00', '--job-id', '181', '--raw', '--subdir', 'DAGS_FOLDER/full_dbt_execute.py', '--cfg-path', '/tmp/tmpdvuokihp']
+[2024-06-16T12:15:57.348+0000] {standard_task_runner.py:91} INFO - Job 181: Subtask run_dbt
+[2024-06-16T12:15:57.374+0000] {task_command.py:426} INFO - Running <TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T12:15:54.833087+00:00 [running]> on host a1b8253dd4b8
+[2024-06-16T12:15:57.416+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='full_dbt_execute' AIRFLOW_CTX_TASK_ID='run_dbt' AIRFLOW_CTX_EXECUTION_DATE='2024-06-16T12:15:54.833087+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-16T12:15:54.833087+00:00'
+[2024-06-16T12:15:57.418+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-16T12:15:57.502+0000] {docker.py:366} INFO - Starting docker container from image custom_dbt_image
+[2024-06-16T12:15:57.519+0000] {docker.py:374} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2024-06-16T12:15:59.320+0000] {docker.py:436} INFO - [0m12:15:59  Running with dbt=1.5.0
+[2024-06-16T12:15:59.441+0000] {docker.py:436} INFO - [0m12:15:59  Found 2 models, 4 tests, 0 snapshots, 0 analyses, 341 macros, 0 operations, 0 seed files, 0 sources, 0 exposures, 0 metrics, 0 groups
+[2024-06-16T12:15:59.443+0000] {docker.py:436} INFO - [0m12:15:59
+[2024-06-16T12:16:04.843+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: ClickHouse server does not support the EXCHANGE TABLES command
+[2024-06-16T12:16:04.847+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: This can be caused by an obsolete ClickHouse version or by running ClickHouse on
+[2024-06-16T12:16:04.847+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: an operating system that does not support the low level renameat2() system call.
+[2024-06-16T12:16:04.847+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: Some DBT materializations will be slower and not atomic as a result.
+[2024-06-16T12:16:04.848+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: Unexpected server exception dropping table
+[2024-06-16T12:16:04.924+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: ClickHouse server does not support the EXCHANGE TABLES command
+[2024-06-16T12:16:04.926+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: This can be caused by an obsolete ClickHouse version or by running ClickHouse on
+[2024-06-16T12:16:04.927+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: an operating system that does not support the low level renameat2() system call.
+[2024-06-16T12:16:04.927+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: Some DBT materializations will be slower and not atomic as a result.
+[2024-06-16T12:16:04.930+0000] {docker.py:436} INFO - [0m12:16:04  dbt_clickhouse adapter: Unexpected server exception dropping table
+[2024-06-16T12:16:04.954+0000] {docker.py:436} INFO - [0m12:16:04  Concurrency: 1 threads (target='dev')
+[2024-06-16T12:16:04.955+0000] {docker.py:436} INFO - [0m12:16:04
+[2024-06-16T12:16:04.961+0000] {docker.py:436} INFO - [0m12:16:04  1 of 2 START sql table model mint.my_first_dbt_model ........................... [RUN]
+[2024-06-16T12:16:05.064+0000] {docker.py:436} INFO - [0m12:16:05  1 of 2 ERROR creating sql table model mint.my_first_dbt_model .................. [[31mERROR[0m in 0.10s]
+[2024-06-16T12:16:05.066+0000] {docker.py:436} INFO - [0m12:16:05  2 of 2 SKIP relation mint.my_second_dbt_model .................................. [[33mSKIP[0m]
+[2024-06-16T12:16:05.168+0000] {docker.py:436} INFO - [0m12:16:05
+[2024-06-16T12:16:05.169+0000] {docker.py:436} INFO - [0m12:16:05  Finished running 1 table model, 1 view model in 0 hours 0 minutes and 5.72 seconds (5.72s).
+[2024-06-16T12:16:05.180+0000] {docker.py:436} INFO - [0m12:16:05
+[2024-06-16T12:16:05.180+0000] {docker.py:436} INFO - [0m12:16:05  [31mCompleted with 1 error and 0 warnings:[0m
+[2024-06-16T12:16:05.181+0000] {docker.py:436} INFO - [0m12:16:05
+[2024-06-16T12:16:05.181+0000] {docker.py:436} INFO - [0m12:16:05  [33mDatabase Error in model my_first_dbt_model (models/example/my_first_dbt_model.sql)[0m
+[2024-06-16T12:16:05.182+0000] {docker.py:436} INFO - [0m12:16:05    Code: 497.
+[2024-06-16T12:16:05.183+0000] {docker.py:436} INFO - [0m12:16:05    DB::Exception: ***: Not enough privileges. To execute this query, it's necessary to have the grant SELECT, DROP TABLE ON mint.my_first_dbt_model. Stack trace:
+[2024-06-16T12:16:05.183+0000] {docker.py:436} INFO - [0m12:16:05
+[2024-06-16T12:16:05.184+0000] {docker.py:436} INFO - [0m12:16:05    0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000c01d464 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.184+0000] {docker.py:436} INFO - [0m12:16:05    1. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x00000000076c686c in /usr/bin/clickhouse
+[2024-06-16T12:16:05.184+0000] {docker.py:436} INFO - [0m12:16:05    2. bool DB::ContextAccess::checkAccessImplHelper<true, false>(DB::AccessRightsElement const&) const @ 0x0000000010088bdc in /usr/bin/clickhouse
+[2024-06-16T12:16:05.184+0000] {docker.py:436} INFO - [0m12:16:05    3. DB::Context::checkAccess(DB::AccessRightsElements const&) const @ 0x0000000010790208 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.185+0000] {docker.py:436} INFO - [0m12:16:05    4. DB::InterpreterRenameQuery::execute() @ 0x0000000010eec610 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.185+0000] {docker.py:436} INFO - [0m12:16:05    5. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, bool, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000001126305c in /usr/bin/clickhouse
+[2024-06-16T12:16:05.185+0000] {docker.py:436} INFO - [0m12:16:05    6. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, bool, DB::QueryProcessingStage::Enum) @ 0x000000001125f86c in /usr/bin/clickhouse
+[2024-06-16T12:16:05.186+0000] {docker.py:436} INFO - [0m12:16:05    7. DB::TCPHandler::runImpl() @ 0x0000000011ee42a4 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.186+0000] {docker.py:436} INFO - [0m12:16:05    8. DB::TCPHandler::run() @ 0x0000000011ef36a8 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.186+0000] {docker.py:436} INFO - [0m12:16:05    9. Poco::Net::TCPServerConnection::start() @ 0x000000001432d0e4 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.187+0000] {docker.py:436} INFO - [0m12:16:05    10. Poco::Net::TCPServerDispatcher::run() @ 0x000000001432e600 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.187+0000] {docker.py:436} INFO - [0m12:16:05    11. Poco::PooledThread::run() @ 0x000000001446dcfc in /usr/bin/clickhouse
+[2024-06-16T12:16:05.187+0000] {docker.py:436} INFO - [0m12:16:05    12. Poco::ThreadImpl::runnableEntry(void*) @ 0x000000001446bea4 in /usr/bin/clickhouse
+[2024-06-16T12:16:05.188+0000] {docker.py:436} INFO - [0m12:16:05    13. start_thread @ 0x0000000000007624 in /usr/lib/aarch64-linux-gnu/libpthread-2.31.so
+[2024-06-16T12:16:05.189+0000] {docker.py:436} INFO - [0m12:16:05    14. ? @ 0x00000000000d149c in /usr/lib/aarch64-linux-gnu/libc-2.31.so
+[2024-06-16T12:16:05.189+0000] {docker.py:436} INFO - [0m12:16:05    compiled Code at target/run/mint/models/example/my_first_dbt_model.sql
+[2024-06-16T12:16:05.189+0000] {docker.py:436} INFO - [0m12:16:05
+[2024-06-16T12:16:05.190+0000] {docker.py:436} INFO - [0m12:16:05  Done. PASS=0 WARN=0 ERROR=1 SKIP=1 TOTAL=2
+[2024-06-16T12:16:06.075+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-16T12:16:06.111+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/client.py", line 275, in _raise_for_status
+    response.raise_for_status()
+  File "/home/airflow/.local/lib/python3.12/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.45/containers/create
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 371, in _run_image
+    return self._run_image_with_mounts([*self.mounts, tmp_mount], add_tmp_variable=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 398, in _run_image_with_mounts
+    self.container = self.cli.create_container(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/container.py", line 440, in create_container
+    return self.create_container_from_config(config, name, platform)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/container.py", line 457, in create_container_from_config
+    return self._result(res, True)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/client.py", line 281, in _result
+    self._raise_for_status(response)
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/api/client.py", line 277, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.45/containers/create: Bad Request ("invalid mount config for type "bind": bind source path does not exist: /host_mnt/private/tmp/airflowtmpqg4_co_n")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 509, in execute
+    return self._run_image()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 380, in _run_image
+    return self._run_image_with_mounts(self.mounts, add_tmp_variable=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/docker/operators/docker.py", line 444, in _run_image_with_mounts
+    raise DockerContainerFailedException(f"Docker container failed: {result!r}", logs=log_lines)
+airflow.providers.docker.exceptions.DockerContainerFailedException: Docker container failed: {'StatusCode': 1}
+[2024-06-16T12:16:06.146+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=full_dbt_execute, task_id=run_dbt, run_id=manual__2024-06-16T12:15:54.833087+00:00, execution_date=20240616T121554, start_date=20240616T121557, end_date=20240616T121606
+[2024-06-16T12:16:06.176+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 181 for task run_dbt (Docker container failed: {'StatusCode': 1}; 63)
+[2024-06-16T12:16:06.225+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-16T12:16:06.260+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-16T12:16:06.263+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

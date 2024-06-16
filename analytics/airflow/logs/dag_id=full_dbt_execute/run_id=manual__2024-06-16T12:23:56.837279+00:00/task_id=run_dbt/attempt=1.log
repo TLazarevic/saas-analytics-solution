@@ -1,0 +1,36 @@
+[2024-06-16T12:23:59.224+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-16T12:23:59.240+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T12:23:56.837279+00:00 [queued]>
+[2024-06-16T12:23:59.245+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T12:23:56.837279+00:00 [queued]>
+[2024-06-16T12:23:59.245+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-06-16T12:23:59.252+0000] {taskinstance.py:2330} INFO - Executing <Task(DockerOperator): run_dbt> on 2024-06-16 12:23:56.837279+00:00
+[2024-06-16T12:23:59.261+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=49) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-16T12:23:59.262+0000] {standard_task_runner.py:63} INFO - Started process 51 to run task
+[2024-06-16T12:23:59.262+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'full_dbt_execute', 'run_dbt', 'manual__2024-06-16T12:23:56.837279+00:00', '--job-id', '196', '--raw', '--subdir', 'DAGS_FOLDER/full_dbt_execute.py', '--cfg-path', '/tmp/tmpf5swq6ae']
+[2024-06-16T12:23:59.264+0000] {standard_task_runner.py:91} INFO - Job 196: Subtask run_dbt
+[2024-06-16T12:23:59.297+0000] {task_command.py:426} INFO - Running <TaskInstance: full_dbt_execute.run_dbt manual__2024-06-16T12:23:56.837279+00:00 [running]> on host a1b8253dd4b8
+[2024-06-16T12:23:59.360+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='full_dbt_execute' AIRFLOW_CTX_TASK_ID='run_dbt' AIRFLOW_CTX_EXECUTION_DATE='2024-06-16T12:23:56.837279+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-16T12:23:56.837279+00:00'
+[2024-06-16T12:23:59.362+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-16T12:23:59.396+0000] {docker.py:366} INFO - Starting docker container from image custom_dbt_image
+[2024-06-16T12:23:59.404+0000] {docker.py:374} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2024-06-16T12:24:01.514+0000] {docker.py:436} INFO - [0m12:24:01  Running with dbt=1.5.0
+[2024-06-16T12:24:01.677+0000] {docker.py:436} INFO - [0m12:24:01  Found 2 models, 4 tests, 0 snapshots, 0 analyses, 341 macros, 0 operations, 0 seed files, 0 sources, 0 exposures, 0 metrics, 0 groups
+[2024-06-16T12:24:01.677+0000] {docker.py:436} INFO - [0m12:24:01
+[2024-06-16T12:24:07.047+0000] {docker.py:436} INFO - [0m12:24:07  Concurrency: 1 threads (target='dev')
+[2024-06-16T12:24:07.050+0000] {docker.py:436} INFO - [0m12:24:07
+[2024-06-16T12:24:07.051+0000] {docker.py:436} INFO - [0m12:24:07  1 of 2 START sql table model mint.my_first_dbt_model ........................... [RUN]
+[2024-06-16T12:24:07.188+0000] {docker.py:436} INFO - [0m12:24:07  1 of 2 OK created sql table model mint.my_first_dbt_model ...................... [[32mOK[0m in 0.14s]
+[2024-06-16T12:24:07.190+0000] {docker.py:436} INFO - [0m12:24:07  2 of 2 START sql view model mint.my_second_dbt_model ........................... [RUN]
+[2024-06-16T12:24:07.231+0000] {docker.py:436} INFO - [0m12:24:07  2 of 2 OK created sql view model mint.my_second_dbt_model ...................... [[32mOK[0m in 0.04s]
+[2024-06-16T12:24:07.254+0000] {docker.py:436} INFO - [0m12:24:07
+[2024-06-16T12:24:07.254+0000] {docker.py:436} INFO - [0m12:24:07  Finished running 1 table model, 1 view model in 0 hours 0 minutes and 5.58 seconds (5.58s).
+[2024-06-16T12:24:07.263+0000] {docker.py:436} INFO - [0m12:24:07
+[2024-06-16T12:24:07.263+0000] {docker.py:436} INFO - [0m12:24:07  [32mCompleted successfully[0m
+[2024-06-16T12:24:07.264+0000] {docker.py:436} INFO - [0m12:24:07
+[2024-06-16T12:24:07.264+0000] {docker.py:436} INFO - [0m12:24:07  Done. PASS=2 WARN=0 ERROR=0 SKIP=0 TOTAL=2
+[2024-06-16T12:24:08.224+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-16T12:24:08.265+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=full_dbt_execute, task_id=run_dbt, run_id=manual__2024-06-16T12:23:56.837279+00:00, execution_date=20240616T122356, start_date=20240616T122359, end_date=20240616T122408
+[2024-06-16T12:24:08.352+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-06-16T12:24:08.400+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-06-16T12:24:08.403+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

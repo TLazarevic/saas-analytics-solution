@@ -89,8 +89,4 @@ OR REPLACE airflow IDENTIFIED
 WITH
     plaintext_password BY 'airflow';
 
-GRANT CREATE DATABASE ON mint.* TO airflow;
-
-GRANT
-SELECT
-    ON mint.* TO airflow;
+GRANT ALL ON mint.* TO airflow;
