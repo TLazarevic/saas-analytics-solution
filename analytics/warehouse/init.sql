@@ -90,3 +90,11 @@ WITH
     plaintext_password BY 'airflow';
 
 GRANT ALL ON mint.* TO airflow;
+
+GRANT
+SELECT
+    ON analytics.* TO airflow;
+
+GRANT
+SELECT
+    ON events.* TO airflow;
