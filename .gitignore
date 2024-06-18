@@ -3,3 +3,4 @@ dags/
 plugins/
 /logs/
 /analytics/jitsu/.env
+/analytics/airflow/logs
