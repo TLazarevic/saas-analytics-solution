@@ -3,3 +3,6 @@ dags/
 plugins/
 /logs/
 /analytics/jitsu/.env
+/analytics/airflow/logs
+/analytics/dbt/dbt_source/logs
+/analytics/dbt/dbt_source/target

@@ -1,0 +1,45 @@
+
+version: 2
+
+sources:
+  - name: main_db
+    database: analytics  
+    schema: analytics
+    tables:
+      - name: subscriptions
+      - name: subscription_plans
+
+models:
+  - name: stg_maindb__subscriptions
+    description: "Staging model for subscriptions table from main database"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: plan_id
+        description: "ID of the subscription plan tied to this subscription"
+        tests:
+          - not_null
+      - name: user_id
+        description: "ID of the user this subscription belongs to"
+        tests:
+          - not_null
+      - name: created_at
+        description: "Subscription creation timestamp"
+        tests:
+          - not_null
+      - name: created_date
+        description: "Subscription creation date"
+        tests:
+          - not_null
+
+  - name: stg_maindb__subscription_plans
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
