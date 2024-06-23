@@ -3,11 +3,11 @@ version: '3.1'
 include:
   - path: warehouse/docker-compose.yaml
     env_file: ./warehouse/.env
-  # - path: metabase/docker-compose.yaml
-  # - path: airbyte/docker-compose.yaml
-  #   env_file: ./airbyte/.env
-  # - path: jitsu/docker-compose.yaml
-  #   env_file: ./jitsu/.env
+  - path: metabase/docker-compose.yaml
+  - path: airbyte/docker-compose.yaml
+    env_file: ./airbyte/.env
+  - path: jitsu/docker-compose.yaml
+    env_file: ./jitsu/.env
   - path: airflow/docker-compose.yaml
     env_file: ./airflow/.env
   - path: dbt/docker-compose.yaml
