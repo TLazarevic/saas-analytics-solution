@@ -17,7 +17,8 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 - EL (of ETL): Airbyte
 - Event tracking: Jitsu
 - Visualization: Metabase
-- ...
+- Transformation (of ETL): dbt
+- Orchestration: Airflow
 
 ![architecture diagram](diagrams_and_spec/Architecture_diagram.jpg)
 
