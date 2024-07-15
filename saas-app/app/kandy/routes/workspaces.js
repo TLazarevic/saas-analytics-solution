@@ -39,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
         }
       }
     })
-    res.render('workspace', { workspace: workspace });
+    res.render('workspace', { workspace: workspace, currentPage: 'workspace' });
   } catch (error) {
     console.log('Error retrieving workspaces:', error)
     res.status(500).json({ error: 'Internal Server Error' });
@@ -70,31 +70,42 @@ router.post('/', async (req, res) => {
   const userId = req.user.id;
 
   var name = req.body["name"]
-  var decription = req.body["description"]
+  var description = req.body["description"]
   var privacy = req.body["privacy"] ? true : false
   var id = uuidv4()
 
   try {
-    await prisma.workspaces.create({
-      data: {
-        id: id,
-        name: name,
-        description: decription,
-        is_private: privacy,
-        workspace_members: {
-          create: {
-            users: {
-              connect: {
-                id: userId
+    await prisma.$transaction(async (prisma) => {
+      const createdWorkspace = await prisma.workspaces.create({
+        data: {
+          id: id,
+          name: name,
+          description: description,
+          is_private: privacy,
+          workspace_members: {
+            create: {
+              users: {
+                connect: {
+                  id: userId
+                }
               }
             }
           }
         }
+      });
 
-      }
-    })
+      await prisma.subscriptions.create({
+        data: {
+          id: uuidv4(),
+          plan_id: 'c037947d-22a7-422c-8147-c131d9a66c62',
+          workspace_id: createdWorkspace.id,
+        }
+      });
+
+      return createdWorkspace;
+    });
+
     res.redirect('/workspaces');
-
   } catch (error) {
     console.error('Error creating the workspace:', error);
     res.status(500).json({ error: 'Internal Server Error' });

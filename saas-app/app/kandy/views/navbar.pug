@@ -11,7 +11,8 @@ body
                     if currentPage === 'boards'
                         li: a(href='#' data-bs-toggle='modal' data-bs-target='#custom-labels-modal') Custom Labels
                     li: a(href="/workspaces") Home
-                    li: a(href="/subscriptions") Upgrade
+                    if currentPage === 'workspace'
+                        li: a(href="/subscriptions/workspace/"+workspace.id) Upgrade
                     li: a(href="/users") Account
                     li: a(href="/auth/logout") Logout
             else 
