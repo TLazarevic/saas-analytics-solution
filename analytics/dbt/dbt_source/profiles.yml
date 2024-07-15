@@ -1,0 +1,13 @@
+# example profiles.yml file
+mint:
+  target: prod
+  outputs:
+    prod:
+      type: clickhouse
+      host: warehouse
+      user: "airflow"
+      password: "airflow"
+      port: 8123
+      dbname: "analytics"
+      schema: mint
+      threads: 4

@@ -22,4 +22,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Create alias for dbt-set-profile
 RUN echo "alias dbt-set-profile='unset DBT_PROFILES_DIR && export DBT_PROFILES_DIR=\$PWD'" >> .bashrc
 
+COPY ./dbt_source /dbt_source
+
+WORKDIR /dbt_source
+# instal dbt packages
+RUN dbt deps --project-dir mint
+
 CMD ["dbt", "--version"]

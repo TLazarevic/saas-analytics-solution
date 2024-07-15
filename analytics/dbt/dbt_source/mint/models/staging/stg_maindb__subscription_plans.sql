@@ -1,13 +1,14 @@
 with source as (
 
-  select * from {{ source('main_db', 'subscriptions') }}
+  select * from {{ source('main_db', 'subscription_plans') }}
 
 ), result as (
 
   select
     id,
-    plan_id,
-    user_id,
+    name,
+    price,
+    price*100 as price_cents,
 
     created_at,
     date_trunc('day', created_at) as created_date,
@@ -15,8 +16,8 @@ with source as (
     updated_at,
     date_trunc('day', updated_at) as updated_date,
 
-    cancelled_at,
-    date_trunc('day', cancelled_at) as cancelled_date
+    deleted_at,
+    date_trunc('day', deleted_at) as deleted_date
 
   from source
 
