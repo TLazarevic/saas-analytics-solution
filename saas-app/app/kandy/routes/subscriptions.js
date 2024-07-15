@@ -9,15 +9,11 @@ router.get('/workspace/:workspace_id', async function (req, res, next) {
     var userId = req.user.id
     var workspaceId = req.params.workspace_id
 
-    console.log('requesting')
-    console.log(workspaceId)
-
     var subscription = await prisma.subscriptions.findFirstOrThrow({
         where: { workspace_id: workspaceId, cancelled_at: null }
 
     })
 
-    console.log(subscription)
     res.render('subscriptions', { subscriptionPlanId: subscription.plan_id, workspaceId: workspaceId });
 });
 
