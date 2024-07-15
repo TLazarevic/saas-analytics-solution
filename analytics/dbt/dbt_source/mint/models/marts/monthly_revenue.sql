@@ -1,0 +1,88 @@
+with subscription_periods as (
+
+    select * from {{ ref('subscriptions') }}
+
+), months as (
+
+    select * from {{ ref('util_months') }}
+
+), customers as (
+
+    -- determine when a given account had its first and last (or most recent) month
+
+    select
+        user_id,
+        date_trunc('month', min(created_date)) as date_month_start,
+        date_trunc('month', max(cancelled_date)) as date_month_end
+
+    from subscription_periods
+
+    group by 1
+
+), customer_months as (
+
+    -- create one record per month between a customer's first and last month
+    -- (example of a date spine)
+
+    select
+        customers.user_id,
+        months.date_month
+
+    from customers, months
+
+    -- clickhouse specific
+    where
+        -- all months after start date
+        months.date_month >= customers.date_month_start
+        -- and before end date
+        and months.date_month < customers.date_month_end
+
+), joined as (
+
+    -- join the account-month spine to MRR base model, pulling through most recent dates
+    -- and plan info for month rows that have no invoices (i.e. churns)
+
+    select
+        customer_months.date_month,
+        customer_months.user_id,
+        coalesce(subscription_periods.price, 0) as mrr
+
+    from customer_months
+
+    left join subscription_periods
+        on customer_months.user_id = subscription_periods.user_id
+
+    -- clickhouse specific
+        -- month is after a subscription start date
+    where customer_months.date_month >= subscription_periods.created_date
+        -- month is before a subscription end date (and handle null case)
+        and (customer_months.date_month < subscription_periods.cancelled_date
+            or subscription_periods.cancelled_date is null)
+
+), final as (
+
+    select
+        date_month,
+        user_id,
+        mrr,
+
+        mrr > 0 as is_active,
+
+        -- calculate first and last months
+        min(case when is_active then date_month end) over (
+            partition by user_id
+        ) as first_active_month,
+
+        max(case when is_active then date_month end) over (
+            partition by user_id
+        ) as last_active_month,
+
+        -- calculate if this record is the first or last month
+        first_active_month = date_month as is_first_month,
+        last_active_month = date_month as is_last_month
+
+    from joined
+
+)
+
+select * from final

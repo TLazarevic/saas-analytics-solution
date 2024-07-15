@@ -4,6 +4,8 @@ services:
     image: custom_dbt_image
     container_name: dbt
     build: .
+    environment:
+      TZ: Etc/GMT
     command:
       - bash
       - -c
@@ -12,9 +14,7 @@ services:
         #
         sleep infinity
     restart: unless-stopped
-    volumes:
-      - ./dbt_source:/dbt_source
+    # volumes:
+    #   - ./dbt_source:/dbt_source
     ports:
       - "8085:8085"
-    environment:
-      - TZ=Etc/GMT

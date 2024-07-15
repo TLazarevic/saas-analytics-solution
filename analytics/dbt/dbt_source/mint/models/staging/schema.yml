@@ -34,6 +34,18 @@ models:
         description: "Subscription creation date"
         tests:
           - not_null
+      - name: updated_at
+        description: "Subscription last update timestamp"
+        tests:
+          - not_null
+      - name: updated_date
+        description: "Subscription last update date"
+        tests:
+          - not_null
+      - name: deleted_at
+        description: "Subscription deletion timestamp"
+      - name: deleted_date
+        description: "Subscription deletion date"
 
   - name: stg_maindb__subscription_plans
     description: "A starter dbt model"
@@ -43,3 +55,36 @@ models:
         tests:
           - unique
           - not_null
+      - name: name
+        description: "Subscription plan name"
+        tests:
+          - unique
+          - not_null
+      - name: price
+        description: "Subscription plan price amount in USD"
+        tests:
+          - not_null
+      - name: price_cents
+        description: "Subscription plan price amount in cents"
+        tests:
+          - not_null
+      - name: created_at
+        description: "Subscription plan creation timestamp"
+        tests:
+          - not_null
+      - name: created_date
+        description: "Subscription plan creation date"
+        tests:
+          - not_null
+      - name: updated_at
+        description: "Subscription plan last update timestamp"
+        tests:
+          - not_null
+      - name: updated_date
+        description: "Subscription plan last update date"
+        tests:
+          - not_null
+      - name: deleted_at
+        description: "Subscription plan deletion timestamp"
+      - name: deleted_date
+        description: "Subscription plan deletion date"
