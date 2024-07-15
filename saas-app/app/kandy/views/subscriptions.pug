@@ -18,10 +18,10 @@ block content
                     div - Up to 10 workspace members
                 .mt-auto
                     p.price $0/mo
-                    if subsciptionPlanId == 'c037947d-22a7-422c-8147-c131d9a66c62'
+                    if subscriptionPlanId == 'c037947d-22a7-422c-8147-c131d9a66c62'
                         a.btn.btn--disabled.disabled Your plan
                     else 
-                        a(href="/subscriptions/update/c037947d-22a7-422c-8147-c131d9a66c62").btn.btn--subscription Select
+                        a(href="/subscriptions/update/c037947d-22a7-422c-8147-c131d9a66c62/workspace/"+workspaceId).btn.btn--subscription Select
         card.card--subscription.mx-auto
             .card__body
                 h5.card__title Silver
@@ -31,18 +31,18 @@ block content
                     div - Up to 100 workspace members
                 .mt-auto
                     p.price $5/mo
-                    if subsciptionPlanId == 'fdf76213-cbd8-4a3b-b48a-21d2406cbb9f'
+                    if subscriptionPlanId == 'fdf76213-cbd8-4a3b-b48a-21d2406cbb9f'
                         a.btn.btn--disabled.disabled Your plan
                     else 
-                        a(href="/subscriptions/update/fdf76213-cbd8-4a3b-b48a-21d2406cbb9f").btn.btn--subscription Select
+                        a(href="/subscriptions/update/fdf76213-cbd8-4a3b-b48a-21d2406cbb9f/workspace/"+workspaceId).btn.btn--subscription Select
         card.card--subscription.mx-auto.h-200
             .card__body
                 h5.card__title Gold
                 p.card__text Unlock all features and premium support.
                 .mt-auto
                     p.price $50/mo
-                    if subsciptionPlanId == '21330b9a-260e-4222-8737-8e0a2dcfe03e'
+                    if subscriptionPlanId == '21330b9a-260e-4222-8737-8e0a2dcfe03e'
                         a.btn.btn--disabled.disabled Your plan
                     else 
-                        a(href="/subscriptions/update/21330b9a-260e-4222-8737-8e0a2dcfe03e").btn.btn--subscription Select
+                        a(href="/subscriptions/update/21330b9a-260e-4222-8737-8e0a2dcfe03e/workspace/"+workspaceId).btn.btn--subscription Select
 

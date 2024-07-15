@@ -5,29 +5,31 @@ var express = require('express');
 var router = express.Router();
 
 
-router.get('/', async function (req, res, next) {
+router.get('/workspace/:workspace_id', async function (req, res, next) {
     var userId = req.user.id
+    var workspaceId = req.params.workspace_id
 
-    var subsciption = await prisma.subscriptions.findFirstOrThrow({
-        where: { user_id: userId, cancelled_at: null }
+    var subscription = await prisma.subscriptions.findFirstOrThrow({
+        where: { workspace_id: workspaceId, cancelled_at: null }
 
     })
-    res.render('subscriptions', { subsciptionPlanId: subsciption.plan_id });
+
+    res.render('subscriptions', { subscriptionPlanId: subscription.plan_id, workspaceId: workspaceId });
 });
 
-router.get('/update/:selected_plan', async function (req, res, next) {
+router.get('/update/:selected_plan/workspace/:workspace_id', async function (req, res, next) {
     var userId = req.user.id
     var selectedPlan = req.params.selected_plan
+    var workspaceId = req.params.workspace_id
 
     try {
 
         var currentSubscription = await prisma.subscriptions.findFirstOrThrow({
-            where: { user_id: userId, cancelled_at: null }
+            where: { workspace_id: workspaceId, cancelled_at: null }
 
         })
 
         if (selectedPlan == currentSubscription.plan_id) {
-            console.log('plan already active')
             res.locals.errors = ["The selected plan is already active."]
             res.status(400).render('subscriptions', { subsciptionPlanId: currentSubscription.plan_id })
             return
@@ -40,11 +42,10 @@ router.get('/update/:selected_plan', async function (req, res, next) {
                     where: { id: currentSubscription.id },
                     data: { cancelled_at: new Date() }
                 }),
-                prisma.subscriptions.create({ data: { id: uuidv4(), user_id: userId, plan_id: selectedPlan } })
-
+                prisma.subscriptions.create({ data: { id: uuidv4(), workspace_id: workspaceId, plan_id: selectedPlan } })
             ])
 
-            res.redirect('/subscriptions');
+            res.redirect('/subscriptions/workspace/' + workspaceId);
         }
 
     } catch (error) {

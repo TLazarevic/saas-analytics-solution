@@ -125,7 +125,6 @@ model users {
   card_members      card_members[]
   starred_boards    starred_boards[]
   workspace_members workspace_members[]
-  subscriptions     subscriptions[]
 }
 
 model workspace_members {
@@ -147,6 +146,7 @@ model workspaces {
   deleted_at        DateTime?           @db.Timestamp(6)
   boards            boards[]
   workspace_members workspace_members[]
+  subscriptions     subscriptions[]
 }
 
 model subscription_plans {
@@ -162,11 +162,11 @@ model subscription_plans {
 model subscriptions {
   id                String             @id @db.Uuid
   plan_id           String             @db.Uuid
-  user_id           String             @db.Uuid
+  workspace_id      String             @db.Uuid
   created_at        DateTime           @default(now()) @db.Timestamp(6)
   updated_at        DateTime           @default(now()) @db.Timestamp(6)
   cancelled_at      DateTime?          @db.Timestamp(6)
-  user              users              @relation(fields: [user_id], references: [id])
+  workspace         workspaces         @relation(fields: [workspace_id], references: [id])
   subscription_plan subscription_plans @relation(fields: [plan_id], references: [id])
 }
 
