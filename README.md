@@ -30,7 +30,7 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 
 Adjusted from dbt's example https://www.getdbt.com/blog/modeling-subscription-revenue
 
-![customers and revenue dashboard](diagrams_and_spec/dashboards/Kandy%20Customers%20&%20Revenue%20Dashboard.png)
+![customers and revenue dashboard](diagrams_and_spec/dashboards/Kandy%20Customers%20&%20Revenue.png)
 
 ### Saas App - Kandy
 
