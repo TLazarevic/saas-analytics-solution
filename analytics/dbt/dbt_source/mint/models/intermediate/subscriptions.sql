@@ -11,7 +11,7 @@ with subscriptions as (
   select
     subscriptions.id,
     subscriptions.plan_id,
-    subscriptions.user_id,
+    subscriptions.workspace_id,
 
     subscriptions.created_at,
     subscriptions.created_date,

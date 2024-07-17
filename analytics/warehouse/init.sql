@@ -83,6 +83,10 @@ GRANT
 SELECT
     ON events.* TO metabase;
 
+GRANT
+SELECT
+    ON mint.* TO metabase;
+
 -- airflow and dbt
 CREATE USER
 OR REPLACE airflow IDENTIFIED

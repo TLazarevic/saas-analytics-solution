@@ -89,9 +89,9 @@ router.post('/:workspaceId', async (req, res) => {
     });
 
     if (isMember) {
-        const userSubscription = await prisma.subscriptions.findFirst({ where: { user_id: userId, cancelled_at: null }, include: { subscription_plan: true } })
+        const workspaceSubscription = await prisma.subscriptions.findFirst({ where: { workspace_id: workspaceId, cancelled_at: null }, include: { subscription_plan: true } })
 
-        if (userSubscription.subscription_plan.name == 'free') {
+        if (workspaceSubscription.subscription_plan.name == 'free') {
 
             const workspaces = await prisma.workspaces.findMany({
                 where: {

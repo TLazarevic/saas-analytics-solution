@@ -8,7 +8,7 @@ with mrr as (
 
     select
         dateadd(month, 1, date_month)::date as date_month,
-        user_id,
+        workspace_id,
         0::float as mrr,
         false as is_active,
         first_active_month,

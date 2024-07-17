@@ -7,7 +7,7 @@ with source as (
   select
     id,
     plan_id,
-    user_id,
+    workspace_id,
 
     created_at,
     date_trunc('day', created_at) as created_date,

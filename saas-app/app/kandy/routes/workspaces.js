@@ -140,12 +140,12 @@ router.put('/:id/members', async (req, res, next) => {
         return
       }
 
-      const userSubscription = await prisma.subscriptions.findFirst({ where: { user_id: userId, cancelled_at: null }, include: { subscription_plan: true } })
+      const workspaceSubscription = await prisma.subscriptions.findFirst({ where: { workspace_id: workspaceId, cancelled_at: null }, include: { subscription_plan: true } })
 
-      if (userSubscription.subscription_plan.name == 'free' | userSubscription.subscription_plan.name == 'silver') {
+      if (workspaceSubscription.subscription_plan.name == 'free' | workspaceSubscription.subscription_plan.name == 'silver') {
         const member_count = workspace.workspace_members.length
 
-        if ((userSubscription.subscription_plan.name == 'free' & member_count >= 10) | (userSubscription.subscription_plan.name == 'silver' & member_count >= 100)) {
+        if ((workspaceSubscription.subscription_plan.name == 'free' & member_count >= 10) | (workspaceSubscription.subscription_plan.name == 'silver' & member_count >= 100)) {
           console.warn('Member limit reached.');
           res.locals.errors = ['Member limit reached.']
           res.status(400).json({ error: 'Member limit reached. Upgrade to add more members.' })
