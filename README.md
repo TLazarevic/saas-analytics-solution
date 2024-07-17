@@ -24,6 +24,14 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 
 [Event Specification](diagrams_and_spec/event_spec.md)
 
+### Dashboards
+
+##### Customers and Revenue
+
+Adjusted from dbt's example https://www.getdbt.com/blog/modeling-subscription-revenue
+
+![customers and revenue dashboard](diagrams_and_spec/dashboards/Kandy%20Customers%20&%20Revenue%20Dashboard.png)
+
 ### Saas App - Kandy
 
 Kanban board demo app

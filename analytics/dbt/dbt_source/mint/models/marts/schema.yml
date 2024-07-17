@@ -1,0 +1,74 @@
+version: 2
+
+models:
+
+  - name: monthly_revenue
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+
+  - name: monthly_churn
+    columns:
+      - name: workspace_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mrr
+    description: "Table with MRR and customer monthly activity information."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - workspace_id
+            - date_month
+      - dbt_utils.expression_is_true:
+          expression: "date_month <= date_trunc('month', now())"
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+
+      - name: date_month
+        tests:
+          - not_null
+
+      - name: workspace_id
+        tests:
+          - not_null
+
+      - name: mrr
+        description: Monthly recurring revenue in dollars.
+        tests:
+          - not_null
+
+      - name: is_active
+        description: True when the account has an mrr > 0
+        tests:
+          - not_null
+
+      - name: first_active_month
+        description: The first month an account was active
+
+      - name: last_active_month
+        description: The last month an account was active
+
+      - name: is_first_month
+
+      - name: is_last_month
+
+      - name: previous_month_is_active
+        tests:
+          - not_null
+
+      - name: previous_month_mrr
+
+      - name: mrr_change
+
+      - name: change_category
+        description: "MRR change type."
+        tests:
+          - accepted_values:
+              values: ['new', 'churn', 'reactivation', 'upgrade', 'downgrade']

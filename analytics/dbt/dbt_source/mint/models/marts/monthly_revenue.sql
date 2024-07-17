@@ -11,9 +11,9 @@ with subscription_periods as (
     -- determine when a given account had its first and last (or most recent) month
 
     select
-        user_id,
+        workspace_id,
         date_trunc('month', min(created_date)) as date_month_start,
-        date_trunc('month', max(cancelled_date)) as date_month_end
+        date_trunc('month', max(coalesce(cancelled_date, now()))) as date_month_end
 
     from subscription_periods
 
@@ -25,7 +25,7 @@ with subscription_periods as (
     -- (example of a date spine)
 
     select
-        customers.user_id,
+        customers.workspace_id,
         months.date_month
 
     from customers, months
@@ -35,7 +35,7 @@ with subscription_periods as (
         -- all months after start date
         months.date_month >= customers.date_month_start
         -- and before end date
-        and months.date_month < customers.date_month_end
+            and (months.date_month < customers.date_month_end or customers.date_month_end is null)
 
 ), joined as (
 
@@ -44,13 +44,13 @@ with subscription_periods as (
 
     select
         customer_months.date_month,
-        customer_months.user_id,
+        customer_months.workspace_id,
         coalesce(subscription_periods.price, 0) as mrr
 
     from customer_months
 
     left join subscription_periods
-        on customer_months.user_id = subscription_periods.user_id
+        on customer_months.workspace_id = subscription_periods.workspace_id
 
     -- clickhouse specific
         -- month is after a subscription start date
@@ -62,19 +62,20 @@ with subscription_periods as (
 ), final as (
 
     select
+        concat(toString(date_month), workspace_id) as id,
         date_month,
-        user_id,
+        workspace_id,
         mrr,
 
         mrr > 0 as is_active,
 
         -- calculate first and last months
         min(case when is_active then date_month end) over (
-            partition by user_id
+            partition by workspace_id
         ) as first_active_month,
 
         max(case when is_active then date_month end) over (
-            partition by user_id
+            partition by workspace_id
         ) as last_active_month,
 
         -- calculate if this record is the first or last month
