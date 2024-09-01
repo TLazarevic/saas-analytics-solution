@@ -1,4 +1,4 @@
--- Aaggregates usage for each workspace.
+-- Aggregates usage for each workspace.
 with
     task_created as (
         select
@@ -7,7 +7,7 @@ with
         from
             {{ source('events', 'Task Created') }}
         where
-            timestamp >= now () - INTERVAL '6 months'
+            timestamp >= now () - interval '6 months'
         group by
             workspace_id
     ),
@@ -18,7 +18,7 @@ with
         from
             {{ source('events', 'Task Modified') }}
         where
-            timestamp >= now () - INTERVAL '6 months'
+            timestamp >= now () - interval '6 months'
         group by
             workspace_id
     ),
@@ -29,7 +29,7 @@ with
         from
             {{ source('events', 'Task Archived') }}
         where
-            timestamp >= now () - INTERVAL '6 months'
+            timestamp >= now () - interval '6 months'
         group by
             workspace_id
     ),
@@ -38,18 +38,18 @@ with
             workspace_id,
             count(
                 CasE
-                    WHEN properties - > > 'type' = 'preset' THEN 1
+                    WHEN type = 'preset' THEN 1
                 END
             ) as label_added_preset_count,
             count(
                 CasE
-                    WHEN properties - > > 'type' = 'custom' THEN 1
+                    WHEN type = 'custom' THEN 1
                 END
             ) as label_added_custom_count
         from
-            events_label_added
+            {{ source('events', 'Label Added') }}
         where
-            timestamp >= now () - INTERVAL '6 months'
+            timestamp >= now () - interval '6 months'
         group by
             workspace_id
     ),
@@ -60,7 +60,7 @@ with
         from
             {{ source('events', 'Label Created') }}
         where
-            timestamp >= now () - INTERVAL '6 months'
+            timestamp >= now () - interval '6 months'
         group by
             workspace_id
     ),
@@ -69,9 +69,9 @@ with
             workspace_id,
             count(*) as column_renamed_count
         from
-            events_column_renamed
+            {{ source('events', 'Column Renamed') }}
         where
-            timestamp >= now () - INTERVAL '6 months'
+            timestamp >= now () - interval '6 months'
         group by
             workspace_id
     ),
@@ -80,9 +80,9 @@ with
             workspace_id,
             count(*) as board_renamed_count
         from
-            events_board_renamed
+            {{ source('events', 'Board Renamed') }}
         where
-            timestamp >= now () - INTERVAL '6 months'
+            timestamp >= now () - interval '6 months'
         group by
             workspace_id
     ),
