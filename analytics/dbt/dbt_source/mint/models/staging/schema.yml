@@ -9,6 +9,19 @@ sources:
       - name: subscriptions
       - name: subscription_plans
 
+  - name: events
+    database: events  
+    schema: events
+    tables:
+      - name: Label Added
+      - name: Label Created
+      - name: Label Modified
+      - name: Task Archived
+      - name: Task Created
+      - name: Task Modified
+      - name: Column Renamed
+      - name: Board Renamed
+
 models:
   - name: stg_maindb__subscriptions
     description: "Staging model for subscriptions table from main database"
