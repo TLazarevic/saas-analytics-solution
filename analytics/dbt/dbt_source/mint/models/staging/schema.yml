@@ -8,6 +8,7 @@ sources:
     tables:
       - name: subscriptions
       - name: subscription_plans
+      - name: workspace_members
 
   - name: events
     database: events  

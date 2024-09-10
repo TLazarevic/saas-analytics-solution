@@ -3,7 +3,7 @@ const { jitsuAnalytics } = require('@jitsu/js');
 const { logger } = require('structlog');
 
 const jitsu = jitsuAnalytics({
-    host: "http://localhost:8080",
+    host: "http://localhost:8087",
     writeKey: process.env.WRITE_KEY_JITSU,
 });
 

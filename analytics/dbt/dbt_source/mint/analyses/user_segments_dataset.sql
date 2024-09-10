@@ -64,6 +64,17 @@ with
         group by
             workspace_id
     ),
+    label_modified as (
+        select
+            workspace_id,
+            count(*) as label_modified_count
+        from
+            {{ source('events', 'Label Modified') }}
+        where
+            timestamp >= now () - interval '6 months'
+        group by
+            workspace_id
+    ),
     column_renamed as (
         select
             workspace_id,
@@ -91,72 +102,32 @@ with
             workspace_id,
             count(*) as member_count
         from
-            workspace_members
+            {{ ref('stg_maindb__workspace_members') }}
         group by
             workspace_id
     )
     -- Combining all event counts into a single summary per workspace
 select
-    coalesce(
-        tc.workspace_id,
-        tm.workspace_id,
-        ta.workspace_id,
-        la.workspace_id,
-        lc.workspace_id,
-        cr.workspace_id,
-        br.workspace_id
-    ) as workspace_id,
+    wm.workspace_id,
+    wm.member_count,
+    case when wm.member_count > 1 then True else False end as has_multiple_users,
     coalesce(tc.task_created_count, 0) as task_created_count,
     coalesce(tm.task_modified_count, 0) as task_modified_count,
     coalesce(ta.task_archived_count, 0) as task_archived_count,
     coalesce(la.label_added_preset_count, 0) as label_added_preset_count,
     coalesce(la.label_added_custom_count, 0) as label_added_custom_count,
     coalesce(lc.label_created_count, 0) as label_created_count,
+    coalesce(lc.label_modified_count, 0) as label_modified_count,
     coalesce(cr.column_renamed_count, 0) as column_renamed_count,
     coalesce(br.board_renamed_count, 0) as board_renamed_count,
     now () as data_generated_at -- Timestamp when the data was generated
 from
-    task_created as tc
-    full outer join task_modified as tm on tc.workspace_id = tm.workspace_id
-    full outer join task_archived as ta on coalesce(tc.workspace_id, tm.workspace_id) = ta.workspace_id
-    full outer join label_added as la on coalesce(tc.workspace_id, tm.workspace_id, ta.workspace_id) = la.workspace_id
-    full outer join label_created as lc on coalesce(
-        tc.workspace_id,
-        tm.workspace_id,
-        ta.workspace_id,
-        la.workspace_id
-    ) = lc.workspace_id
-    full outer join column_renamed as cr on coalesce(
-        tc.workspace_id,
-        tm.workspace_id,
-        ta.workspace_id,
-        la.workspace_id,
-        lc.workspace_id
-    ) = cr.workspace_id
-    full outer join board_renamed as br on coalesce(
-        tc.workspace_id,
-        tm.workspace_id,
-        ta.workspace_id,
-        la.workspace_id,
-        lc.workspace_id,
-        cr.workspace_id
-    ) = br.workspace_id
-where
-    coalesce(
-        tc.workspace_id,
-        tm.workspace_id,
-        ta.workspace_id,
-        la.workspace_id,
-        lc.workspace_id,
-        cr.workspace_id,
-        br.workspace_id
-    ) is not null
-    and coalesce(
-        tc.workspace_id,
-        tm.workspace_id,
-        ta.workspace_id,
-        la.workspace_id,
-        lc.workspace_id,
-        cr.workspace_id,
-        br.workspace_id
-    ) != ''
+    workspace_members_count as wm
+    left join task_created as tc on wm.workspace_id = tc.workspace_id
+    left join task_modified as tm on wm.workspace_id = tm.workspace_id
+    left join task_archived as ta on wm.workspace_id = ta.workspace_id
+    left join label_added as la on wm.workspace_id = la.workspace_id
+    left join label_created as lc on wm.workspace_id = lc.workspace_id
+    left join label_modified as lm on wm.workspace_id = lm.workspace_id
+    left join column_renamed as cr on wm.workspace_id = cr.workspace_id
+    left join board_renamed as br on wm.workspace_id = br.workspace_id
