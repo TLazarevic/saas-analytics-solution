@@ -32,6 +32,10 @@ Adjusted from dbt's example https://www.getdbt.com/blog/modeling-subscription-re
 
 ![customers and revenue dashboard](diagrams_and_spec/dashboards/Kandy%20Customers%20&%20Revenue.png)
 
+##### A look at Customer Clustering Results
+
+![customer cluster dashboard](diagrams_and_spec/dashboards/Kandy%20Customer%20Segments.png)
+
 ### Saas App - Kandy
 
 Kanban board demo app
