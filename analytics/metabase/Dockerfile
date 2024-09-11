@@ -1,6 +1,6 @@
 FROM eclipse-temurin:11
 
-COPY --from=metabase/metabase:latest /app /app
+COPY --from=metabase/metabase:v0.50.18 /app /app
 
 RUN mkdir -p /app/plugins
 RUN chown 501:20 /app/plugins && chmod 770 /app/plugins

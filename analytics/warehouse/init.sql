@@ -67,6 +67,9 @@ GRANT
 SELECT
     ON events.* TO jitsu;
 
+GRANT
+ALTER ON events.* TO jitsu;
+
 GRANT INSERT ON events.* TO jitsu;
 
 GRANT TRUNCATE ON events.* TO jitsu;
