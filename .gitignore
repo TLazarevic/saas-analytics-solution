@@ -6,3 +6,4 @@ plugins/
 /analytics/airflow/logs
 /analytics/dbt/dbt_source/logs
 /analytics/dbt/dbt_source/target
+/analytics/metabase/metabase-data
