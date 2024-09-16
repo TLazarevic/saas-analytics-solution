@@ -24,6 +24,12 @@ and a typical set of KPIs for tracking success and growth of SaaS companies.
 
 [Event Specification](diagrams_and_spec/event_spec.md)
 
+### Orchestration
+
+Airflow DAG
+
+![dag](diagrams_and_spec/data_engineering/airflow_dag.png)
+
 ### Dashboards
 
 ##### Customers and Revenue
